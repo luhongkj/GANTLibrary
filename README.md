@@ -3,7 +3,7 @@
 
 里面包含安卓、iOS的Library。
 
-# iOS接入说明：
+## iOS接入说明：
 1、libraay接入
 把CloudRiding.framework库和CRResource.bundle资源文件拉到工程上
 
@@ -67,14 +67,17 @@ didFinishLaunchingWithOptions方法初始化高德地图[[CRServices sharedInsta
 7.2 ld: 1906 duplicate symbols for architecture arm64 原因文件冲突，可联系鹿卫士开发人员
 
 
-# 安卓接入说明：
+## 安卓接入说明：
 1、鹿卫士library butterknife注解
-在工程根目录下/build.gradleclasspath 'com.jakewharton:butterknife-gradle-plugin:9.0.0'//注解框架
+在工程根目录下/build.gradleclasspath
+'com.jakewharton:butterknife-gradle-plugin:9.0.0'//注解框架
 classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'//注解library
+
 生成R2文件
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
 编译类文件，解压缩文件，删除文件
 2、Android鹿卫士library第三方依赖
 implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -85,6 +88,7 @@ implementation 'androidx.cardview:cardview:1.0.0'
 implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
 androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 //     网络请求依赖
+
 implementation 'com.squareup.retrofit2:retrofit:2.7.1'
 implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
 implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
@@ -97,36 +101,50 @@ annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 implementation 'com.github.bumptech.glide:glide:4.9.0'
 annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 //图片框架
+
 implementation 'com.github.githubZYQ:easypermission:v1.0.0'
 //权限
+
 implementation 'com.github.zyyoona7:pickerview:1.0.9'
 //三级联动
+
 implementation 'top.zibin:Luban:1.1.8'
 //加密
+
 implementation 'org.greenrobot:eventbus:3.1.1'
 //观察者
+
 implementation files('libs/pinyin4j-2.5.0.jar')
 //中文转换拼音
+
 implementation 'com.wang.avi:library:2.1.3'
 //扫描
+
 implementation files('libs/zxing.jar')
 //PDF文件
+
 implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
 implementation "android.arch.lifecycle:extensions:1.1.1"//自定义弹窗
 /*//3D地图so及jar
+
 implementation 'com.amap.api:3dmap:latest.integration'*/
 //定位功能
+
 implementation 'com.amap.api:location:latest.integration'
 //搜索功能
+
 implementation 'com.amap.api:search:latest.integration'
 //导航
+
 implementation 'com.amap.api:navi-3dmap:latest.integration' 
+
 3、Intern跳入鹿卫士library
 捷安特APP进入鹿卫士library前需判断当前账号是否有绑定的车辆
 Intent intent = new Intent(MainActivity.this, LHomeActivity.class);
 intent.putExtra("token","捷安特APP请求数据token");
 intent.putExtra("phone","捷安特APP登录手机号");
 startActivity(intent);
+
 4、鹿卫士library使用的权限
 <!—访问网络状态权限-->
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
