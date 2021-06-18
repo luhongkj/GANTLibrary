@@ -1,0 +1,6 @@
+framework module CloudRiding {
+  umbrella header "CloudRiding.h"
+
+  export *
+  module * { export * }
+}

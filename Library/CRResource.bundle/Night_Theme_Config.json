@@ -1,0 +1,30 @@
+{
+    "font" : {
+        "navTitleSize" : "18",
+        "menuTitleSize" : "17",
+        "mainTitleSize" : "16",
+        "tipTitleSize" : "14",
+    },
+    "color" : {
+        "separatorViewColor" : "0xf0f0f0",
+        "maskColor" : "0x000000",
+        "disableColor" : "0x909090",
+        "deleteColor" : "0xfa3959",
+        "backgroundColor" : "0x000000",
+        "mainColor" : "0x43DBC1",
+        "tipColor" : "0xaeaeae",
+        "separatorColor" : "0xd5d5d5",
+        "sndNavBarTitleColor" : "0x202020",
+        "navBarBtnItemColor" : "0x7d8699",
+        "navBarTitleColor" : "0x404040",
+        "highlightColor" : "0x749dfb",
+        "placeholderColor" : "0x9ea5b2",
+        "emptyTitleColor" : "0xcacaca",
+    },
+    "maskAlpha" : "0.6",
+    "borderWidth" : "1",
+    "cornerRadius" : "1.5",
+    "separatorHeight" : "0.5",
+    "separatorViewHeight" : "10",
+}
+

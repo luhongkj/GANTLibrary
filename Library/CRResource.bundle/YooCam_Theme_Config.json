@@ -1,0 +1,49 @@
+{
+    "font" : {
+        "welTitleSize" : "20",
+        "navTitleSize" : "18",
+        "menuTitleSize" : "17",
+        "mainTitleSize" : "16",
+        "subTitleSize" : "15",
+        "tipTitleSize" : "14",
+        "codeTitleSize" : "13",
+        "subTipTitleSize" : "12",
+        "subDTitleSize" : "11",
+        "miniDTitleSize" : "10"
+    },
+    "color" : {
+        "kComonTitleColor" : "#404040",
+        "separatorViewColor" : "#FAFAFA",
+        "maskColor" : "#000000",
+        "disableColor" : "#909090",
+        "deleteColor" : "#fa3959",
+        "backgroundColor" : "#F4F4F4",
+        "mainColor" : "#43DBC1",
+        "tipColor" : "#999999",
+        "separatorColor" : "#d5d5d5",
+        "sndNavBarTitleColor" : "#75777B",
+        "navBarBtnItemColor" : "#7d8699",
+        "navBarTitleColor" : "#2A2F3A",
+        "highlightColor" : "#749dfb",
+        "placeholderColor" : "#9ea5b2",
+        "emptyTitleColor" : "#cacaca",
+        "drawerBackColor" : "#f4f7f9",
+        "greenLightColor" : "#0AD85C",
+        "redLightColor" : "#FF4848",
+        "onlineColor" : "#45E2A6",
+        "offlineColor" : "#fee1e6",
+        "sliderMaxColor" : "#b1b0b0",
+        "eventRedColor"  : "#FDB0BD",
+        "playBackBlueColor"  : "#A5C0FF"
+    },
+    "constant" : {
+        "maskAlpha" : "0.6",
+        "borderWidth" : "1",
+        "cornerRadius" : "1.5",
+        "logoCornerRadius180" : "17",
+        "separatorHeight" : "0.5",
+        "separatorViewHeight" : "10",
+        "badgeRadius" : "7.5",
+    }
+}
+
