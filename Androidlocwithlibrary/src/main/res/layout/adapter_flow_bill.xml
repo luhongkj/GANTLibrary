@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/tv_amount_flowBill_item"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_rechargeType_flowBill_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信充值"
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/tv_date_flowBill_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="2019-09-30 10:10:10"
+            android:textSize="@dimen/text_size_11" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_amount_flowBill_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:text="+0个月"
+        android:textColor="@color/orange_text"
+        android:textSize="@dimen/text_size_18" />
+</RelativeLayout>

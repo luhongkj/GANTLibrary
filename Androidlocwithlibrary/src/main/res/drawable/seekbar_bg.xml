@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--背景颜色-->
+    <item android:id="@android:id/background">
+        <shape>
+            <!--圆角程度-->
+            <corners android:radius="15dp" />
+            <solid android:color="#F4F4F4" />
+        </shape>
+    </item>
+    <!--进度颜色-->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <!--圆角程度-->
+                <corners android:radius="15dp" />
+                <solid android:color="@color/colorPrimary2" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

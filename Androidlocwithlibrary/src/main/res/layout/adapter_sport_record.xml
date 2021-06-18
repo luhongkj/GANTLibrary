@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/selector_corner_white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/iv_type_sportRecord_item"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="7dp"
+            android:src="@mipmap/icon_m_cycle" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/iv_type_sportRecord_item"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingStart="5dp">
+
+
+            <TextView
+                android:id="@+id/tv_trackName_sportRecord_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@mipmap/sport_record_edit"
+                android:drawablePadding="10dp"
+                android:gravity="start"
+                android:maxLines="10"
+                android:paddingEnd="10dp"
+                android:paddingBottom="8dp"
+                android:singleLine="true"
+                android:text="轨迹1011"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_15" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_date_sportRecord_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:text="2020年2月29日 09:30"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size_9" />
+
+                <TextView
+                    android:id="@+id/tv_from_sportRecord_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="来自设备"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size_9" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/iv_arrow_right_sportRecord_item"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_mileage_sportRecord_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="0.0"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_28" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="km"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_arrow_right_sportRecord_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:src="@mipmap/arrow_right" />
+
+    </RelativeLayout>
+</LinearLayout>

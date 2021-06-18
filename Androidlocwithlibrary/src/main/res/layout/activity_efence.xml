@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="车辆异常移动出电子围栏，立即短信提醒"
+        android:textColor="@color/text_3"
+        android:textSize="@dimen/text_size_16" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textColor="@color/orange_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="bottom"
+            android:text="5"
+            android:textColor="@color/orange_text"
+            android:textSize="@dimen/text_size_30" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="起"
+            android:textColor="@color/orange_text" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm_eFence"
+        style="@style/button_theme_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:text="立即开通" />
+
+    <TextView
+        android:id="@+id/tv_expiryDate_eFence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:text="有效期至:"
+        android:textColor="@color/text_3"
+        android:textSize="@dimen/text_size_10"
+        android:visibility="invisible" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/gray_bg" />
+
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/tabLayout_eFence"
+        style="@style/xTabLayout_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:xTabIndicatorWidth="70dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_bg" />
+
+    <com.luhong.locwithlibrary.view.NoScrollViewPager
+        android:id="@+id/viewPager_eFence"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

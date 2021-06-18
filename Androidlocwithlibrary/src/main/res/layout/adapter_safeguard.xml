@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
+    android:background="@drawable/selector_square_white_bg"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/iv_Icon_safeguard_item"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/safeguard_icon" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/iv_Icon_safeguard_item"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name_safeguard_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆盗抢险"
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tv_description_safeguard_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="保险费最低50元起"
+            android:textColor="@color/text_6"
+            android:textSize="@dimen/text_size_12" />
+    </LinearLayout>
+
+</RelativeLayout>

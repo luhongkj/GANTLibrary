@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="问题类型（必选）"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_18" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="问题描述（必填）"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_18" />
+
+            <EditText
+                android:id="@+id/et_content_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shape_dialog_center_bg"
+                android:gravity="start"
+                android:hint="请写下你的问题或意见"
+                android:maxLength="300"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                android:textSize="@dimen/text_size_14" />
+
+
+            <Button
+                android:id="@+id/btn_confirm_feedback"
+                style="@style/button_theme_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="确定提交" />
+
+            <TextView
+                android:id="@+id/tv_commonProblem_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="常见问题"
+                android:textColor="@color/theme_color"
+                android:textSize="@dimen/text_size_12" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

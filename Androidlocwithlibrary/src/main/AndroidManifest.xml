@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.luhong.locwithlibrary">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- 屏幕常亮 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+
+    <application
+        android:hardwareAccelerated="true"
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.insurance.SafeguardPayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme"></activity>
+        <activity
+            android:name=".ui.equipment.SpecificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.FeesPayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.ActivatePayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.FlowAccountPayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.electronic.PhonePayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.electronic.RechargeActivityActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.my.MyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.LVehiclechoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.LHomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.LDeviceAddActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+
+        <service android:name=".presenter.server.LocationService">
+            <intent-filter>
+
+                <!-- AIDL完整路径名。必须指明，客户端能够通过AIDL类名查找到它的实现类 -->
+                <action android:name="com.luhong.locwithlibrary.presenter.server.LocationService" />
+            </intent-filter>
+        </service> <!-- 定位服务 -->
+        <activity
+            android:name=".imagepicker.activity.ImagePickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 大图预览Activity -->
+        <activity
+            android:name=".ui.MapTrackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 轨迹详情 -->
+        <activity
+            android:name=".ui.LSportRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 轨迹列表 -->
+        <activity
+            android:name=".ui.equipment.LightModelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 状态灯 -->
+        <activity
+            android:name=".imagepicker.activity.ImagePreActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- Android 7.0 文件共享配置，必须配置 -->
+        <provider
+            android:name=".imagepicker.provider.ImagePickerProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/image_picker" />
+        </provider>
+
+        <activity
+            android:name=".ui.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 扫描二维码 -->
+        <activity
+            android:name=".ui.insurance.SafeguardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 购买保障服务主页 -->
+        <activity
+            android:name=".ui.insurance.SafeguardEditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 购买保障服务资料提交 -->
+        <activity
+            android:name=".ui.insurance.SafeguardIntroduceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 购买保障服务资料提交 -->
+        <activity
+            android:name=".ui.BasePdfActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- PDF文件 -->
+        <activity
+            android:name=".ui.insurance.SafeguardDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 购保详情 -->
+        <activity
+            android:name=".ui.insurance.SafeguardSuccessActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" /> <!-- 购保成功 -->
+        <activity
+            android:name=".ui.insurance.claim.ClaimForensicsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.insurance.claim.ClaimOnSiteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.insurance.claim.ClaimReparationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.insurance.claim.ClaimLossActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="1fec2753020858884340cf0874625b9a" />
+        <activity
+            android:name=".ui.equipment.DeviceManageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.EditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.DeviceQRActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.FlowAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.RechargeRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.my.RescueActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.my.AddContactActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.my.FeedbackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.my.FeedbackRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.NavigateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.electronic.EFenceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+        <activity
+            android:name=".ui.equipment.electronic.PhoneAlarmActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseTheme" />
+    </application>
+
+</manifest>
