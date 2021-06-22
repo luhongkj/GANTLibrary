@@ -33,16 +33,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *支付结果回调
+ *支付处理回调
  *
  *@param url h5支付界面回调本APP的URL
  *
  *@param options 回调参数
  *
- *@return 处理结果（YES 已处理  NO 忽略/不处理）
+ *@param completion 处理结果（YES 已处理  NO 忽略/不处理）
  *
  */
--(BOOL)OpenURL:(NSURL*)url options:(NSDictionary *)options;
+-(void)OpenURL:(NSURL*)url options:(NSDictionary *)options completion:(void(^)(BOOL result))completion;
 
 
 @end
