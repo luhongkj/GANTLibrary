@@ -150,6 +150,7 @@ public class EFenceActivity extends BaseMvpActivity<EFencePresenter> implements 
             } else {
                 if (isbalance < DateUtils.dateToStamp(installModeEntity.getFenceAlarmDate())) {
                     isPay = false;
+                    isbalance = DateUtils.dateToStamp(installModeEntity.getFenceAlarmDate());
                     paySuccess(DevicePromptDialog.TYPE_PAY_PHONE_SUCCESS, installModeEntity.getFenceAlarmDate());
                 }
             }

@@ -4,6 +4,7 @@
 package com.luhong.locwithlibrary.utils;
 
 import android.content.Context;
+import android.location.LocationManager;
 import android.text.Html;
 import android.text.Spanned;
 import android.widget.EditText;
@@ -49,6 +50,18 @@ public class AMapUtil {
         }
     }
 
+    /**
+     * 手机是否开启位置服务，如果没有开启那么所有app将不能使用定位功能
+     */
+    public static boolean isLocServiceEnable(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (gps || network) {
+            return true;
+        }
+        return false;
+    }
     public static Spanned stringToSpan(String src) {
         return src == null ? null : Html.fromHtml(src.replace("\n", "<br />"));
     }

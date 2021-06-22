@@ -1,6 +1,7 @@
 package com.luhong.locwithlibrary.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
@@ -8,22 +9,27 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.Size;
 
 import com.zyq.easypermission.EasyPermission;
 import com.zyq.easypermission.EasyPermissionHelper;
 import com.zyq.easypermission.EasyPermissionResult;
 
+import java.security.acl.Permission;
+
 /**
  * Created by ITMG on 2019-12-16.
  */
 public class PermissionsUtils {
+    @SuppressLint("InlinedApi")
     protected static String[] needPermissions = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE,
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.CAMERA,
     };
@@ -58,6 +64,7 @@ public class PermissionsUtils {
         EasyPermission.build().mRequestCode(requestCode).mContext(mActivity).mPerms(permissions).mResult(permissionResult).requestPermission();
     }
 
+    @RequiresApi(api = 30)
     public static void requestStoragePermissions(@NonNull Activity mActivity, EasyPermissionResult permissionResult) {
         requestNeedPermissions(mActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, permissionResult);
     }
@@ -95,6 +102,7 @@ public class PermissionsUtils {
         requestNeedPermissions(mActivity, new String[]{Manifest.permission.READ_PHONE_STATE}, permissionResult);
     }
 
+    @RequiresApi(api = 30)
     @TargetApi(Build.VERSION_CODES.M)
     public static void requestAllPermissions(Activity mActivity, EasyPermissionResult permissionResult) {
         if (mActivity == null) return;
@@ -116,7 +124,7 @@ public class PermissionsUtils {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(api = 30)
     public static void requestNeedAllPermissions(@NonNull Activity mActivity, EasyPermissionResult permissionResult) {
         if (permissionResult != null) {
             requestNeedPermissions(mActivity, needPermissions, permissionResult);

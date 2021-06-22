@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -68,7 +69,8 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        initTitleView(true, "车辆管理", "添加车辆", new SingleClickListener() {
+        initTitleView(true, "设备管理", "添加设备", new SingleClickListener() {
+            @RequiresApi(api = 30)
             @Override
             public void onSingleClick(View v) {
                 requestStorageAndCameraPermissions(new EasyPermissionResult() {
@@ -76,7 +78,6 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
                     public void onPermissionsAccess(int requestCode) {
                         super.onPermissionsAccess(requestCode);
                         startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode);
-
                     }
 
                     @Override

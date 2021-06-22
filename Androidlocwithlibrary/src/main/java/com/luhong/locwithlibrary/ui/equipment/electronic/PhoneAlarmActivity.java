@@ -154,6 +154,7 @@ public class PhoneAlarmActivity extends BaseMvpActivity<PhoneAlarmPresenter> imp
             } else {
                 if (isbalance < DateUtils.dateToStamp(deviceServerEntity.getTelAlarmDate())) {
                     isPay = false;
+                    isbalance = DateUtils.dateToStamp(deviceServerEntity.getTelAlarmDate());
                     paySuccess(DevicePromptDialog.TYPE_PAY_PHONE_SUCCESS, deviceServerEntity.getTelAlarmDate());
                 }
             }

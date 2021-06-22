@@ -119,7 +119,7 @@ public class RechargeActivityActivity extends BaseMvpActivity<PhoneAlarmPresente
                 public void run() {
                     mPresenter.getVehicleBySn(sn);
                 }
-            }, 1000);
+            }, 2000);
         }
     }
 }

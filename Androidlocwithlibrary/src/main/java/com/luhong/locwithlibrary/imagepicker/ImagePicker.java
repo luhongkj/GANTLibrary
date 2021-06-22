@@ -27,7 +27,6 @@ public class ImagePicker {
 
     /**
      * 创建对象
-     *
      * @return
      */
     public static ImagePicker getInstance() {

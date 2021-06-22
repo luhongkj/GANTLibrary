@@ -47,12 +47,12 @@ import okhttp3.ResponseBody;
  */
 public class FileUtils {
     private int fileSize = 1024;
-    private static String rootDir = getBaseDir() + "/locwith";//文件根目录
-    private static String fileDir = "/fileDir";//文件目录
-    private static String picDir = "/picDir";//图片目录
-    private static String picDirImg = "/picsDirImg";//图片目录
-    private static String cacheDir = "/cacheDir";//缓存临时目录
-    private static String ScreenRecord = "/ScreenRecord/";//缓存临时目录
+    private static String rootDir = getBaseDir() + "/locwith_library";//文件根目录
+    private static String fileDir = "/fileDir_library";//文件目录
+    private static String picDir = "/picDir_library";//图片目录
+    private static String picDirImg = "/picsDirImg_library";//图片目录
+    private static String cacheDir = "/cacheDir_library";//缓存临时目录
+    private static String ScreenRecord = "/ScreenRecord_library/";//缓存临时目录
 
     /**
      * 获取应用的根目录

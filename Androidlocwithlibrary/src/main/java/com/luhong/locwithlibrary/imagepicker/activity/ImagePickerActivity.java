@@ -179,7 +179,6 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
         //注释说当知道Adapter内Item的改变不会影响RecyclerView宽高的时候，可以设置为true让RecyclerView避免重新计算大小。
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemViewCacheSize(60);
-
         mMediaFileList = new ArrayList<>();
         mImagePickerAdapter = new ImagePickerAdapter(this, mMediaFileList);
         mImagePickerAdapter.setOnItemClickListener(this);

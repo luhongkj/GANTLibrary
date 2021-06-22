@@ -126,7 +126,7 @@ public class PhonePayActivity extends BaseMvpActivity<PhoneAlarmPresenter> imple
                 public void run() {
                     mPresenter.getVehicleBySn(sn);
                 }
-            }, 1000);
+            }, 2000);
 
         }
     }

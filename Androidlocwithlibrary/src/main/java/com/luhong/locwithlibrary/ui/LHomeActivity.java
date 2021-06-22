@@ -1,6 +1,7 @@
 package com.luhong.locwithlibrary.ui;
 
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -58,7 +59,9 @@ import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
 import com.luhong.locwithlibrary.event.NetworkEvent;
+import com.luhong.locwithlibrary.listener.IRequestListener;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
+import com.luhong.locwithlibrary.model.IPermissionModel;
 import com.luhong.locwithlibrary.presenter.BaseMvpView;
 import com.luhong.locwithlibrary.presenter.home.HomePresenter;
 import com.luhong.locwithlibrary.presenter.server.LocationService;
@@ -151,20 +154,28 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         return R.layout.activity_lhome;
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected void initView(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         mapView.onCreate(savedInstanceState);// 此方法必须重写
-        String systemModel = AppUtils.getSystemModel();
-        if (!TextUtils.isEmpty(systemModel) && systemModel.contains("MP1512")) {
-            boolean isFirst = (boolean) SPUtils.get(this, "systemModel", true);
-            if (isFirst) {
-                requestAllPermissions();
-                SPUtils.put(this, "systemModel", false);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String systemModel = AppUtils.getSystemModel();
+                if (!TextUtils.isEmpty(systemModel) && systemModel.contains("MP1512")) {
+                    boolean isFirst = (boolean) SPUtils.get(mActivity, "systemModel", true);
+                    if (isFirst) {
+                        requestAllPermissions();
+                        SPUtils.put(mActivity, "systemModel", false);
+                    }
+                } else {
+                    requestAllPermissions();
+                }
             }
-        } else {
-            requestAllPermissions();
-        }
+        }, 3000);
+
         initMap();
         loadCache();
         LocationService.bindService(mActivity, this);
@@ -291,6 +302,11 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
                     mPresenter.checkLocationInit(mActivity);
                     return;
                 }
+                if (!AMapUtil.isLocServiceEnable(mActivity)) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(intent, AppConstants.REQUEST_CODE_OPEN_GPS);
+                    return;
+                }
                 NavigateTypeDialog.getInstance(mActivity).showDialog(new NavigateTypeDialog.INavigateListener() {
                     @Override
                     public void onNavigateType(int type) {
@@ -354,7 +370,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         locationBinder = (LocationService.LocationBinder) service;
-        locationBinder.startLocation(locationServiceListener, 2 * 1000);
+        locationBinder.startLocation(locationServiceListener, 500);
     }
 
     @Override
@@ -500,9 +516,10 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     @Override
     public void onCheckTokenBindSuccess(UserEntity result) {
         AppVariable.GIANT_ISBIN = result.getBind();
+        LocationService.bindService(mActivity, this);
+        mPresenter.checkLocationInit(mActivity);
         if (result.getBind()) {
             LoginSuccessUtil.onLoginSuccess(this, result);
-            mPresenter.checkLocationInit(mActivity);
             mPresenter.getHomeData();
         }
     }
@@ -916,6 +933,9 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        if (locationBinder != null) {
+            locationBinder.startLocation(locationServiceListener, 1000);
+        }
         //        setUserVisibleHint(true);
     }
 

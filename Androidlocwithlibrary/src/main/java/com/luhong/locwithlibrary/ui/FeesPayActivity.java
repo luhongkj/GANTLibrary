@@ -94,7 +94,7 @@ public class FeesPayActivity extends BaseMvpActivity<HomePresenter> implements H
                     showLoading("加载中...");
                     mPresenter.getHomeData();
                 }
-            }, 1000);
+            }, 2000);
         }
     }
 

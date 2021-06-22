@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -60,7 +61,8 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        initTitleView(true, "设置", "添加设备", new View.OnClickListener() {
+        initTitleView(true, "设置", "", new View.OnClickListener() {
+            @RequiresApi(api = 30)
             @Override
             public void onClick(View v) {
                 requestStorageAndCameraPermissions(new EasyPermissionResult() {

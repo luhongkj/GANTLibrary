@@ -113,7 +113,7 @@ public class FlowAccountPayActivity extends BaseMvpActivity<FlowAccountPresenter
                 public void run() {
                     mPresenter.getFlowAccountInfo();
                 }
-            }, 1000);
+            }, 2000);
 
         }
     }

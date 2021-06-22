@@ -150,7 +150,7 @@ public class ActivatePayActivity extends BaseMvpActivity<HomePresenter> implemen
                     showLoading("加载中...");
                     mPresenter.getHomeData();
                 }
-            }, 1000);
+            }, 2000);
         }
     }
 }

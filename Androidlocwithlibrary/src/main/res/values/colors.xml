@@ -43,18 +43,18 @@
     <color name="gray_text">#8E8E93</color>
     <color name="gray_text_foc">#CCCCCC</color>
 
-    <color name="blue_bg_nor">#0080E5</color>
-    <color name="blue_bg_foc">#0080E5</color>
-    <color name="blue_text">#0080E5</color>
-    <color name="blue_item_bg">#E6EEFF</color>
+    <color name="blue_bg_nor">#43DBC1</color>
+    <color name="blue_bg_foc">#43DBC1</color>
+    <color name="blue_text">#43DBC1</color>
+    <color name="blue_item_bg">#43DBC1</color>
 
     <color name="orange_bg_nor">#FA7417</color>
     <color name="orange_bg_foc">#FFB903</color>
     <color name="orange_text">#F69837</color>
 
     <color name="green_text">#43DBC1</color>
-    <color name="green_bg_nor">#0080E5</color>
-    <color name="green_bg_foc">#0080E5</color>
+    <color name="green_bg_nor">#8043DBC1</color>
+    <color name="green_bg_foc">#8043DBC1</color>
 
     <color name="red_text">#FF3030</color>
     <color name="red_bg_nor">#F53431</color>
@@ -65,7 +65,7 @@
     <!--二维码-->
     <color name="viewfinder_mask">#60000000</color>
     <color name="result_view">#b0000000</color>
-    <color name="blue_pre">#00ACFF</color>
+    <color name="blue_pre">#8043DBC1</color>
     <color name="yellow">#F4B254</color>
 
     <color name="tool_bar_color">#303030</color>

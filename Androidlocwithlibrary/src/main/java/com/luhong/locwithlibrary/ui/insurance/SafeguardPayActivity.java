@@ -38,14 +38,14 @@ public class SafeguardPayActivity extends BaseMvpActivity<SafeguardPresenter> im
      * 购买保险：
      * http://gis.luhongkj.com:8802/buyInsurance.html
      * 需要拼接参数：token：token；insureCost：保险费用；cost：应收保费/年；valuation：车辆估值；insureFee：赠送保费；orderNo：保单号
-     *
      * @param savedInstanceState
      */
     @Override
     protected void initView(Bundle savedInstanceState) {
         data = (SafeguardEntity) getIntent().getSerializableExtra(DATA_PAY);
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = "http://gis.luhongkj.com:8802/buyInsurance.html?" + "token=" + token + "&insureCost=" + data.getInsureCost() + "&cost=" + data.getCost() + "&valuation=" + data.getValuation() + "&insureFee=" + data.getInsureFee() + "&orderNo=" + data.getInsuranceNo();
+        String url = "http://gis.luhongkj.com:8802/buyInsurance.html?" + "token=" + token + "&insureCost=" +data.getCost() + "&cost=" +  data.getInsureCost() + "&valuation="
+                + data.getValuation() + "&insureFee=" + data.getInsureFee() + "&orderNo=" + data.getInsuranceNo();
         initTitleView(true, "支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);
@@ -84,7 +84,7 @@ public class SafeguardPayActivity extends BaseMvpActivity<SafeguardPresenter> im
                 showLoading("加载中...");
                 mPresenter.getSafeguardMine();
             }
-        }, 1000);
+        }, 2000);
     }
 
     @Override

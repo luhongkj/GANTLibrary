@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.luhong.locwithlibrary">
-
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,16 +14,25 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- 屏幕常亮 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.DEVICE_POWER"
+
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:hardwareAccelerated="true"
+        android:allowBackup="true"
+        android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="UnusedAttribute">
         <activity
             android:name=".ui.insurance.SafeguardPayActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseTheme"></activity>
+            android:theme="@style/BaseTheme" />
         <activity
             android:name=".ui.equipment.SpecificationActivity"
             android:screenOrientation="portrait"
@@ -67,10 +77,10 @@
             android:name=".ui.equipment.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseTheme" />
-
+        <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
+        <service android:name="com.amap.api.location.APSService" />
         <service android:name=".presenter.server.LocationService">
             <intent-filter>
-
                 <!-- AIDL完整路径名。必须指明，客户端能够通过AIDL类名查找到它的实现类 -->
                 <action android:name="com.luhong.locwithlibrary.presenter.server.LocationService" />
             </intent-filter>
@@ -95,6 +105,8 @@
             android:name=".imagepicker.activity.ImagePreActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseTheme" /> <!-- Android 7.0 文件共享配置，必须配置 -->
+
+
         <provider
             android:name=".imagepicker.provider.ImagePickerProvider"
             android:authorities="${applicationId}.provider"
@@ -149,9 +161,11 @@
             android:name=".ui.insurance.claim.ClaimLossActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseTheme" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="1fec2753020858884340cf0874625b9a" />
+
         <activity
             android:name=".ui.equipment.DeviceManageActivity"
             android:screenOrientation="portrait"

@@ -34,8 +34,8 @@ public class EditActivity extends BaseActivity {
         dataType = bundle.getInt(AppConstants.dataTypeKey, 0);
         content = bundle.getString(AppConstants.dataKey, "");
         if (dataType == TYPE_DEVICE) {
-            title = "修改车辆名称";
-            hint = "请输入车辆名称";
+            title = "修改车辆昵称";
+            hint = "请输入车辆昵称";
         } else if (dataType == TYPE_USER) {
             title = "修改昵称";
             hint = "请输入昵称";

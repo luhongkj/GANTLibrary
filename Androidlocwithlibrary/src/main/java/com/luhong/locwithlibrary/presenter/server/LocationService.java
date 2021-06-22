@@ -24,14 +24,13 @@ public class LocationService extends Service {
     private AMapLocationClient mLocationClient;
     private AMapLocationClientOption mLocationOption;
     private LocationBinder downloadBinder = new LocationBinder();
-    private long locationInterval = 2 * 1000;
+    private long locationInterval =1000;
 
     public static void bindService(Context context, ServiceConnection connection) {
         Intent intent = new Intent(context, LocationService.class);
-     //   context.startService(intent);
+        context.startService(intent);
         context.bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
