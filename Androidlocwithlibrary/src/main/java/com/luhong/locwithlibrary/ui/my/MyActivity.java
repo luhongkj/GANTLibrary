@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.R2;
+import com.luhong.locwithlibrary.api.AppVariable;
 import com.luhong.locwithlibrary.base.BaseActivity;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.FlowAccountContract;
@@ -20,6 +21,7 @@ import com.luhong.locwithlibrary.ui.equipment.DeviceManageActivity;
 import com.luhong.locwithlibrary.ui.equipment.FlowAccountActivity;
 import com.luhong.locwithlibrary.ui.equipment.SpecificationActivity;
 import com.luhong.locwithlibrary.ui.insurance.SafeguardActivity;
+import com.luhong.locwithlibrary.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,12 +70,20 @@ public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements
         llSafeguard.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                if (!AppVariable.GIANT_ISBIN) {
+                    ToastUtil.show("请添加设备");
+                    return;
+                }
                 startIntentActivity(SafeguardActivity.class);
             }
         });
         llEquipment.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                if (!AppVariable.GIANT_ISBIN) {
+                    ToastUtil.show("请添加设备");
+                    return;
+                }
                 startIntentActivity(DeviceManageActivity.class);
             }
         });
@@ -86,6 +96,10 @@ public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements
         llUrgency.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                if (!AppVariable.GIANT_ISBIN) {
+                    ToastUtil.show("请添加设备");
+                    return;
+                }
                 startIntentActivity(RescueActivity.class);
             }
         });
@@ -98,11 +112,13 @@ public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements
         llSpecification.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-
+                if (!AppVariable.GIANT_ISBIN) {
+                    ToastUtil.show("请添加设备");
+                    return;
+                }
                 startIntentActivity(SpecificationActivity.class);
             }
         });
-
     }
 
     @Override

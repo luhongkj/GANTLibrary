@@ -26,7 +26,6 @@ public class LoginModel implements ILoginModel {
     public Observable<BaseResponse<Object>> getCode(String phoneNo) {
         Map<String, Object> bodyParams = new HashMap<>();
         bodyParams.put("phone", phoneNo);
-        bodyParams.put("isRegister", true);
         return ApiClient.getInstance().getApiServer().getLoginCode(bodyParams);
     }
 

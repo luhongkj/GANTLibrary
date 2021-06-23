@@ -23,32 +23,27 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:background="@mipmap/dialog_top_icon" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
-
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:layout_marginBottom="@dimen/text_size_30"
-                    android:text="设备二维码"
+                    android:text="手机验证"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16" />
-
+                    android:textSize="@dimen/text_size_20" />
 
             </LinearLayout>
 
-
         </RelativeLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,10 +59,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:text="15820802298"
-                android:textSize="@dimen/text_size_25"
-
-                />
-
+                android:textSize="@dimen/text_size_25" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

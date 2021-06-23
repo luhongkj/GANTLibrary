@@ -26,6 +26,7 @@ public class DevicePromptDialog extends BaseDialog {
     public static final int TYPE_ARREARS_CONFIRM = 3;//欠费补缴确认提示
     public static final int TYPE_SAFEGUARD = 2;//购买保险提示
     public static final int TYPE_VIN = 10;//添加设备VIN提示
+    public static final int TYPE_CAR = 11;//添加设备VIN提示
 
     public static final int TYPE_PAY_FLOW_SUCCESS = 4;//流量套餐支付成功
     public static final int TYPE_PAY_PHONE_SUCCESS = 5;//电话告警服务支付成功
@@ -33,6 +34,7 @@ public class DevicePromptDialog extends BaseDialog {
     public static final int TYPE_PAY_SAFEGUARD_SUCCESS = 7;//保险购买支付成功
     public static final int TYPE_PAY_ARREARS_SUCCESS = 8;//补缴支付成功
     public static final int TYPE_PAY_ACTIVE_SUCCESS = 9;//激活预充值支付成功
+    public static final int TYPE_CAR_ACTIVE_SUCCESS = 10;//提示弹窗
 
     @BindView(R2.id.tv_confirm_devicePrompt)
     TextView tvConfirm;

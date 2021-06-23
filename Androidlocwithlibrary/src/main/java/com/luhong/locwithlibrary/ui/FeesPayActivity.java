@@ -88,10 +88,11 @@ public class FeesPayActivity extends BaseMvpActivity<HomePresenter> implements H
     protected void onResume() {
         super.onResume();
         if (isPay) {
+            showLoading("加载中...");
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showLoading("加载中...");
+
                     mPresenter.getHomeData();
                 }
             }, 2000);
@@ -121,7 +122,7 @@ public class FeesPayActivity extends BaseMvpActivity<HomePresenter> implements H
                 continue;
             //当前选中的这边为空AppVariable.currentDeviceId
             if (!TextUtils.isEmpty(activateSn) && vehicle.getSn().equals(activateSn)) {//判断设备是否是当前选中的
-                if (vehicle.getOweFee() > 0) {//欠费
+                if (vehicle.getOweFee() <= 0) {//欠费
                     setResult(RECHARGE_SUCCESS_CODE);
                     finish();
                     break;

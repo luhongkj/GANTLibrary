@@ -143,11 +143,10 @@ public class ActivatePayActivity extends BaseMvpActivity<HomePresenter> implemen
     protected void onResume() {
         super.onResume();
         if (isPay) {
-
+            showLoading("加载中...");
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showLoading("加载中...");
                     mPresenter.getHomeData();
                 }
             }, 2000);

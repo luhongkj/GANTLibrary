@@ -235,7 +235,6 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
     public void onCheckTokenBindSuccess(UserEntity resultEntity) {
         AppVariable.GIANT_ISBIN = resultEntity.getBind();
         LoginSuccessUtil.onLoginSuccess(this, resultEntity);
-        ToastUtil.show("添加成功");
         setResult(ADDDEVICE_RESULT_);
         finish();
     }

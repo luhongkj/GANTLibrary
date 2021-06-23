@@ -105,7 +105,6 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
                 new TypeToken<List<DeviceEntity>>() {
                 }.getType());
         if (dataList != null && dataList.size() != 0) onDeviceListSuccess(dataList);
-
     }
 
     @Override

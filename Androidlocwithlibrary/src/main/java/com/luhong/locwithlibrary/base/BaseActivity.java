@@ -243,6 +243,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void showLoading(String message, boolean isCancelable) {
+        if (mActivity.isDestroyed()) {
+            return;
+        }
         if (loadingDialog != null) return;
         loadingDialog = new LoadingDialog.Builder(mActivity).setMessage(message).setCancelable(isCancelable).create();
         loadingDialog.show();
@@ -363,6 +366,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (loadingDialog != null) {
+            loadingDialog.dismiss();
+        }
         if (mUnbinder != null) mUnbinder.unbind();
         mActivityList.remove(this);
         super.onDestroy();
@@ -400,46 +406,57 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void requestNeedPermissions(@Size(min = 1) @NonNull String[] permissions) {
         PermissionsUtils.requestNeedPermissions(this, permissions);
     }
+
     @RequiresApi(api = 30)
     public void requestNeedPermissions(@Size(min = 1) @NonNull String[] permissions, EasyPermissionResult permissionResult) {
         PermissionsUtils.requestNeedPermissions(this, permissions, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestNeedPermissions(int requestCode, @Size(min = 1) @NonNull String[] permissions, EasyPermissionResult permissionResult) {
         PermissionsUtils.requestNeedPermissions(this, requestCode, permissions, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestStoragePermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestStoragePermissions(this, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestStorageAndCameraPermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestStorageAndCameraPermissions(this, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestCameraPermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestCameraPermissions(this, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestAudioPermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestAudioPermissions(this, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestCallPermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestCallPermissions(this, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestLocationPermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestLocationPermissions(this, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestContactsPermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestContactsPermissions(this, permissionResult);
     }
+
     @RequiresApi(api = 30)
     public void requestPhoneStatePermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestPhoneStatePermissions(this, permissionResult);
     }
+
     @RequiresApi(api = 30)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

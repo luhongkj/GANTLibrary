@@ -102,11 +102,10 @@ public class SafeguardPayActivity extends BaseMvpActivity<SafeguardPresenter> im
         cancelLoading();
         for (SafeguardEntity dataConten : pageList.getRecords()) {
             if (dataConten.getInsuranceNo().equals(data.getInsuranceNo())) {
-                if (data.getStatus() != SafeguardEntity.TYPE_PAY) {
+                if (dataConten.getStatus() == SafeguardEntity.TYPE_GUARANTEED) {
                     ToastUtil.show("保单支付成功");
                     finish();
                 }
-                return;
             }
         }
     }

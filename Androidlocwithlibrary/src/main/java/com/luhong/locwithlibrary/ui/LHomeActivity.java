@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
@@ -183,10 +184,6 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         initTitleView(true, "鹿卫士", "我的", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!AppVariable.GIANT_ISBIN) {
-                    ToastUtil.show("请添加设备");
-                    return;
-                }
                 startIntentActivity(MyActivity.class);
             }
         });
@@ -325,6 +322,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         });
 
         tv_addVehicle.setOnClickListener(new SingleClickListener() {
+            @RequiresApi(api = 30)
             @Override
             public void onSingleClick(View v) {
                 if (dataType <= TYPE_NORMAL) {
@@ -332,7 +330,9 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
                         @Override
                         public void onPermissionsAccess(int requestCode) {
                             super.onPermissionsAccess(requestCode);
-                            startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode);
+                            Bundle bundle = new Bundle();
+                            bundle.putBoolean("isHome", true);
+                            startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode,bundle);
                         }
 
                         @Override
@@ -416,6 +416,8 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     public void onLoginSuccess(UserEntity userEntity) {
     }
 
+    HomeDataEntity resultEntitys;
+
     @Override
     public void onHomeDataSuccess(HomeDataEntity resultEntity) {
         mAMap.clear();
@@ -423,6 +425,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
             updateView(TYPE_NORMAL);
             return;
         }
+        this.resultEntitys = resultEntity;
         isHomeInitSuccess = true;
         boolean isMatch = false;
         List<HomeDataEntity.Vehicle> vehicleList = resultEntity.getVehicles();
@@ -541,12 +544,24 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
             mPresenter.getHomeData();
         } else if (requestCode == AppConstants.REQUEST_CODE_ADD) {
             mPresenter.getHomeData();
-        } else if (requestCode == FeesPayActivity.RECHARGE_SUCCESS_CODE) {
-            showDevicePromptDialog(DevicePromptDialog.TYPE_PAY_ARREARS_SUCCESS, "", 0, 0);
+        } else if (resultCode == FeesPayActivity.RECHARGE_SUCCESS_CODE) {
             mPresenter.getHomeData();
-        } else if (requestCode == ActivatePayActivity.TYPE_ACTIVE) {
-            showDevicePromptDialog(DevicePromptDialog.TYPE_PAY_ACTIVE_SUCCESS, "", 0, 0);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    float yue = resultEntitys.getAccountMoney() / resultEntitys.getFlowDefaultCost();//流量账号余额///月租
+                    showDevicePromptDialog(DevicePromptDialog.TYPE_PAY_ARREARS_SUCCESS, "", yue, 0);
+                }
+            }, 2000);
+        } else if (resultCode == ActivatePayActivity.TYPE_ACTIVE) {
             mPresenter.getHomeData();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    float yue = resultEntitys.getAccountMoney() / resultEntitys.getFlowDefaultCost();//流量账号余额///月租
+                    showDevicePromptDialog(DevicePromptDialog.TYPE_PAY_ACTIVE_SUCCESS, "", yue, 0);
+                }
+            }, 2000);
         }
     }
 
@@ -594,7 +609,8 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
      * @param amount       缴费费用
      * @param serverLength 每月费用
      */
-    private void showDevicePromptDialog(int type, String activateSn, float amount, float serverLength) {
+    private void showDevicePromptDialog(int type, String activateSn, float amount,
+                                        float serverLength) {
         cancelDevicePromptDialog();
         devicePromptDialog = DevicePromptDialog.getInstance(mActivity);
         devicePromptDialog.showDialog(type, AppVariable.currentDeviceId, "" + Math.abs(amount), "" + serverLength, new BaseDialog.IEventListener() {

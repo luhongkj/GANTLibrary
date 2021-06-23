@@ -17,10 +17,14 @@ import com.luhong.locwithlibrary.R2;
 import com.luhong.locwithlibrary.apadter.VehiclechoiceAdapter;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.home.LVehicleChoiceContract;
+import com.luhong.locwithlibrary.dialog.BaseDialog;
+import com.luhong.locwithlibrary.dialog.MessageDialog;
 import com.luhong.locwithlibrary.entity.CarEntity;
+import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.VehicleListEntity;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
 import com.luhong.locwithlibrary.presenter.home.LVehicleChoicePresenter;
+import com.luhong.locwithlibrary.ui.equipment.DeviceManageActivity;
 import com.luhong.locwithlibrary.ui.equipment.LDeviceAddActivity;
 import com.luhong.locwithlibrary.utils.ToastUtil;
 
@@ -42,16 +46,17 @@ public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresen
     @BindView(R2.id.btn_confirm)
     Button btnConfirm;
     VehiclechoiceAdapter adapter;
+    boolean isHome = false;//是否是主页进来
 
     @Override
     protected void fetchData() {
         mPresenter.getVehicle();
+        mPresenter.getDeviceList(this);
     }
 
     List<VehicleListEntity> list;
 
     @Override
-
     protected int initLayoutId() {
         return R.layout.activity_lvehiclechoice;
     }
@@ -59,6 +64,7 @@ public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresen
     @Override
     protected void initView(Bundle savedInstanceState) {
         initTitleView(true, "爱车列表");
+        isHome = getIntent().getBooleanExtra("isHome", false);
         rvList.setLayoutManager(new LinearLayoutManager(this));
         btnConfirm.setOnClickListener(new SingleClickListener() {
             @Override
@@ -67,9 +73,35 @@ public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresen
                     ToastUtil.show("请选择爱车");
                     return;
                 }
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(LDeviceAddActivity.VEHICLECHOICE_DATA, cheVehicleList);
-                startIntentActivityForResult(LDeviceAddActivity.class, ADDDEVICE_RESULT_, bundle);
+                boolean isbdin = false;
+                String carId = "";
+                if (dataList != null) {
+                    for (DeviceEntity deviceEntity : dataList) {
+                        if (deviceEntity.getVin().equals(cheVehicleList.getVin())) {
+                            isbdin = true;
+                            carId = cheVehicleList.getVehicleName();
+                        }
+                    }
+                }
+                if (isbdin) {
+                    MessageDialog.getInstance(mActivity).showDialog("爱车" + carId + "\n已绑定鹿卫士设备,是否要继续绑定?\n如需绑定其它车辆,请返回选择或新增爱车后选择爱车绑定", "立即绑定", new MessageDialog.IEventListener() {
+                        @Override
+                        public void onConfirm() {
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable(LDeviceAddActivity.VEHICLECHOICE_DATA, cheVehicleList);
+                            startIntentActivityForResult(LDeviceAddActivity.class, ADDDEVICE_RESULT_, bundle);
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(LDeviceAddActivity.VEHICLECHOICE_DATA, cheVehicleList);
+                    startIntentActivityForResult(LDeviceAddActivity.class, ADDDEVICE_RESULT_, bundle);
+                }
             }
         });
     }
@@ -108,11 +140,24 @@ public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresen
         rvList.setAdapter(adapter);
     }
 
+    List<DeviceEntity> dataList;
+
+    @Override
+    public void onDeviceListSuccess(List<DeviceEntity> dataList) {
+        this.dataList = dataList;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ADDDEVICE_RESULT_) {
-            setResult(ADDDEVICE_RESULT_);
+            if (isHome) {
+                setResult(ADDDEVICE_RESULT_);
+                finish();
+                startIntentActivity(DeviceManageActivity.class);
+            } else {
+                finish();
+            }
         }
     }
 }

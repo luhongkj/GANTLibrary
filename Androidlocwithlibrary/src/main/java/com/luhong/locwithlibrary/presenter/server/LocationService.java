@@ -50,7 +50,6 @@ public class LocationService extends Service {
     }
 
     public class LocationBinder extends Binder {
-
         public void startLocation(ILocationServiceListener locationListeners, long interval) {
             locationServiceListener = locationListeners;
             locationInterval = interval;

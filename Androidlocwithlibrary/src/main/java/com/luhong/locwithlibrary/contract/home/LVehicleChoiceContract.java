@@ -1,6 +1,8 @@
 package com.luhong.locwithlibrary.contract.home;
 
 
+import android.content.Context;
+
 import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.InstallModeEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
@@ -16,9 +18,11 @@ public interface LVehicleChoiceContract {
 
     interface View extends BaseMvpView {
         void onVehicleListSuccess( List<VehicleListEntity> resultEntity);
+        void onDeviceListSuccess(List<DeviceEntity> dataList);
     }
 
     abstract class Presenter extends BasePresenter<View> {
         public abstract void getVehicle();
+        public abstract void getDeviceList(Context context);
     }
 }
