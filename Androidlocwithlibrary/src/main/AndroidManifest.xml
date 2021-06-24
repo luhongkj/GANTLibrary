@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.luhong.locwithlibrary">
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,17 +17,19 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
-    <uses-permission android:name="android.permission.DEVICE_POWER"
+    <uses-permission
+        android:name="android.permission.DEVICE_POWER"
 
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
 
     <application
-        android:hardwareAccelerated="true"
         android:allowBackup="true"
-        android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <activity
@@ -106,7 +109,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/BaseTheme" /> <!-- Android 7.0 文件共享配置，必须配置 -->
 
-
         <provider
             android:name=".imagepicker.provider.ImagePickerProvider"
             android:authorities="${applicationId}.provider"
@@ -161,11 +163,11 @@
             android:name=".ui.insurance.claim.ClaimLossActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseTheme" />
-       <!-- libraryDemo高德地图key    1fec2753020858884340cf0874625b9a-->
-     <!--   捷安特APP高德地图key    186dede809441a4718566708d97ba43d-->
+        <!-- libraryDemo高德地图key    1fec2753020858884340cf0874625b9a-->
+        <!--   捷安特APP高德地图key    186dede809441a4718566708d97ba43d-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="186dede809441a4718566708d97ba43d" />
+            android:value="${AMAP_KEY}" />
 
         <activity
             android:name=".ui.equipment.DeviceManageActivity"

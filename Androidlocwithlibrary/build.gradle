@@ -17,9 +17,23 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
-        release {
-            minifyEnabled true  //开启混淆
+        buildTypes {
+            release {// 备注："release"类型的构建类型
+                minifyEnabled true
+                manifestPlaceholders = [AMAP_KEY: "${production_amap_key}"]
+            }
+            debug {// 备注："debug"类型的构建类型
+                manifestPlaceholders = [AMAP_KEY: "${alpha_amap_key}"]
+            }
+            staging {
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                manifestPlaceholders = [AMAP_KEY: "${staging_amap_key}"]
+            }
         }
+    }
+    lintOptions {
+        abortOnError false
     }
     repositories {
         mavenCentral()
