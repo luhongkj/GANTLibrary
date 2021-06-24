@@ -693,7 +693,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
             handler.removeMessages(0);
             rl_addVehicle.setBackgroundResource(R.mipmap.home_add_bg);
             tv_addVehicle.setCompoundDrawablesRelativeWithIntrinsicBounds(null, ResUtils.resToDrawable(mActivity, R.mipmap.home_add), null, null);
-            tv_addVehicle.setText("添加");
+            tv_addVehicle.setText("添加设备");
             isFollowMove = true;
             mAMap.clear();
             return;

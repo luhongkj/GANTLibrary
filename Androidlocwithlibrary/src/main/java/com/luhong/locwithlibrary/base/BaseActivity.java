@@ -246,7 +246,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mActivity.isDestroyed()) {
             return;
         }
-        if (loadingDialog != null) return;
         loadingDialog = new LoadingDialog.Builder(mActivity).setMessage(message).setCancelable(isCancelable).create();
         loadingDialog.show();
     }

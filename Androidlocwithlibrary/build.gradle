@@ -11,73 +11,26 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    signingConfigs {
-        debug {
-            keyAlias 'locwith'
-            keyPassword 'locwith123'
-            storeFile file('../locwith.jks')
-            storePassword 'locwith123'
-        }
-
-        release {
-            keyAlias 'locwith'
-            keyPassword 'locwith123'
-            storeFile file('../locwith.jks')
-            storePassword 'locwith123'
-        }
-    }
     buildTypes {
         release {
-            minifyEnabled false
-            zipAlignEnabled true
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
+            minifyEnabled true  //开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //   proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-            buildConfigField "String", "BASE_API_URL", "\"https://app.luhongkj.com:8443/\""
-            buildConfigField "String", "BASE_FILE_URL", "\"https://zxc.luhongkj.com:8808/files/\""
-            buildConfigField "String", "BASE_UPLOAD_URL", "\"http://zxc.luhongkj.com:9900/files/image/upload\""
-            buildConfigField "String", "BASE_WEB_URL", "\"http://app.luhongkj.com:8820/doc/\""
             manifestPlaceholders = [AMAP_KEY: "${production_amap_key}"]
         }
         debug {
             minifyEnabled false
-            zipAlignEnabled true
-            debuggable true
-            jniDebuggable false
-            renderscriptDebuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
-            buildConfigField "String", "BASE_API_URL", "\"https://apptest.luhongkj.com:8443/\""
-            buildConfigField "String", "BASE_FILE_URL", "\"http://gis.luhongkj.com:8808/files/\""
-            buildConfigField "String", "BASE_UPLOAD_URL", "\"http://gis.luhongkj.com:9900/files/image/upload\""
-            buildConfigField "String", "BASE_WEB_URL", "\"http://apptest.luhongkj.com:8820/doc/\""
-            /*  buildConfigField "String", "BASE_API_URL", "\"https://app.luhongkj.com:8443/\""
-             buildConfigField "String", "BASE_FILE_URL", "\"https://zxc.luhongkj.com:8808/files/\""
-             buildConfigField "String", "BASE_UPLOAD_URL", "\"http://zxc.luhongkj.com:9900/files/image/upload\""
-             buildConfigField "String", "BASE_WEB_URL", "\"http://app.luhongkj.com:8820/doc/\""*/
             manifestPlaceholders = [AMAP_KEY: "${alpha_amap_key}"]
         }
         staging {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_API_URL", "\"https://apptest.luhongkj.com:8443/\""
-            buildConfigField "String", "BASE_FILE_URL", "\"http://gis.luhongkj.com:8808/files/\""
-            buildConfigField "String", "BASE_UPLOAD_URL", "\"http://gis.luhongkj.com:9900/files/image/upload\""
-            buildConfigField "String", "BASE_WEB_URL", "\"http://apptest.luhongkj.com:8820/doc/\""
             manifestPlaceholders = [AMAP_KEY: "${staging_amap_key}"]
-        }
-        lintOptions {
-            abortOnError false
         }
     }
     repositories {
@@ -89,10 +42,6 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
-        // Move the tests to tests/java, tests/res, etc...
-        androidTest.setRoot('tests')
-        debug.setRoot('build-types/debug')
-        release.setRoot('build-types/release')
     }
 }
 dependencies {
@@ -119,7 +68,7 @@ dependencies {
     //图片框架
     implementation 'com.github.githubZYQ:easypermission:v1.0.0'
     //权限
-    implementation 'com.github.zyyoona7:pickerview:1.0.9'
+    api 'com.github.zyyoona7:pickerview:1.0.9'
     //图片压缩
     implementation 'top.zibin:Luban:1.1.8'
     //加密
@@ -155,5 +104,5 @@ dependencies {
      */
     implementation 'com.just.agentweb:agentweb:4.1.3'
     // (必选)//webview
-    implementation 'androidx.multidex:multidex:2.0.1'
+    //  implementation 'androidx.multidex:multidex:2.0.1'
 }

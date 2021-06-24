@@ -12,6 +12,7 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebViewClient;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
+import com.luhong.locwithlibrary.api.ApiServer;
 import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseActivity;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
@@ -44,7 +45,7 @@ public class SafeguardPayActivity extends BaseMvpActivity<SafeguardPresenter> im
     protected void initView(Bundle savedInstanceState) {
         data = (SafeguardEntity) getIntent().getSerializableExtra(DATA_PAY);
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = "http://gis.luhongkj.com:8802/buyInsurance.html?" + "token=" + token + "&insureCost=" +data.getCost() + "&cost=" +  data.getInsureCost() + "&valuation="
+        String url =  ApiServer.H5_PAY+ "buyInsurance.html?" + "token=" + token + "&insureCost=" +data.getCost() + "&cost=" +  data.getInsureCost() + "&valuation="
                 + data.getValuation() + "&insureFee=" + data.getInsureFee() + "&orderNo=" + data.getInsuranceNo();
         initTitleView(true, "支付");
         //获得控件

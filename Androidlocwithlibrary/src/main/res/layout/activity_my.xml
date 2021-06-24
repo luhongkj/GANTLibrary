@@ -31,13 +31,13 @@
                 android:layout_height="wrap_content"
                 android:text="流量充值"
                 android:textColor="@color/text_3"
-                android:textSize="@dimen/text_size_16" />
+               style="@style/max_text_style_16" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textSize="11sp"
+                style="@style/minro_text_style_13"
                 android:text="进入后,可充值流量,查看充值记录" />
         </LinearLayout>
 
@@ -76,13 +76,13 @@
                 android:layout_height="wrap_content"
                 android:text="安全保障"
                 android:textColor="@color/text_3"
-                android:textSize="@dimen/text_size_16" />
+                style="@style/max_text_style_16" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textSize="11sp"
+                style="@style/minro_text_style_13"
                 android:text="进入后,可购买保障服务" />
         </LinearLayout>
 
@@ -119,13 +119,13 @@
                 android:layout_height="wrap_content"
                 android:text="设备管理"
                 android:textColor="@color/text_3"
-                android:textSize="@dimen/text_size_16" />
+                style="@style/max_text_style_16"/>
 
             <TextView
+                style="@style/minro_text_style_13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textSize="11sp"
                 android:text="进入后,可添加设备" />
         </LinearLayout>
 
@@ -162,13 +162,13 @@
                 android:layout_height="wrap_content"
                 android:text="紧急救援"
                 android:textColor="@color/text_3"
-                android:textSize="@dimen/text_size_16" />
+                style="@style/max_text_style_16" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textSize="11sp"
+                style="@style/minro_text_style_13"
                 android:text="开启后,可添加紧急联系人" />
         </LinearLayout>
 
@@ -205,13 +205,13 @@
                 android:layout_height="wrap_content"
                 android:text="产品说明书"
                 android:textColor="@color/text_3"
-                android:textSize="@dimen/text_size_16" />
+                style="@style/max_text_style_16" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textSize="11sp"
+                style="@style/minro_text_style_13"
                 android:text="进入后,可根据产品型号,查看产品说明书" />
         </LinearLayout>
 
@@ -248,13 +248,13 @@
                 android:layout_height="wrap_content"
                 android:text="问题反馈"
                 android:textColor="@color/text_3"
-                android:textSize="@dimen/text_size_16" />
+                style="@style/max_text_style_16" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textSize="11sp"
+                style="@style/minro_text_style_13"
                 android:text="可以反馈您宝贵的意见" />
         </LinearLayout>
 
@@ -263,7 +263,6 @@
             android:layout_height="wrap_content"
             android:drawableEnd="@mipmap/arrow_right"
             android:drawablePadding="8dp"
-            android:textColor="#333333"
             android:textSize="@dimen/text_size_15" />
 
     </LinearLayout>

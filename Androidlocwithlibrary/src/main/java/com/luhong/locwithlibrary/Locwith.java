@@ -27,7 +27,7 @@ public class Locwith {
         if (isMainProcess(application)) {
             mContext = application.getApplicationContext();
             ApiClient.getInstance().initRetrofit(mContext);
-//            MultiDex.install(mContext);
+         //   MultiDex.install(mContext);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 webviewSetPath(application);
             }
