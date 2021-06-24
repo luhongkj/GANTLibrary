@@ -164,7 +164,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="1fec2753020858884340cf0874625b9a" />
+            android:value="${AMAP_KEY}" />
 
         <activity
             android:name=".ui.equipment.DeviceManageActivity"
