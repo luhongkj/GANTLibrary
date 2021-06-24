@@ -56,8 +56,36 @@ import retrofit2.http.POST;
  * Created by ITMG on 2020-03-05.
  */
 public interface ApiServer {
-    String baseApiUrl = "https://apptest.luhongkj.com:8443/" + "appApi/";
+    //测试
+    String BASE_API_URL = "https://apptest.luhongkj.com:8443/" + "appApi/";
     String BASE_UPLOAD_URL = "http://gis.luhongkj.com:9900/files/image/upload";
+    String BASE_FILE_URL = "http://gis.luhongkj.com:8808/files/";
+    String BASE_WEB_URL = "http://gis.luhongkj.com:8802/doc/";
+    String H5_PAY = "http://gis.luhongkj.com:8802/";
+
+    //正式
+   /* String BASE_API_URL = "https://app.luhongkj.com:8443/" + "appApi/";
+    String BASE_UPLOAD_URL = "http://zxc.luhongkj.com:9900/files/image/upload";
+    String BASE_FILE_URL = "https://zxc.luhongkj.com:8808/files/;
+    String BASE_WEB_URL = "http://gis.luhongkj.com:8802/doc/";
+    String H5_PAY = "http://app.luhongkj.com:8802/";*/
+    /**
+     * 测试环境
+     * buildConfigField "String", "BASE_API_URL", "\"https://apptest.luhongkj.com:8443/\""
+     * buildConfigField "String", "BASE_FILE_URL", "\"http://gis.luhongkj.com:8808/files/\""
+     * buildConfigField "String", "BASE_UPLOAD_URL", "\"http://gis.luhongkj.com:9900/files/image/upload\""
+     * buildConfigField "String", "H5_PAY", "\"http://gis.luhongkj.com:8802""
+     * <p>
+     * 正式环境
+     * /*  buildConfigField "String", "BASE_API_URL", "\"https://app.luhongkj.com:8443/\""
+     * buildConfigField "String", "BASE_FILE_URL", "\"https://zxc.luhongkj.com:8808/files/\""
+     * buildConfigField "String", "BASE_UPLOAD_URL", "\"http://zxc.luhongkj.com:9900/files/image/upload\""
+     * buildConfigField "String", "BASE_WEB_URL", "http://app.luhongkj.com:8802/"
+     *
+     * @param requestBody
+     * @return
+     */
+
 
     //图片上传
     @POST(BASE_UPLOAD_URL)
@@ -286,7 +314,7 @@ public interface ApiServer {
 
     //捷安特获取车辆列表
     @POST("jieante/api/getVehicles")
-    Observable<BaseResponse< List<VehicleListEntity>>> getVehicles();
+    Observable<BaseResponse<List<VehicleListEntity>>> getVehicles();
 
     //下发指令给终端。必填项：msgId(4设防，5解防)，flowId流水号（时间戳），vehicleId车辆id，paramValue半径   发送指令
     @POST("home/command")

@@ -12,6 +12,7 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebViewClient;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
+import com.luhong.locwithlibrary.api.ApiServer;
 import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseActivity;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
@@ -35,7 +36,7 @@ public class FlowAccountPayActivity extends BaseMvpActivity<FlowAccountPresenter
     @Override
     protected void initView(Bundle savedInstanceState) {
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = "http://gis.luhongkj.com:8802/flowTopUp.html?" + "token=" + token;
+        String url =  ApiServer.H5_PAY + "flowTopUp.html?" + "token=" + token;
         initTitleView(true, "支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);

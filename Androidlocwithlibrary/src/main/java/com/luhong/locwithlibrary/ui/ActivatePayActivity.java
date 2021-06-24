@@ -11,6 +11,8 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebViewClient;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
+import com.luhong.locwithlibrary.api.ApiServer;
+import com.luhong.locwithlibrary.api.HttpVariable;
 import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.home.HomeContract;
@@ -41,7 +43,7 @@ public class ActivatePayActivity extends BaseMvpActivity<HomePresenter> implemen
         money = getIntent().getStringExtra("money");
 
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = "http://gis.luhongkj.com:8802/equipmentActivation.html?" + "token=" + token + "&sn=" + sn + "&cost=" + money;
+        String url = HttpVariable.BASE_WEB_URL + "equipmentActivation.html?" + "token=" + token + "&sn=" + sn + "&cost=" + money;
         initTitleView(true, "设备激活支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);

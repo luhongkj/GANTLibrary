@@ -9,10 +9,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.R2;
 import com.luhong.locwithlibrary.apadter.FeedbackAdapter;
+import com.luhong.locwithlibrary.api.ApiServer;
 import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.base.BaseRecyclerAdapter;
@@ -123,7 +123,7 @@ public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> impleme
             public void onSingleClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString(BaseConstants.WEB_TITLE_KEY, "常见问题");
-                bundle.putString(BaseConstants.WEB_URL_KEY, BuildConfig.BASE_WEB_URL + "Common-problem.pdf");
+                bundle.putString(BaseConstants.WEB_URL_KEY, ApiServer.BASE_WEB_URL + "Common-problem.pdf");
                 startIntentActivity(BasePdfActivity.class, bundle);
             }
         });

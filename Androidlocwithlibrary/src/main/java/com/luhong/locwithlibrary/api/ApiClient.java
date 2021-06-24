@@ -34,7 +34,7 @@ public class ApiClient extends RetrofitClient {
 
     @Override
     protected String getBaseUrl() {
-        return ApiServer.baseApiUrl;
+        return HttpVariable.BASE_API_URL;
     }
 
     public ApiServer getApiServer() {

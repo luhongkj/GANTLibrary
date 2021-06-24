@@ -13,6 +13,7 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebViewClient;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
+import com.luhong.locwithlibrary.api.ApiServer;
 import com.luhong.locwithlibrary.api.AppVariable;
 import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseActivity;
@@ -49,7 +50,7 @@ public class FeesPayActivity extends BaseMvpActivity<HomePresenter> implements H
         money = Float.parseFloat(getIntent().getStringExtra("money"));
         serverLength = Float.parseFloat(getIntent().getStringExtra("serverLength"));
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = "http://gis.luhongkj.com:8802/supplementaryPayment.html?" + "token=" + token + "&sn=" + activateSn + "&cost=" + money + "&serverLength=" + (money / serverLength);
+        String url =  ApiServer.H5_PAY + "supplementaryPayment.html?" + "token=" + token + "&sn=" + activateSn + "&cost=" + money + "&serverLength=" + (money / serverLength);
         initTitleView(true, "支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);
