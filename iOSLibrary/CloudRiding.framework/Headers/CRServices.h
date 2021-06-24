@@ -33,6 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ YES 正式环境  NO 测试环境
+ */
+@property (nonatomic, assign) BOOL isRelease;
+
+
+/**
  *支付处理回调
  *
  *@param url h5支付界面回调本APP的URL
