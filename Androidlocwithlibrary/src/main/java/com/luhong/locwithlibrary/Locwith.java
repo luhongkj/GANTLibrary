@@ -1,13 +1,12 @@
 package com.luhong.locwithlibrary;
 
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.webkit.WebView;
 
 import androidx.annotation.RequiresApi;
-import androidx.multidex.MultiDex;
-import androidx.multidex.MultiDexApplication;
 
 import com.luhong.locwithlibrary.api.ApiClient;
 import com.luhong.locwithlibrary.api.IFailEvent;
@@ -24,7 +23,7 @@ public class Locwith {
         return mContext;
     }
 
-    public static void intit(MultiDexApplication application) {
+    public static void intit(Application application) {
         if (isMainProcess(application)) {
             mContext = application.getApplicationContext();
             ApiClient.getInstance().initRetrofit(mContext);

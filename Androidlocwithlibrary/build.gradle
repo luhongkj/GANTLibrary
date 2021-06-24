@@ -19,6 +19,18 @@ android {
     buildTypes {
         release {
             minifyEnabled true  //开启混淆
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [AMAP_KEY: "${production_amap_key}"]
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [AMAP_KEY: "${alpha_amap_key}"]
+        }
+        staging {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [AMAP_KEY: "${staging_amap_key}"]
         }
     }
     repositories {
@@ -54,7 +66,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     //图片框架
-    api 'com.github.githubZYQ:easypermission:v1.0.0'
+    implementation 'com.github.githubZYQ:easypermission:v1.0.0'
     //权限
     api 'com.github.zyyoona7:pickerview:1.0.9'
     //图片压缩

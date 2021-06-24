@@ -165,7 +165,7 @@
      <!--   捷安特APP高德地图key    186dede809441a4718566708d97ba43d-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="186dede809441a4718566708d97ba43d" />
+            android:value="${AMAP_KEY}" />
 
         <activity
             android:name=".ui.equipment.DeviceManageActivity"
