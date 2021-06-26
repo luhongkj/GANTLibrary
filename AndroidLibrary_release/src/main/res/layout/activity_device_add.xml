@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:drawableEnd="@mipmap/device_info"
+        android:drawablePadding="4dp"
+        android:gravity="center_vertical"
+        android:text="车辆信息"
+        android:textColor="@color/text_3"
+        android:textSize="@dimen/text_size_15" />
+
+    <LinearLayout
+        android:id="@+id/ll_bicycleInfo_deviceAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_dialog_center_bg"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车辆类型"
+                android:textColor="@color/text_6" />
+
+            <TextView
+                android:id="@+id/tv_bicycleTypeInfo_deviceAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_16" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:background="@color/line_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车辆品牌"
+                android:textColor="@color/text_6" />
+
+            <TextView
+                android:id="@+id/tv_bicycleBrandInfo_deviceAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_16" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:background="@color/line_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车辆型号 "
+                android:textColor="@color/text_6" />
+
+            <TextView
+                android:id="@+id/tv_bicycleModelInfo_deviceAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_16" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:background="@color/line_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车架号码 "
+                android:textColor="@color/text_6" />
+
+            <TextView
+                android:id="@+id/tv_bicycleFrameNoInfo_deviceAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_16" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_bicycleEdit_deviceAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/shape_dialog_center_bg"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/base_input_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:padding="14dp"
+                android:singleLine="true"
+                android:text="车名:"
+                android:textColor="@color/text_3" />
+
+            <TextView
+                android:id="@+id/tvCarName"
+                style="@style/base_input_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@null"
+                android:imeOptions="actionGo"
+                android:singleLine="true"
+                android:text="测试爱车001"
+                android:textColor="@color/text_3" />
+
+        </LinearLayout>
+
+        <include layout="@layout/view_lin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/base_input_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:padding="14dp"
+                android:singleLine="true"
+                android:text="车架号:"
+                android:textColor="@color/text_3" />
+
+            <TextView
+                android:id="@+id/tvCarCode"
+                style="@style/base_input_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@null"
+                android:imeOptions="actionGo"
+                android:singleLine="true"
+                android:text="JAT158201551"
+                android:textColor="@color/text_3" />
+
+        </LinearLayout>
+
+        <include layout="@layout/view_lin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/base_input_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:padding="14dp"
+                android:singleLine="true"
+                android:text="型号:"
+                android:textColor="@color/text_3" />
+
+            <TextView
+                android:id="@+id/tvCarType"
+                style="@style/base_input_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@null"
+                android:imeOptions="actionGo"
+                android:singleLine="true"
+                android:text="JT00124"
+                android:textColor="@color/text_3" />
+
+        </LinearLayout>
+
+        <include layout="@layout/view_lin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/base_input_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:padding="14dp"
+                android:singleLine="true"
+                android:text="购买年份:"
+                android:textColor="@color/text_3" />
+
+            <TextView
+                android:id="@+id/tvCarTime"
+                style="@style/base_input_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@null"
+                android:imeOptions="actionGo"
+                android:singleLine="true"
+                android:text="2020/10/21"
+                android:textColor="@color/text_3" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:text="设备信息"
+        android:textColor="@color/text_3"
+        android:textSize="@dimen/text_size_15" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_dialog_center_bg"
+        android:padding="13dp">
+
+        <TextView
+            android:id="@+id/tv_title_null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="请扫描设备二维码"
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/tv_deviceModel_deviceAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="型号：G3 PRO"
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size_15"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_deviceId_deviceAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_deviceModel_deviceAdd"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/text_size_12"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_scan" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_confirm_deviceAdd"
+        style="@style/button_theme_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="确定添加" />
+</LinearLayout>

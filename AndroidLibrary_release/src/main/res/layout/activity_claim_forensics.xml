@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <RelativeLayout
+        android:id="@+id/rl_description_claimForensics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D9FFF8"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_description_claimForensics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="1dp"
+            android:drawableStart="@mipmap/user_prompt"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="2dp"
+            android:padding="4dp"
+            android:text="@string/claim_forensics_description"
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size_12" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_claim_schedule" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_dialog_center_bg"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="追车拍照取证"
+                    android:textColor="@color/text_3"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_evidenceTime_claimForensics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size_10" />
+                <!--请在23小时59分59秒内完成拍照/(拍摄时间:2019/03/15 13:23:11)-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_dash_photo_bg">
+
+                    <ImageView
+                        android:id="@+id/iv_evidence_claimForensics"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/tv_evidenceText_claimForensics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableTop="@mipmap/claim_schedule_camera"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:padding="40dp"
+                        android:text="点击现场拍照取证"
+                        android:textSize="@dimen/text_size_10" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape_dialog_center_bg"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="报警或立案回执"
+                    android:textColor="@color/text_3"
+                    android:textSize="@dimen/text_size_16" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="报警或立案时间:"
+                        android:textColor="@color/text_6" />
+
+                    <TextView
+                        android:id="@+id/tv_filingDate_claimForensics"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:hint="请选择"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/text_6" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_dash_photo_bg">
+
+                    <ImageView
+                        android:id="@+id/iv_filingReceipt_claimForensics"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/tv_filingReceiptText_claimForensics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableTop="@mipmap/safeguard_schedule_photo"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:padding="40dp"
+                        android:text="点击上传回执"
+                        android:textSize="@dimen/text_size_10" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_cancel_claimForensics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:background="@drawable/selector_square_white_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableStart="@mipmap/claim_cancel"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="取消理赔"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size_15" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_confirm_claimForensics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:background="@drawable/selector_button_square_theme_bg"
+            android:text="提交资料"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15"
+            android:visibility="visible" />
+    </LinearLayout>
+</LinearLayout>

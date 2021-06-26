@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/mapView_claimOnSite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:fitsSystemWindows="true" />
+
+        <RelativeLayout
+            android:id="@+id/ll_perfect_claimOnSite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D9FFF8"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="1dp"
+                android:drawableStart="@mipmap/user_prompt"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="2dp"
+                android:padding="4dp"
+                android:text="@string/claim_onsite_description"
+                android:textColor="@color/text_3"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="46dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/shape_corner_white_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_zoomIn_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/map_zoom_in_nor" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/line_bg" />
+
+                <ImageView
+                    android:id="@+id/iv_zoomOut_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/map_zoom_out_nor" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_deviceLocation_claimOnSite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/claim_onsite_refresh" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_confirm_claimOnSite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button_square_theme_bg"
+        android:enabled="false"
+        android:text="拍 照"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_15" />
+</LinearLayout>
