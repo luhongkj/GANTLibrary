@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebViewClient;
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.api.ApiServer;
@@ -45,7 +46,7 @@ public class SafeguardPayActivity extends BaseMvpActivity<SafeguardPresenter> im
     protected void initView(Bundle savedInstanceState) {
         data = (SafeguardEntity) getIntent().getSerializableExtra(DATA_PAY);
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url =  ApiServer.H5_PAY+ "buyInsurance.html?" + "token=" + token + "&insureCost=" +data.getCost() + "&cost=" +  data.getInsureCost() + "&valuation="
+        String url =  BuildConfig.H5_PAY+ "buyInsurance.html?" + "token=" + token + "&insureCost=" +data.getCost() + "&cost=" +  data.getInsureCost() + "&valuation="
                 + data.getValuation() + "&insureFee=" + data.getInsureFee() + "&orderNo=" + data.getInsuranceNo();
         initTitleView(true, "支付");
         //获得控件

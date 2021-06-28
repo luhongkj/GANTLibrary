@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebViewClient;
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.api.ApiServer;
@@ -39,7 +40,7 @@ public class RechargeActivityActivity extends BaseMvpActivity<PhoneAlarmPresente
     protected void initView(Bundle savedInstanceState) {
         sn = getIntent().getStringExtra("sn");
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = ApiServer.H5_PAY + "electronicFence.html?" + "token=" + token + "&sn=" + sn;
+        String url = BuildConfig.H5_PAY + "electronicFence.html?" + "token=" + token + "&sn=" + sn;
         initTitleView(true, "支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);

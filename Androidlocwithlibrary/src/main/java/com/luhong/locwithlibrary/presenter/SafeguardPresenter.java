@@ -13,29 +13,23 @@ import java.util.List;
 /**
  *
  */
-public class SafeguardPresenter extends SafeguardContract.Presenter
-{
+public class SafeguardPresenter extends SafeguardContract.Presenter {
     private ISafeguardModel safeguardModel;
 
-    public SafeguardPresenter()
-    {
+    public SafeguardPresenter() {
     }
 
     @Override
-    public void getSafeguardHome()
-    {
+    public void getSafeguardHome() {
         if (safeguardModel == null) safeguardModel = new SafeguardModel();
-        ApiClient.getInstance().doSubscribe(safeguardModel.getSafeguardHome(), new BaseObserver<List<SafeguardEntity>>()
-        {
+        ApiClient.getInstance().doSubscribe(safeguardModel.getSafeguardHome(), new BaseObserver<List<SafeguardEntity>>() {
             @Override
-            protected void onSuccess(List<SafeguardEntity> resultEntity, String msg)
-            {
+            protected void onSuccess(List<SafeguardEntity> resultEntity, String msg) {
                 if (isViewAttached()) baseMvpView.onSafeguardHomeSuccess(resultEntity);
             }
 
             @Override
-            public void onFailure(int errCode, String errResult)
-            {
+            public void onFailure(int errCode, String errResult) {
                 if (isViewAttached()) baseMvpView.onFailure(0, errResult);
             }
         });
@@ -43,20 +37,16 @@ public class SafeguardPresenter extends SafeguardContract.Presenter
     }
 
     @Override
-    public void getSafeguardMine()
-    {
+    public void getSafeguardMine() {
         if (safeguardModel == null) safeguardModel = new SafeguardModel();
-        ApiClient.getInstance().doSubscribe(safeguardModel.getSafeguardMine(), new BaseObserver<BasePageEntity<SafeguardEntity>>()
-        {
+        ApiClient.getInstance().doSubscribe(safeguardModel.getSafeguardMine(), new BaseObserver<BasePageEntity<SafeguardEntity>>() {
             @Override
-            protected void onSuccess(BasePageEntity<SafeguardEntity> resultEntity, String msg)
-            {
+            protected void onSuccess(BasePageEntity<SafeguardEntity> resultEntity, String msg) {
                 if (isViewAttached()) baseMvpView.onSafeguardMineSuccess(resultEntity);
             }
 
             @Override
-            public void onFailure(int errCode, String errResult)
-            {
+            public void onFailure(int errCode, String errResult) {
                 if (isViewAttached()) baseMvpView.onFailure(1, errResult);
             }
         });

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebViewClient;
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.api.ApiServer;
@@ -42,7 +43,7 @@ public class ActivatePayActivity extends BaseMvpActivity<HomePresenter> implemen
         money = getIntent().getStringExtra("money");
 
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = ApiServer.BASE_WEB_URL + "equipmentActivation.html?" + "token=" + token + "&sn=" + sn + "&cost=" + money;
+        String url = BuildConfig.BASE_WEB_URL + "equipmentActivation.html?" + "token=" + token + "&sn=" + sn + "&cost=" + money;
         initTitleView(true, "设备激活支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);

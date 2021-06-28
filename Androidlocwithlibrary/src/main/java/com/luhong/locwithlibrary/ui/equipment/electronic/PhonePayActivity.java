@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebChromeClient;
 import com.just.agentweb.WebViewClient;
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.api.ApiServer;
@@ -47,7 +48,7 @@ public class PhonePayActivity extends BaseMvpActivity<PhoneAlarmPresenter> imple
     protected void initView(Bundle savedInstanceState) {
         sn = getIntent().getStringExtra("SN");
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = ApiServer.H5_PAY + "telephoneAlarm.html?" + "token=" + token + "&sn=" + sn;
+        String url = BuildConfig.H5_PAY + "telephoneAlarm.html?" + "token=" + token + "&sn=" + sn;
         initTitleView(true, "支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);

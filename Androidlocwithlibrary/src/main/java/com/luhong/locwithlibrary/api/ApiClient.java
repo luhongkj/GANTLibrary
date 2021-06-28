@@ -1,8 +1,8 @@
 package com.luhong.locwithlibrary.api;
-
 import android.app.Activity;
 
 
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.entity.UrlEntity;
 import com.luhong.locwithlibrary.listener.IRequestListener;
 import com.luhong.locwithlibrary.net.request.BaseObserver;
@@ -34,7 +34,7 @@ public class ApiClient extends RetrofitClient {
 
     @Override
     protected String getBaseUrl() {
-        return ApiServer.BASE_API_URL;
+        return BuildConfig.BASE_API_URL;
     }
 
     public ApiServer getApiServer() {

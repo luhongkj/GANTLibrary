@@ -17,19 +17,42 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    /*   //测试
+   String BASE_API_URL = "https://apptest.luhongkj.com:8443/" + "appApi/";
+   String BASE_UPLOAD_URL = "http://gis.luhongkj.com:9900/files/image/upload";
+   String BASE_FILE_URL = "http://gis.luhongkj.com:8808/files/";
+   String BASE_WEB_URL = "http://gis.luhongkj.com:8802/doc/";
+   String H5_PAY = "http://gis.luhongkj.com:8802/";*/
     buildTypes {
         buildTypes {
             release {// 备注："release"类型的构建类型
                 minifyEnabled true
-                manifestPlaceholders = [AMAP_KEY: "${production_amap_key}"]
+               manifestPlaceholders = [AMAP_KEY: "${production_amap_key}"]  //  捷安特
+                buildConfigField "String", "BASE_API_URL", "\"https://app.luhongkj.com:8443/appApi/\""
+                buildConfigField "String", "BASE_UPLOAD_URL", "\"http://zxc.luhongkj.com:9900/files/image/upload\""
+                buildConfigField "String", "BASE_FILE_URL", "\"https://zxc.luhongkj.com:8808/files/\""
+                buildConfigField "String", "BASE_WEB_URL", "\"http://app.luhongkj.com:8820/doc/\""
+                buildConfigField "String", "H5_PAY", "\"http://app.luhongkj.com:8802/\""
             }
             debug {// 备注："debug"类型的构建类型
-                manifestPlaceholders = [AMAP_KEY: "${alpha_amap_key}"]
+                manifestPlaceholders = [AMAP_KEY: "${alpha_amap_key}"]//  捷安特
+                buildConfigField "String", "BASE_API_URL", "\"https://apptest.luhongkj.com:8443/appApi/\""
+                buildConfigField "String", "BASE_UPLOAD_URL", "\"http://gis.luhongkj.com:9900/files/image/upload\""
+                buildConfigField "String", "BASE_FILE_URL", "\"http://gis.luhongkj.com:8808/files/\""
+                buildConfigField "String", "BASE_WEB_URL", "\"http://gis.luhongkj.com:8802/doc/\""
+                buildConfigField "String", "H5_PAY", "\"http://gis.luhongkj.com:8802/\""
             }
             staging {
                 minifyEnabled true
+                buildConfigField "String", "BASE_API_URL", "\"https://app.luhongkj.com:8443/appApi/\""
+                buildConfigField "String", "BASE_UPLOAD_URL", "\"http://zxc.luhongkj.com:9900/files/image/upload\""
+                buildConfigField "String", "BASE_FILE_URL", "\"https://zxc.luhongkj.com:8808/files/\""
+                buildConfigField "String", "BASE_WEB_URL", "\"http://app.luhongkj.com:8820/doc/\""
+                buildConfigField "String", "H5_PAY", "\"http://app.luhongkj.com:8802/\""
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                manifestPlaceholders = [AMAP_KEY: "${staging_amap_key}"]
+//  捷安特
+               manifestPlaceholders = [AMAP_KEY: "${staging_amap_key}"]
+                //  捷安特
             }
         }
     }
@@ -69,9 +92,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     //图片框架
-    api 'com.github.githubZYQ:easypermission:v1.0.0'
+    implementation 'com.github.githubZYQ:easypermission:v1.0.0'
     //权限
-    api 'com.github.zyyoona7:pickerview:1.0.9'
+    implementation 'com.github.zyyoona7:pickerview:1.0.9'
     //图片压缩
     implementation 'top.zibin:Luban:1.1.8'
     //加密

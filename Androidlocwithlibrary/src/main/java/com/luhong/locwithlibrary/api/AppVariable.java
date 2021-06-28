@@ -13,7 +13,7 @@ public class AppVariable {
     public static double phoneLng = 0.0;
     public static int TYPE_PAY_MSG = -1;//支付类型
     public static String GIANT_TOKEN ;//捷安特token
-    public static String GIANT_PHONE ;//捷安特登录手机哈
+    public static String GIANT_PHONE ;//捷安特登录手机号
 
     public static boolean GIANT_ISBIN ;//是否注册过鹿卫士设备
 }

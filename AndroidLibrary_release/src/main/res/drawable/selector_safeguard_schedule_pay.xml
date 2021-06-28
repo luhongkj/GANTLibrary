@@ -1,5 +1,0 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/safeguard_schedule_pay_foc" android:state_enabled="true" />
-    <item android:drawable="@mipmap/safeguard_schedule_pay_nor" />
-</selector>
-

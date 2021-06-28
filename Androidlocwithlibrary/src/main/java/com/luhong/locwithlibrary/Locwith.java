@@ -1,5 +1,6 @@
 package com.luhong.locwithlibrary;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
@@ -22,6 +23,7 @@ public class Locwith {
     public static Context getContext() {
         return mContext;
     }
+    @SuppressLint("NewApi")
     public static void intit(Application application) {
         if (isMainProcess(application)) {
             mContext = application.getApplicationContext();
@@ -31,8 +33,8 @@ public class Locwith {
                 webviewSetPath(application);
             }
             //定义前台服务的默认样式。即标题、描述和图标
-//定义前台服务的通知点击事件
-// 设置统一的网络请求失败提示语
+            //定义前台服务的通知点击事件
+            // 设置统一的网络请求失败提示语
             SICallBack.failEvent = new IFailEvent() {
                 private long lastTime = 0;
 
@@ -49,6 +51,7 @@ public class Locwith {
         }
     }
 
+    @SuppressLint("NewApi")
     protected static boolean isMainProcess(Context context) {
         int pid = android.os.Process.myPid();
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -64,13 +67,13 @@ public class Locwith {
     public static void webviewSetPath(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             String processName = getProcessName(context);
-
             if (!context.getApplicationContext().getPackageName().equals(processName)) {//判断不等于默认进程名称
                 WebView.setDataDirectorySuffix(processName);
             }
         }
     }
 
+    @SuppressLint("NewApi")
     public static String getProcessName(Context context) {
         if (context == null) return null;
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

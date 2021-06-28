@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebViewClient;
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.Locwith;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.api.ApiServer;
@@ -36,7 +37,7 @@ public class FlowAccountPayActivity extends BaseMvpActivity<FlowAccountPresenter
     @Override
     protected void initView(Bundle savedInstanceState) {
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url =  ApiServer.H5_PAY + "flowTopUp.html?" + "token=" + token;
+        String url =  BuildConfig.H5_PAY + "flowTopUp.html?" + "token=" + token;
         initTitleView(true, "支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);

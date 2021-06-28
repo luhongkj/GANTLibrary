@@ -1,5 +1,6 @@
 package com.luhong.locwithlibrary.api;
 
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.entity.AlarmSensitivityParams;
 import com.luhong.locwithlibrary.entity.BannerEntity;
 import com.luhong.locwithlibrary.entity.BrakeSensitivityParams;
@@ -56,19 +57,6 @@ import retrofit2.http.POST;
  * Created by ITMG on 2020-03-05.
  */
 public interface ApiServer {
-    //测试
-    String BASE_API_URL = "https://apptest.luhongkj.com:8443/" + "appApi/";
-    String BASE_UPLOAD_URL = "http://gis.luhongkj.com:9900/files/image/upload";
-    String BASE_FILE_URL = "http://gis.luhongkj.com:8808/files/";
-    String BASE_WEB_URL = "http://gis.luhongkj.com:8802/doc/";
-    String H5_PAY = "http://gis.luhongkj.com:8802/";
-
-    //正式
-   /* String BASE_API_URL = "https://app.luhongkj.com:8443/" + "appApi/";
-    String BASE_UPLOAD_URL = "http://zxc.luhongkj.com:9900/files/image/upload";
-    String BASE_FILE_URL = "https://zxc.luhongkj.com:8808/files/;
-    String BASE_WEB_URL = "http://gis.luhongkj.com:8802/doc/";
-    String H5_PAY = "http://app.luhongkj.com:8802/";*/
     /**
      * 测试环境
      * buildConfigField "String", "BASE_API_URL", "\"https://apptest.luhongkj.com:8443/\""
@@ -88,7 +76,7 @@ public interface ApiServer {
 
 
     //图片上传
-    @POST(BASE_UPLOAD_URL)
+    @POST(BuildConfig.BASE_UPLOAD_URL)
     Observable<BaseResponse<UrlEntity>> uploadFile(@Body RequestBody requestBody);
 
     // 登录 password, phone

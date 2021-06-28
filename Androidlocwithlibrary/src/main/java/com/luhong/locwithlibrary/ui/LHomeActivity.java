@@ -200,6 +200,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     }
 
     //没有登录,15秒不刷新一次车辆数据
+    @SuppressLint("NewApi")
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -674,6 +675,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         }
     }
 
+    @SuppressLint("NewApi")
     private void updateView(int type) {
         dataType = type;
         if (dataType == TYPE_FORTIFICATION) {//车辆设防22
@@ -771,6 +773,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     /**
      * 实时天气查询
      */
+    @SuppressLint("NewApi")
     private void searchLiveWeather(String cityAdCode) {
         if (TextUtils.isEmpty(cityAdCode)) return;
         weatherSearchQuery = new WeatherSearchQuery(cityAdCode, WeatherSearchQuery.WEATHER_TYPE_LIVE);//检索参数为城市和天气类型，WEATHER_TYPE_LIVE实时天气为1、WEATHER_TYPE_FORECAST天气预报为2
@@ -916,6 +919,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     /**
      * marker点击时跳动一下
      */
+    @SuppressLint("NewApi")
     public void jumpPoint(final Marker marker) {
         final Handler handler = new Handler();
         final long start = SystemClock.uptimeMillis();
@@ -925,7 +929,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         markerPoint.offset(0, -100);
         final LatLng startLatLng = proj.fromScreenLocation(markerPoint);
         final long duration = 1500;
-        final Interpolator interpolator = new BounceInterpolator();
+       final Interpolator interpolator = new BounceInterpolator();
         handler.post(new Runnable() {
             @Override
             public void run() {
