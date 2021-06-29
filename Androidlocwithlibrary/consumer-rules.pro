@@ -1,15 +1,17 @@
-# Retrofit
--dontnote retrofit2.Platform
--dontnote retrofit2.Platform$IOS$MainThreadExecutor
--dontwarn retrofit2.Platform$Java8
--keepattributes Signature
--keepattributes Exceptions
-
-# okhttp
--dontwarn okio.**
-
 # Gson
--keep class com.luhong.locwithlibrary.entity.*{*;}
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn sun.misc.**
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+-keep class com.luhong.locwithlibrary.net.response.** { <fields>; }
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
+-keep class com.luhong.locwithlibrary.entity.** { <fields>; }
+# Gson
 
 # Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
