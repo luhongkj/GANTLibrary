@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -163,12 +164,11 @@
             android:name=".ui.insurance.claim.ClaimLossActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseTheme" />
-        <!-- libraryDemo高德地图key    1fec2753020858884340cf0874625b9a-->
-        <!--   捷安特APP高德地图key    186dede809441a4718566708d97ba43d-->
+
         <!--  android:value="${AMAP_KEY}"-->
-        <meta-data android:name="com.amap.api.v2.apikey"
-            android:value="${AMAP_KEY}"
-        />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="${AMAP_KEY}" />
 
         <activity
             android:name=".ui.equipment.DeviceManageActivity"

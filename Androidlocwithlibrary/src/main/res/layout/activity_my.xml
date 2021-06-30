@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:drawableEnd="@mipmap/arrow_right"
             android:drawablePadding="8dp"
-            android:text="剩余10个月"
+            android:text="剩余0个月"
             android:textColor="#333333"
             android:textSize="@dimen/text_size_15" />
 

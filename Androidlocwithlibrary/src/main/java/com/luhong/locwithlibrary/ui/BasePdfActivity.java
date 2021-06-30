@@ -4,36 +4,50 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnDrawListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.google.gson.JsonSyntaxException;
+import com.just.agentweb.AgentWeb;
+import com.just.agentweb.NestedScrollAgentWebView;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.R2;
 import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseActivity;
+import com.luhong.locwithlibrary.utils.DownloadUtil;
 import com.luhong.locwithlibrary.utils.FileUtils;
 import com.luhong.locwithlibrary.utils.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
+import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zyq.easypermission.EasyPermissionResult;
 
 import java.io.File;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 import butterknife.BindView;
 import okhttp3.Call;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.HttpException;
@@ -53,7 +67,6 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
     ProgressBar progressBar;
     @BindView(R2.id.tv_errorLoad_basePdf)
     TextView tv_errorPage;
-
     @NonNull
     private String mWebUrl, fileSuffix;
     private String mWebTitle = "", rightText = "";
@@ -75,6 +88,7 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
         initTitleView(true, mWebTitle);
     }
 
+    @RequiresApi(api = 30)
     @Override
     protected void initData() {
         requestStoragePermissions(new EasyPermissionResult() {
@@ -89,7 +103,30 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
 //                        loadPDFFromAsset(file);
 //                        return;
 //                    }
-                    OkHttpUtils.get().url(mWebUrl).build().execute(new FileCallBack(FileUtils.getFileDir(), fileSuffix) {
+                 DownloadUtil.getInstance().download(mActivity,mWebUrl, FileUtils.getFileDir() ,fileSuffix, new DownloadUtil.OnDownloadListener() {
+                                @Override
+                                public void onDownloadSuccess(String path) {
+                                    progressBar.setProgress(0);
+                                    progressBar.setVisibility(View.GONE);
+                                    File file = new File(path);
+                                    loadPDFFromAsset(file);
+                                }
+
+                                @Override
+                                public void onDownloading(int progress) {
+                                    Logger.error("下载进度total=" + progress + ",progress=" + progress);
+                                    progressBar.setProgress((int) (progress * 100));
+                                }
+
+                                @Override
+                                public void onDownloadFailed() {
+                                    Logger.error("下载出错=");
+                                    progressBar.setVisibility(View.GONE);
+                                    loadPDFFromAsset(null);
+                                }
+
+                            });
+                 /*   OkHttpUtils.post().url(mWebUrl).build().execute(new FileCallBack(FileUtils.getFileDir(), fileSuffix) {
                         @Override
                         public void inProgress(float progress, long total, int id) {
                             Logger.error("下载进度total=" + total + ",progress=" + progress);
@@ -118,7 +155,7 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
                             progressBar.setVisibility(View.VISIBLE);
                             pdfView.setVisibility(View.VISIBLE);
                         }
-                    });
+                    });*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -131,6 +168,7 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
             }
         });
     }
+
 
     @Override
     protected void onEventListener() {
@@ -147,11 +185,6 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
         Logger.error("加载完成");
     }
 
-    @Override
-    public void onPageChanged(int page, int pageCount) {
-        Logger.error("翻页page=" + page + ",pageCount=" + pageCount);
-    }
-
     private void loadPDFFromAsset(File file) {
         PDFView.Configurator configurator;
         if (file != null) {
@@ -163,7 +196,7 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
         configurator.enableSwipe(true)//是否允许翻页，默认是允许翻页
                 .swipeHorizontal(false)//pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
                 .enableDoubletap(false)
-                .defaultPage(0) //设置默认显示第0页
+                .pages(0, 2, 1, 3, 3, 3)
                 .onLoad(this)//设置加载监听
                 .onPageChange(this)//翻页监听
                 .enableAnnotationRendering(false)// 渲染风格（就像注释，颜色或表单）
@@ -172,6 +205,11 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
                 .enableAntialiasing(true)// 改善低分辨率屏幕上的渲染
                 .spacing(0)// 页面间的间距。定义间距颜色，设置背景视图
                 .load();
+    }
+
+    @Override
+    public void onPageChanged(int page, int pageCount) {
+        Logger.error("翻页page=" + page + ",pageCount=" + pageCount);
     }
 
     private String getError(Exception e) {

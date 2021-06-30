@@ -189,7 +189,6 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
         if (baseResponse == null) return;
         if (baseResponse.getCode() == 401) {//登录失效
             onLoginError();
-            baseResponse.setMsg("登录失效，请重新登录");
         } else if (baseResponse.getCode() == 430) {//欠费
             EventBusUtils.post(new ArrearsEvent(ArrearsEvent.TYPE_ARREARS));
         }

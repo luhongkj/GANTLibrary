@@ -175,7 +175,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
                     requestAllPermissions();
                 }
             }
-        }, 3000);
+        }, 1500);
 
         initMap();
         loadCache();

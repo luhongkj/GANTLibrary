@@ -41,9 +41,8 @@ public class ActivatePayActivity extends BaseMvpActivity<HomePresenter> implemen
     protected void initView(Bundle savedInstanceState) {
         sn = getIntent().getStringExtra("SN");
         money = getIntent().getStringExtra("money");
-
         String token = SPUtils.getString(Locwith.getContext(), BaseConstants.TOKEN);
-        String url = BuildConfig.BASE_WEB_URL + "equipmentActivation.html?" + "token=" + token + "&sn=" + sn + "&cost=" + money;
+        String url = BuildConfig.H5_PAY + "equipmentActivation.html?" + "token=" + token + "&sn=" + sn + "&cost=" + money;
         initTitleView(true, "设备激活支付");
         //获得控件
         LinearLayout webView = findViewById(R.id.pay_ivew);
