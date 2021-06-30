@@ -13,6 +13,10 @@
 -keep class com.luhong.locwithlibrary.entity.** { <fields>; }
 # Gson
 
+-keep class com.just.agentweb.** {
+    *;
+}
+-dontwarn com.just.agentweb.**
 
 
 # Glide

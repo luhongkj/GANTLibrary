@@ -196,7 +196,7 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
         configurator.enableSwipe(true)//是否允许翻页，默认是允许翻页
                 .swipeHorizontal(false)//pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
                 .enableDoubletap(false)
-                .pages(0, 2, 1, 3, 3, 3)
+                .defaultPage(0)
                 .onLoad(this)//设置加载监听
                 .onPageChange(this)//翻页监听
                 .enableAnnotationRendering(false)// 渲染风格（就像注释，颜色或表单）
