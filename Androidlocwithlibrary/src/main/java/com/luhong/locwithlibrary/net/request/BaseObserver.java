@@ -198,7 +198,11 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
 
     public void onErrorMsg(String errMsg) {
         onComplete();
-        if (mIsShowToast) ToastUtil.show(errMsg);
+        if (mIsShowToast)
+            if (errMsg.contains("登录过期")) {
+            } else {
+                ToastUtil.show(errMsg);
+            }
     }
 
     /**

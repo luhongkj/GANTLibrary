@@ -127,7 +127,6 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
                         public void onConfirm(String code) {
                             showLoading("数据提交中...");
                             mPresenter.checkCode(AppVariable.GIANT_PHONE, code);
-                            myPopupWindow.dismiss();
                         }
 
                         @Override
@@ -180,14 +179,15 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
 
     @Override
     public void onVehicleAddSuccess(Object resultEntity) {
+        cancelLoading();
         mPresenter.checkTokenBind();
     }
-
     InstallModeEntity modeEntity;
     String deviceSn;
 
     @Override
     public void onInstallModeSuccess(InstallModeEntity installModeEntity) {
+        cancelLoading();
         if (installModeEntity == null) {
             showToast("设备不存在");
             return;
@@ -219,6 +219,7 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
     //获取验证码回调
     @Override
     public void onGetCodeSuccess(Object resultEntity) {
+        cancelLoading();
         if (myPopupWindow != null) {
             myPopupWindow.getCodeCallBack();
         }
@@ -227,12 +228,15 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
     //提交验证结果回调
     @Override
     public void onCheckCodeSuccess(Object resultEntity) {
+        cancelLoading();
+        myPopupWindow.dismiss();
         putData();
     }
 
     //获取用户信息
     @Override
     public void onCheckTokenBindSuccess(UserEntity resultEntity) {
+        cancelLoading();
         AppVariable.GIANT_ISBIN = resultEntity.getBind();
         LoginSuccessUtil.onLoginSuccess(this, resultEntity);
         setResult(ADDDEVICE_RESULT_);

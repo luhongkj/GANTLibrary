@@ -93,9 +93,11 @@ public class RechargeActivityActivity extends BaseMvpActivity<PhoneAlarmPresente
                     isbalance = DateUtils.dateToStamp(DateUtils.formatCurrentDateTime(System.currentTimeMillis() + ""));
                 }
             } else {
-                if (isbalance < DateUtils.dateToStamp(deviceServerEntity.getFenceAlarmDate())) {
-                    setResult(RECHARGE_SUCCESS_CODE);
-                    finish();
+                if (!TextUtils.isEmpty(deviceServerEntity.getFenceAlarmDate())) {
+                    if (isbalance < DateUtils.dateToStamp(deviceServerEntity.getFenceAlarmDate())) {
+                        setResult(RECHARGE_SUCCESS_CODE);
+                        finish();
+                    }
                 }
             }
         } catch (ParseException e) {

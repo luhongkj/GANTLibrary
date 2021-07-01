@@ -187,8 +187,6 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
                 startIntentActivity(MyActivity.class);
             }
         });
-
-
     }
 
     @Override

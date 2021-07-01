@@ -152,10 +152,12 @@ public class PhoneAlarmActivity extends BaseMvpActivity<PhoneAlarmPresenter> imp
                     isbalance = DateUtils.dateToStamp(DateUtils.formatCurrentDateTime(System.currentTimeMillis() + ""));
                 }
             } else {
-                if (isbalance < DateUtils.dateToStamp(deviceServerEntity.getTelAlarmDate())) {
-                    isPay = false;
-                    isbalance = DateUtils.dateToStamp(deviceServerEntity.getTelAlarmDate());
-                    paySuccess(DevicePromptDialog.TYPE_PAY_PHONE_SUCCESS, deviceServerEntity.getTelAlarmDate());
+                if (!TextUtils.isEmpty(deviceServerEntity.getTelAlarmDate())) {
+                    if (isbalance < DateUtils.dateToStamp(deviceServerEntity.getTelAlarmDate())) {
+                        isPay = false;
+                        isbalance = DateUtils.dateToStamp(deviceServerEntity.getTelAlarmDate());
+                        paySuccess(DevicePromptDialog.TYPE_PAY_PHONE_SUCCESS, deviceServerEntity.getTelAlarmDate());
+                    }
                 }
             }
         } catch (ParseException e) {
@@ -199,7 +201,7 @@ public class PhoneAlarmActivity extends BaseMvpActivity<PhoneAlarmPresenter> imp
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode ==  PhonePayActivity.RECHARGE_SUCCESS_CODE) {
+        if (resultCode == PhonePayActivity.RECHARGE_SUCCESS_CODE) {
             showLoading();
             isPay = true;
             new Handler().postDelayed(new Runnable() {
