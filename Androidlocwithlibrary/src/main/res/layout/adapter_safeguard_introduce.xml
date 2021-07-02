@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0.4dp"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg" />
+
+        <TextView
+            android:id="@+id/tv_name_safeguard_introduce"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="3000(含)及以下"
+            android:textColor="@color/text_6"
+            android:textSize="@dimen/text_size_12" />
+
+        <View
+            android:layout_width="0.4dp"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg" />
+
+        <TextView
+            android:id="@+id/tv_feeRate_safeguard_introduce"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="60"
+            android:textColor="@color/text_6"
+            android:textSize="@dimen/text_size_12" />
+
+        <View
+            android:layout_width="0.4dp"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg" />
+
+        <TextView
+            android:id="@+id/tv_payRate_safeguard_introduce"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="车辆估值*85.5%"
+            android:textColor="@color/text_6"
+            android:textSize="@dimen/text_size_12" />
+
+        <View
+            android:layout_width="0.4dp"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.4dp"
+        android:background="@color/line_bg" />
+</LinearLayout>

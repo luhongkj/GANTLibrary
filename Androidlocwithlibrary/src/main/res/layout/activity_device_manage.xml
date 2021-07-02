@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/v_title_deviceManage"
+        layout="@layout/activity_title" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout_deviceManage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radioGroup_deviceManage"
+        android:layout_below="@+id/v_title_deviceManage"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:clipChildren="false">
+
+        <com.luhong.locwithlibrary.view.NoScrollViewPager
+            android:id="@+id/viewPager_deviceManage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/tv_errorLoad_deviceManage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawableTop="@mipmap/error_load"
+        android:drawablePadding="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/load_null"
+        android:textColor="@color/theme_color"
+        android:textSize="@dimen/text_size_16"
+        android:visibility="gone" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup_deviceManage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"></RadioGroup>
+</RelativeLayout>

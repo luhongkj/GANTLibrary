@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <RelativeLayout
+        android:id="@+id/rl_prompt_safeguardEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D9FFF8"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_prompt_safeguardEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="1dp"
+            android:drawableStart="@mipmap/user_prompt"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="4dp"
+            android:text="已提交资料，等待初审估值中(约1-2个工作日)"
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size_12" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/view_safeguard_schedule" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_dialog_center_bg"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="投保人信息"
+                    android:textColor="@color/text_3"
+                    android:textSize="@dimen/text_size_16" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_nameText_safeguardEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="真实姓名："
+                        android:textColor="@color/text_3" />
+
+                    <com.luhong.locwithlibrary.view.ClearEditText
+                        android:id="@+id/et_name_safeguardEdit"
+                        style="@style/base_input_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/tv_nameText_safeguardEdit"
+                        android:background="@null"
+                        android:gravity="end"
+                        android:hint="请输入您的真实姓名"
+                        android:maxLength="16" />
+                    <!--蓝初柳-->
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="@color/line_bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_areaText_safeguardEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="居住地址："
+                        android:textColor="@color/text_3" />
+
+                    <TextView
+                        android:id="@+id/tv_area_safeguardEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/tv_areaText_safeguardEdit"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:drawablePadding="10dp"
+                        android:gravity="end"
+                        android:hint="选择区域"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/text_3" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="@color/line_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="街道门牌号："
+                        android:textColor="@color/text_3" />
+
+                    <com.luhong.locwithlibrary.view.ClearEditText
+                        android:id="@+id/et_address_safeguardEdit"
+                        style="@style/base_input_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="center_vertical|end"
+                        android:maxLength="120"
+                        android:singleLine="false" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="@color/line_bg" />
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_type_of_certificate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="证件类型："
+                        android:textColor="@color/text_3" />
+
+                    <TextView
+                        android:id="@+id/tv_cardType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/tv_type_of_certificate"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:drawablePadding="10dp"
+                        android:gravity="end"
+                        android:hint="请选择"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/text_3" />
+                </RelativeLayout>
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="@color/line_bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="证件号码："
+                        android:textColor="@color/text_3" />
+
+                    <com.luhong.locwithlibrary.view.ClearEditText
+                        android:id="@+id/et_idCard_safeguardEdit"
+                        style="@style/base_input_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@null"
+                        android:digits="0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
+                        android:gravity="end"
+                        android:hint="请输入您的证件号码"
+                        android:inputType="number"
+                        android:maxLength="18" />
+                    <!--android:text="450311197509084501" -->
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="@color/line_bg" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="8dp"
+                    android:text="(注：大陆及港澳台用户请使用身份证，外国用户请使用护照)"
+                    android:textColor="@color/text_9"
+                    android:textSize="@dimen/text_size_9" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_dash_photo_bg">
+
+                        <ImageView
+                            android:id="@+id/iv_idCardFront_safeguardEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:scaleType="centerCrop" />
+
+                        <TextView
+                            android:id="@+id/tv_idCardFront_safeguardEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:drawableTop="@mipmap/safeguard_schedule_photo"
+                            android:drawablePadding="10dp"
+                            android:padding="30dp"
+                            android:text="上传证件照正面"
+                            android:textSize="@dimen/text_size_10" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_dash_photo_bg">
+
+                        <ImageView
+                            android:id="@+id/iv_idCardBack_safeguardEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:scaleType="centerCrop" />
+
+                        <TextView
+                            android:id="@+id/tv_idCardBack_safeguardEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:drawableTop="@mipmap/safeguard_schedule_photo"
+                            android:drawablePadding="10dp"
+                            android:padding="30dp"
+                            android:text="上传证件照背面"
+                            android:textSize="@dimen/text_size_10" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_dialog_center_bg"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="投保车辆信息"
+                    android:textColor="@color/text_3"
+                    android:textSize="@dimen/text_size_16" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="购保车辆："
+                        android:textColor="@color/text_3" />
+
+                    <TextView
+                        android:id="@+id/tv_device_safeguardEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:drawablePadding="10dp"
+                        android:gravity="end"
+                        android:hint="请选择"
+                        android:padding="10dp"
+                        android:textColor="@color/text_3" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_bicycleInfo_safeguardEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.4dp"
+                        android:background="@color/line_bg" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="车辆品牌："
+                            android:textColor="@color/text_3" />
+
+                        <TextView
+                            android:id="@+id/tv_brand_safeguardEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:drawablePadding="10dp"
+                            android:padding="10dp"
+                            android:textColor="@color/text_3" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.4dp"
+                        android:background="@color/line_bg" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="车辆类型："
+                            android:textColor="@color/text_3" />
+
+                        <TextView
+                            android:id="@+id/tv_bicycleType_safeguardEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:drawablePadding="10dp"
+                            android:padding="10dp"
+                            android:textColor="@color/text_3" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.4dp"
+                        android:background="@color/line_bg" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="车辆型号："
+                            android:textColor="@color/text_3" />
+
+                        <TextView
+                            android:id="@+id/tv_bicycleModel_safeguardEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:drawablePadding="10dp"
+                            android:padding="10dp"
+                            android:textColor="@color/text_3" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.4dp"
+                        android:background="@color/line_bg" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="车架五通码："
+                            android:textColor="@color/text_3" />
+
+                        <TextView
+                            android:id="@+id/tv_fivePass_safeguardEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:drawablePadding="10dp"
+                            android:padding="10dp"
+                            android:textColor="@color/text_3" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="@color/line_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="购车价格："
+                        android:textColor="@color/text_3" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+                        <com.luhong.locwithlibrary.view.ClearEditText
+                            android:id="@+id/et_devicePrice_safeguardEdit"
+                            style="@style/base_input_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:gravity="center|end"
+                            android:inputType="numberDecimal"
+                            android:maxLength="12"
+                            android:padding="10dp" />
+
+                        <TextView
+                            android:id="@+id/tv_devicePrice_safeguardEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="¥"
+                            android:textColor="@color/text_3" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="@color/line_bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="购车日期："
+                        android:textColor="@color/text_3" />
+
+                    <TextView
+                        android:id="@+id/tv_deviceDate_safeguardEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:drawablePadding="10dp"
+                        android:gravity="end"
+                        android:hint="请选择"
+                        android:padding="10dp"
+                        android:textColor="@color/text_3" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="@color/line_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="购车凭证："
+                        android:textColor="@color/text_3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="(发票或收据需拍到购车价格、日期)"
+                        android:textColor="@color/text_6"
+                        android:textSize="@dimen/text_size_12" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/shape_dash_photo_bg"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/iv_voucher_safeguardEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/safeguard_schedule_voucher" />
+
+                    <TextView
+                        android:id="@+id/tv_voucher_safeguardEdit"
+                        style="@style/safeguard_schedule_photo_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="车辆拍照："
+                        android:textColor="@color/text_3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="(按要求拍摄上传车辆图片，横拍效果更好)"
+                        android:textColor="@color/text_6"
+                        android:textSize="@dimen/text_size_12" />
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_dash_photo_bg"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/iv_overall_safeguardEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/safeguard_schedule_overall" />
+
+                    <TextView
+                        android:id="@+id/tv_overall_safeguardEdit"
+                        style="@style/safeguard_schedule_photo_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="整体图(1张)"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size_12" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_dash_photo_bg"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/iv_overallSide_safeguardEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/safeguard_schedule_overall_side" />
+
+                    <TextView
+                        android:id="@+id/tv_overallSide_safeguardEdit"
+                        style="@style/safeguard_schedule_photo_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="整体侧面图(1张)"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size_12" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_dash_photo_bg"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/iv_frameSide_safeguardEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/safeguard_schedule_frame_side" />
+
+                    <TextView
+                        android:id="@+id/tv_frameSide_safeguardEdit"
+                        style="@style/safeguard_schedule_photo_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="车架侧面图(1张)"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size_12" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_dash_photo_bg"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:id="@+id/iv_fivePass_safeguardEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/safeguard_schedule_five" />
+
+                    <TextView
+                        android:id="@+id/tv_fivePassText_safeguardEdit"
+                        style="@style/safeguard_schedule_photo_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="五通码图/车架二维码图(1张)"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size_12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="车辆五通码/车架号："
+                        android:textColor="@color/text_3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_6"
+                        android:textSize="@dimen/text_size_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.luhong.locwithlibrary.view.ClearEditText
+                        android:id="@+id/et_fivePass_safeguardEdit"
+                        style="@style/base_input_style"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:hint="请输入或扫描车架二维码"
+                        android:maxLength="25" />
+
+                    <ImageView
+                        android:id="@+id/scan_wutong_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/icon_scan" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/line_bg" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_confirm_safeguardEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_square_theme_bg"
+        android:text="提交资料"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16" />
+</LinearLayout>
