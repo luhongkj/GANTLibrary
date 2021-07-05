@@ -25,6 +25,7 @@ android {
             buildConfigField "String", "BASE_UPLOAD_URL", "\"https://app.luhongkj.com:9443/files/image/upload/\""//上传图片
             buildConfigField "String", "BASE_WEB_URL", "\"https://app.luhongkj.com:9443/doc/\""//PDF文件
             buildConfigField "String", "H5_PAY", "\"https://app.luhongkj.com:9443/\""//支付
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'//  捷安特
         }
         debug {// 备注："debug"类型的构建类型
            manifestPlaceholders = [AMAP_KEY: "${alpha_amap_key}"]//  捷安特
