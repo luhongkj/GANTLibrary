@@ -3,6 +3,7 @@ package com.luhong.locwithlibrary.contract.home;
 import android.content.Context;
 
 import com.luhong.locwithlibrary.base.BaseActivity;
+import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HistoryInfoEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
@@ -10,6 +11,7 @@ import com.luhong.locwithlibrary.entity.UserEntity;
 import com.luhong.locwithlibrary.presenter.BaseMvpView;
 import com.luhong.locwithlibrary.presenter.BasePresenter;
 
+import java.util.List;
 import java.util.Map;
 
 public interface HomeContract {
@@ -32,6 +34,8 @@ public interface HomeContract {
         void onVehicleConfirmPaySuccess(Object resultEntity);
 
         void onCheckTokenBindSuccess(UserEntity resultEntity);
+
+        void onDeviceListSuccess(List<DeviceEntity> dataList);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -50,8 +54,10 @@ public interface HomeContract {
         public abstract void getVehicleConfirmPay(String deviceSn, float oweFee);
 
         public abstract void login(Context mContext, String username, String password);
+
         public abstract void checkTokenBind();
 
+        public abstract void getDeviceList(Context context);
     }
 
 }

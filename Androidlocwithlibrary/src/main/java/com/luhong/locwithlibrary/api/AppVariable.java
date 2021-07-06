@@ -14,6 +14,6 @@ public class AppVariable {
     public static int TYPE_PAY_MSG = -1;//支付类型
     public static String GIANT_TOKEN ;//捷安特token
     public static String GIANT_PHONE ;//捷安特登录手机号
-
+    public static float FEEMONTHLY ;//月租费/月
     public static boolean GIANT_ISBIN ;//是否注册过鹿卫士设备
 }

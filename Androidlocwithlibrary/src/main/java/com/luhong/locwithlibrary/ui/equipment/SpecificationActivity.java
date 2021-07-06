@@ -18,6 +18,8 @@ import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.home.DeviceManageContract;
 import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.PdfEntity;
+import com.luhong.locwithlibrary.entity.SafeguardEntity;
+import com.luhong.locwithlibrary.net.response.BasePageEntity;
 import com.luhong.locwithlibrary.presenter.home.DeviceManagePresenter;
 import com.luhong.locwithlibrary.ui.BasePdfActivity;
 
@@ -111,5 +113,15 @@ public class SpecificationActivity extends BaseMvpActivity<DeviceManagePresenter
         bundle.putString(BaseConstants.WEB_TITLE_KEY, "产品说明书");
         bundle.putString(BaseConstants.WEB_URL_KEY, resultEntitysss.getUrl());
         startIntentActivity(BasePdfActivity.class, bundle);
+    }
+
+    @Override
+    public void onSafeguardMineSuccess(BasePageEntity<SafeguardEntity> pageList) {
+
+    }
+
+    @Override
+    public void onVehicleConfirmPaySuccess(Object resultEntity) {
+
     }
 }

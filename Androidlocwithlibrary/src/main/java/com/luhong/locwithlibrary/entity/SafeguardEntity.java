@@ -49,6 +49,7 @@ public class SafeguardEntity implements Serializable {
     private String vehicleModel;
     private String vin;
     private float price;
+    private String sn;//设备号
     private String vehiclePurchase;
     private String vehicleWhole;
     private String vehicleSide;
@@ -71,6 +72,14 @@ public class SafeguardEntity implements Serializable {
     private String createId;
     private int isDel;
     private ClaimDto claimDto;
+
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
 
     public static class ClaimDto implements Serializable {
         public static final int TYPE_WAITEVIDENCE = 1;//待取证

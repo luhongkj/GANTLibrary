@@ -16,11 +16,14 @@ import com.luhong.locwithlibrary.api.ApiServer;
 import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.home.HomeContract;
+import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
 import com.luhong.locwithlibrary.presenter.home.HomePresenter;
 import com.luhong.locwithlibrary.utils.SPUtils;
+
+import java.util.List;
 
 /**
  * 设备激活
@@ -132,6 +135,11 @@ public class ActivatePayActivity extends BaseMvpActivity<HomePresenter> implemen
 
     @Override
     public void onCheckTokenBindSuccess(UserEntity resultEntity) {
+
+    }
+
+    @Override
+    public void onDeviceListSuccess(List<DeviceEntity> dataList) {
 
     }
 

@@ -3,6 +3,7 @@ package com.luhong.locwithlibrary.fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -17,23 +18,31 @@ import com.luhong.locwithlibrary.api.AppVariable;
 import com.luhong.locwithlibrary.base.BaseMvpFragment;
 import com.luhong.locwithlibrary.contract.home.DeviceManageContract;
 import com.luhong.locwithlibrary.dialog.BaseDialog;
+import com.luhong.locwithlibrary.dialog.DeviceManageDialog;
+import com.luhong.locwithlibrary.dialog.DevicePromptDialog;
 import com.luhong.locwithlibrary.dialog.DeviceSavePhotDialog;
 import com.luhong.locwithlibrary.dialog.LoadingDialog;
 import com.luhong.locwithlibrary.dialog.PromptDialog;
 import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.PdfEntity;
+import com.luhong.locwithlibrary.entity.SafeguardEntity;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
+import com.luhong.locwithlibrary.net.response.BasePageEntity;
 import com.luhong.locwithlibrary.presenter.home.DeviceManagePresenter;
+import com.luhong.locwithlibrary.ui.FeesPayActivity;
 import com.luhong.locwithlibrary.ui.equipment.DeviceManageActivity;
 import com.luhong.locwithlibrary.ui.equipment.DeviceQRActivity;
 import com.luhong.locwithlibrary.ui.equipment.EditActivity;
 import com.luhong.locwithlibrary.ui.equipment.electronic.EFenceActivity;
 import com.luhong.locwithlibrary.ui.equipment.electronic.PhoneAlarmActivity;
 import com.luhong.locwithlibrary.utils.FileUtils;
+import com.luhong.locwithlibrary.utils.ToastUtil;
 
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.luhong.locwithlibrary.api.AppVariable.FEEMONTHLY;
 
 /**
  * 设备信息framgnet
@@ -72,7 +81,6 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
 
     private int dataType;
     private DeviceEntity deviceEntity;
-    private LoadingDialog dialog;
 
     public DeviceManageFragment() {
     }
@@ -92,7 +100,6 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        dialog = new LoadingDialog(getActivity());
         if (deviceEntity != null) {
             /**
              *   * fenceAlarmIsOpen:电子围栏服务是否开通：1是 0否
@@ -125,7 +132,7 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
 
     @Override
     protected void fetchData() {
-
+        mPresenter.getSafeguardMine();
     }
 
     @Override
@@ -149,7 +156,70 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
         tv_unbind.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                PromptDialog.getInstance(mActivity).showDialog("确定解除绑定?", new BaseDialog.IEventListener() {
+
+                if (deviceEntity.getOweFee() < 0) {//欠费
+                    DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_ARREARAGE,Math.abs( deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
+                        @Override
+                        public void onConfirm(int type) {
+
+                            //欠费类型（1：确认补缴，2、立即补缴（充钱去））
+                            if (deviceEntity.getOweFeeType().equals("2")) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("SN", deviceEntity.getSn());
+                                bundle.putString("money", "" + Math.abs( deviceEntity.getOweFee()));
+                                bundle.putString("serverLength", "" + FEEMONTHLY);
+                                startIntentActivityForResult(FeesPayActivity.class, FeesPayActivity.RECHARGE_SUCCESS_CODE, bundle);
+                            } else if (deviceEntity.getOweFeeType().equals("1")) {
+                                showLoading("加载中...");
+                                mPresenter.getVehicleConfirmPay(AppVariable.currentDeviceId, deviceEntity.getOweFee());
+                            }
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+                } else {//是否购保
+                    boolean flag = false;
+                    for (SafeguardEntity safeguardEntity : list.getRecords()) {
+                        if (safeguardEntity.getSn().equals(deviceEntity.getSn()) && safeguardEntity.getStatus() == SafeguardEntity.TYPE_GUARANTEED) {//车辆ID相同且是保障中的
+                            flag = true;
+                        }
+                    }
+                    if (list == null || flag) {
+                        //  DeviceManageDialog.getInstance(mActivity).showDialog();
+                        DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_BUY_INSURANCE, Math.abs( deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
+                            @Override
+                            public void onConfirm(int type) {
+                                showLoading("加载中...");
+                                mPresenter.deleteDevice(deviceEntity);
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+                        });
+                    } else {
+                        //  DeviceManageDialog.getInstance(mActivity).showDialog();
+                        DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_NORMAL, Math.abs( deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
+                            @Override
+                            public void onConfirm(int type) {
+                                showLoading("加载中...");
+                                mPresenter.deleteDevice(deviceEntity);
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+                        });
+                    }
+
+                }
+
+              /*  PromptDialog.getInstance(mActivity).showDialog("确定解除绑定?", new BaseDialog.IEventListener() {
                     @Override
                     public void onConfirm() {
                         dialog.setTitle("正在解绑");
@@ -161,20 +231,26 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
                     public void onCancel() {
 
                     }
-                });
+                });*/
+
+
             }
         });
         //电子围栏
-        rl_electronic.setOnClickListener(v -> {
+        rl_electronic.setOnClickListener(v ->
+
+        {
             Bundle bundle = new Bundle();
             bundle.putString("SN", deviceEntity.getSn());
             startIntentActivity(EFenceActivity.class, bundle);
         });
         //电话告警
-        rl_emergency.setOnClickListener(v -> {
+        rl_emergency.setOnClickListener(v ->
+
+        {
             Bundle bundle = new Bundle();
-            bundle.putString("SN",deviceEntity.getSn());
-            startIntentActivity(PhoneAlarmActivity.class,bundle);
+            bundle.putString("SN", deviceEntity.getSn());
+            startIntentActivity(PhoneAlarmActivity.class, bundle);
 
         });
     }
@@ -192,7 +268,7 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
 
     @Override
     public void onDeviceDeleteSuccess(boolean isCurrentDevice, DeviceEntity deviceEntity) {
-        dialog.dismiss();
+        cancelLoading();
         showToast("解绑成功");
         if (isCurrentDevice) {
             AppVariable.currentDeviceId = "";
@@ -228,20 +304,43 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
 
     }
 
+    BasePageEntity<SafeguardEntity> list;
+
+    @Override
+    public void onSafeguardMineSuccess(BasePageEntity<SafeguardEntity> pageList) {
+        cancelLoading();
+        this.list = pageList;
+    }
+
+    @Override
+    public void onVehicleConfirmPaySuccess(Object resultEntity) {
+        cancelLoading();
+        ((DeviceManageActivity) mActivity).onRefresh();
+        ToastUtil.show("补缴成功!");
+    }
+
     @Override
     public void onFailure(int errType, String errMsg) {
-        dialog.dismiss();
+        cancelLoading();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) return;
         if (resultCode == AppConstants.RESULT_CODE_UPDATE) {
+            if (data == null) return;
             String deviceName = data.getStringExtra(AppConstants.dataKey);
             tv_name.setText(deviceName);
             deviceEntity.setNickName(deviceName);
             mPresenter.updateDevice(deviceEntity);
+        }else if (resultCode == FeesPayActivity.RECHARGE_SUCCESS_CODE) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ToastUtil.show("补缴成功!");
+                    ((DeviceManageActivity) mActivity).onRefresh();
+                }
+            }, 2000);
         }
     }
 

@@ -20,12 +20,15 @@ import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseActivity;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.home.HomeContract;
+import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
 import com.luhong.locwithlibrary.presenter.BaseMvpView;
 import com.luhong.locwithlibrary.presenter.home.HomePresenter;
 import com.luhong.locwithlibrary.utils.SPUtils;
+
+import java.util.List;
 
 /**
  * 补缴/缴费
@@ -159,6 +162,11 @@ public class FeesPayActivity extends BaseMvpActivity<HomePresenter> implements H
 
     @Override
     public void onCheckTokenBindSuccess(UserEntity resultEntity) {
+
+    }
+
+    @Override
+    public void onDeviceListSuccess(List<DeviceEntity> dataList) {
 
     }
 }

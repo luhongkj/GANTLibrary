@@ -56,6 +56,7 @@ import com.luhong.locwithlibrary.dialog.BaseDialog;
 import com.luhong.locwithlibrary.dialog.DevicePromptDialog;
 import com.luhong.locwithlibrary.dialog.NavigateTypeDialog;
 import com.luhong.locwithlibrary.entity.ArrearsEvent;
+import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
@@ -81,6 +82,7 @@ import com.zyq.easypermission.EasyPermissionResult;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +92,7 @@ import butterknife.BindView;
 import static com.luhong.locwithlibrary.api.AppConstants.DEVICETYPE_1;
 import static com.luhong.locwithlibrary.api.AppConstants.DEVICETYPE_2;
 import static com.luhong.locwithlibrary.api.AppConstants.DEVICETYPE_3;
+import static com.luhong.locwithlibrary.api.AppVariable.FEEMONTHLY;
 import static com.luhong.locwithlibrary.ui.equipment.LDeviceAddActivity.ADDDEVICE_RESULT_;
 
 public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements BaseMvpView, AMap.OnMarkerClickListener, AMap.InfoWindowAdapter, HomeContract.View, ServiceConnection {
@@ -434,12 +437,14 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
                     continue;
                 //当前选中的这边为空AppVariable.currentDeviceId
                 if (!TextUtils.isEmpty(AppVariable.currentDeviceId) && vehicle.getSn().equals(AppVariable.currentDeviceId)) {//判断设备是否是当前选中的
+                    FEEMONTHLY = resultEntity.getFlowDefaultCost();
                     selectVehicle(vehicle, resultEntity.getFirstActiveCost(), resultEntity.getFlowDefaultCost());//getFlowDefaultCost
                     isMatch = true;
                     break;
                 }
             }
             if (!isMatch) {
+                FEEMONTHLY = resultEntity.getFlowDefaultCost();
                 selectVehicle(vehicleList.get(0), resultEntity.getFirstActiveCost(), resultEntity.getFlowDefaultCost());//getFlowDefaultCost
             }
             mPresenter.getSetting(mActivity);
@@ -954,6 +959,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         if (locationBinder != null) {
             locationBinder.startLocation(locationServiceListener, 1000);
         }
+        mPresenter.getDeviceList(mActivity);
         //        setUserVisibleHint(true);
     }
 
@@ -1002,5 +1008,24 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
             handler.removeMessages(0);
         }
         super.onStop();
+    }
+
+    //更新车辆列表
+    @Override
+    public void onDeviceListSuccess(List<DeviceEntity> dataList) {
+        UserEntity userEntity = new UserEntity();
+        try {
+            List<UserEntity.VehicleList> vehicleList = new ArrayList<>();
+            for (int i = 0; i < dataList.size(); i++) {
+                DeviceEntity deviceEntity = dataList.get(i);
+                vehicleList.add(new UserEntity.VehicleList(deviceEntity.getId(), deviceEntity.getVin(), deviceEntity.getSn(), deviceEntity.getNickName(), deviceEntity.getUserId(), deviceEntity.getBrandName()));
+            }
+            if (userEntity != null) {
+                userEntity.setVehicles(vehicleList);
+                SPUtils.putObject(mActivity, BaseConstants.LOGIN_KEY, userEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

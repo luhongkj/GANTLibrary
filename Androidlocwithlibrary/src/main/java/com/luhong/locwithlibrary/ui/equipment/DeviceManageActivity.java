@@ -25,10 +25,12 @@ import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.home.DeviceManageContract;
 import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.PdfEntity;
+import com.luhong.locwithlibrary.entity.SafeguardEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
 import com.luhong.locwithlibrary.event.SwitchDeviceEvent;
 import com.luhong.locwithlibrary.fragment.DeviceManageFragment;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
+import com.luhong.locwithlibrary.net.response.BasePageEntity;
 import com.luhong.locwithlibrary.presenter.home.DeviceManagePresenter;
 import com.luhong.locwithlibrary.ui.CaptureActivity;
 import com.luhong.locwithlibrary.ui.LVehiclechoiceActivity;
@@ -193,6 +195,16 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
 
     @Override
     public void onProductDescriptionSuccess(PdfEntity resultEntity) {
+
+    }
+
+    @Override
+    public void onSafeguardMineSuccess(BasePageEntity<SafeguardEntity> pageList) {
+
+    }
+
+    @Override
+    public void onVehicleConfirmPaySuccess(Object resultEntity) {
 
     }
 

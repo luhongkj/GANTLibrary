@@ -31,6 +31,31 @@ public class DeviceEntity implements Serializable {
     private String updateTime;
     private String vehicleBrand;
     private String vehicleModel;//车辆型号
+
+    /**
+     * oweFee  欠费金额
+     * oweFeeType 欠费类型（1：确认补缴，2、立即补缴（充钱去））
+     */
+    private float oweFee;//欠费金额
+    private String oweFeeType;//欠费类型（1：确认补缴，2、立即补缴（充钱去））
+
+    public void setOweFeeType(String oweFeeType) {
+        this.oweFeeType = oweFeeType;
+    }
+
+    public String getOweFeeType() {
+        return oweFeeType;
+    }
+
+    public void setOweFee(float oweFee) {
+        this.oweFee = oweFee;
+    }
+
+    public float getOweFee() {
+        return oweFee;
+    }
+
+
     // 自行车 "1"
     // 电动车 "2"
     // 锂电助力车"3"

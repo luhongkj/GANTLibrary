@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.PdfEntity;
+import com.luhong.locwithlibrary.entity.SafeguardEntity;
+import com.luhong.locwithlibrary.net.response.BasePageEntity;
 import com.luhong.locwithlibrary.presenter.BaseMvpView;
 import com.luhong.locwithlibrary.presenter.BasePresenter;
 
@@ -19,6 +21,8 @@ public interface DeviceManageContract {
         void onDeviceDeleteSuccess(boolean isCurrentDevice, DeviceEntity deviceEntity);
 
         void onProductDescriptionSuccess(PdfEntity resultEntity);
+        void onSafeguardMineSuccess(BasePageEntity<SafeguardEntity> pageList);
+        void onVehicleConfirmPaySuccess(Object resultEntity);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -29,5 +33,7 @@ public interface DeviceManageContract {
         public abstract void deleteDevice(DeviceEntity deviceEntity);
 
         public abstract void getProductDescription(Context context, String sn);
+        public abstract void getSafeguardMine();
+        public abstract void getVehicleConfirmPay(String deviceSn, float oweFee);
     }
 }

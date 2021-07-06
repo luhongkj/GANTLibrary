@@ -42,12 +42,15 @@ public abstract class BaseFragmentTow extends Fragment {
     protected abstract void onEventListener();//事件监听
 
     protected LoadingDialog loadingDialog;
+
     protected void showLoading() {
         showLoading("", true);
     }
+
     protected void showLoading(String message) {
         showLoading(message, true);
     }
+
     protected void showLoading(String message, boolean isCancelable) {
         loadingDialog = new LoadingDialog.Builder(mActivity).setMessage(message).setCancelable(isCancelable).create();
         loadingDialog.show();
@@ -56,6 +59,7 @@ public abstract class BaseFragmentTow extends Fragment {
     protected void cancelLoading() {
         if (loadingDialog != null) loadingDialog.cancel();
     }
+
     @Override
     public void onAttach(Context context) {
         // TODO Auto-generated method stub

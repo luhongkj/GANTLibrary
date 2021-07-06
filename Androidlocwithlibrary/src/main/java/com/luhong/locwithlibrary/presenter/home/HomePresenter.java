@@ -204,4 +204,9 @@ public class HomePresenter extends HomeContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void getDeviceList(Context context) {
+
+    }
 }

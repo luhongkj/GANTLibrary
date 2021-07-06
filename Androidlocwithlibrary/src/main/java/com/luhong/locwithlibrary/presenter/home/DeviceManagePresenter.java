@@ -9,9 +9,13 @@ import com.luhong.locwithlibrary.api.AppVariable;
 import com.luhong.locwithlibrary.contract.home.DeviceManageContract;
 import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.PdfEntity;
+import com.luhong.locwithlibrary.entity.SafeguardEntity;
+import com.luhong.locwithlibrary.model.ISafeguardModel;
+import com.luhong.locwithlibrary.model.SafeguardModel;
 import com.luhong.locwithlibrary.model.home.DeviceManageModel;
 import com.luhong.locwithlibrary.model.home.IDeviceManageModel;
 import com.luhong.locwithlibrary.net.request.BaseObserver;
+import com.luhong.locwithlibrary.net.response.BasePageEntity;
 import com.luhong.locwithlibrary.utils.SPUtils;
 
 import java.util.List;
@@ -21,7 +25,7 @@ import java.util.List;
  */
 public class DeviceManagePresenter extends DeviceManageContract.Presenter {
     private IDeviceManageModel deviceManageModel;
-
+    private ISafeguardModel safeguardModel;
     public DeviceManagePresenter() {
     }
 
@@ -92,6 +96,38 @@ public class DeviceManagePresenter extends DeviceManageContract.Presenter {
             @Override
             public void onFailure(int errCode, String errResult) {
                 if (isViewAttached()) baseMvpView.onFailure(0, errResult);
+            }
+        });
+    }
+
+    @Override
+    public void getSafeguardMine() {
+        if (safeguardModel == null) safeguardModel = new SafeguardModel();
+        ApiClient.getInstance().doSubscribe(safeguardModel.getSafeguardMine(), new BaseObserver<BasePageEntity<SafeguardEntity>>() {
+            @Override
+            protected void onSuccess(BasePageEntity<SafeguardEntity> resultEntity, String msg) {
+                if (isViewAttached()) baseMvpView.onSafeguardMineSuccess(resultEntity);
+            }
+
+            @Override
+            public void onFailure(int errCode, String errResult) {
+                if (isViewAttached()) baseMvpView.onFailure(1, errResult);
+            }
+        });
+    }
+
+    @Override
+    public void getVehicleConfirmPay(String deviceSn, float oweFee) {
+        if (deviceManageModel == null) deviceManageModel = new DeviceManageModel();
+        ApiClient.getInstance().doSubscribe(deviceManageModel.getVehicleConfirmPay(deviceSn, oweFee), new BaseObserver<Object>() {
+            @Override
+            protected void onSuccess(Object resultEntity, String msg) {
+                if (isViewAttached()) baseMvpView.onVehicleConfirmPaySuccess(resultEntity);
+            }
+
+            @Override
+            public void onFailure(int errCode, String errResult) {
+                if (isViewAttached()) baseMvpView.onFailure(4, errResult);
             }
         });
     }
