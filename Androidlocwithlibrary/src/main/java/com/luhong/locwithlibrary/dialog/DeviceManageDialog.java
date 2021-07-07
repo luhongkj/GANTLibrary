@@ -41,9 +41,10 @@ public class DeviceManageDialog extends BaseDialog {
     private int type;//1  欠费   2  正常解绑  3 已购保
     private float feemoney;
     private String feeType;
-    public final static int DIALOG_ARREARAGE = 1;
-    public final static int DIALOG_NORMAL = 2;
-    public final static int DIALOG_BUY_INSURANCE = 3;
+    public final static int DIALOG_ARREARAGE = 1;//欠费解绑
+    public final static int DIALOG_NORMAL = 2;//正常解绑
+    public final static int DIALOG_BUY_INSURANCE = 3;//已购保解绑
+    public final static int DIALOG_ADDRESS_NULL = 4;//车辆列表给空
 
     public static DeviceManageDialog getInstance(Context context) {
         devicePromptDialog = new DeviceManageDialog(context);
@@ -104,6 +105,12 @@ public class DeviceManageDialog extends BaseDialog {
                         "2.设备解绑后,会持续扣除设备的月租费用,再次使用该设备,需补缴所欠费费用。");
                 tvTitle.setText("确定解绑设备");
                 tvConfirm.setText("确认解绑");
+                break;
+            case DIALOG_ADDRESS_NULL:
+                tvTitle.setText("温馨提示");
+                tvConfirm.setText("知道了");
+                tvContent.setText("当前您未添加车辆，请添加车辆再添加设备。");
+                tv_clo_devicePrompt.setVisibility(View.GONE);
                 break;
         }
     }

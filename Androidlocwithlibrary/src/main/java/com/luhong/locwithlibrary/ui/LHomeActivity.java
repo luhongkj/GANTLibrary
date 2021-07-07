@@ -53,6 +53,7 @@ import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.home.HomeContract;
 import com.luhong.locwithlibrary.dialog.BaseDialog;
+import com.luhong.locwithlibrary.dialog.DeviceManageDialog;
 import com.luhong.locwithlibrary.dialog.DevicePromptDialog;
 import com.luhong.locwithlibrary.dialog.NavigateTypeDialog;
 import com.luhong.locwithlibrary.entity.ArrearsEvent;
@@ -60,6 +61,7 @@ import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
+import com.luhong.locwithlibrary.entity.VehicleListEntity;
 import com.luhong.locwithlibrary.event.NetworkEvent;
 import com.luhong.locwithlibrary.listener.IRequestListener;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
@@ -332,9 +334,8 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
                         @Override
                         public void onPermissionsAccess(int requestCode) {
                             super.onPermissionsAccess(requestCode);
-                            Bundle bundle = new Bundle();
-                            bundle.putBoolean("isHome", true);
-                            startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode,bundle);
+                            showLoading("加载中");
+                            mPresenter.getVehicle();
                         }
 
                         @Override
@@ -932,7 +933,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         markerPoint.offset(0, -100);
         final LatLng startLatLng = proj.fromScreenLocation(markerPoint);
         final long duration = 1500;
-       final Interpolator interpolator = new BounceInterpolator();
+        final Interpolator interpolator = new BounceInterpolator();
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -1026,6 +1027,34 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    List<VehicleListEntity> vehicleList;
+
+    @Override
+    public void onVehicleListSuccess(List<VehicleListEntity> resultEntity) {
+        cancelLoading();
+        vehicleList = resultEntity;
+        if (vehicleList == null || vehicleList.size() == 0) {
+            DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_ADDRESS_NULL, 0, "", new DeviceManageDialog.IEventListeners() {
+
+                @Override
+                public void onConfirm(int type) {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("isHome", true);
+                    startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode, bundle);
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            });
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isHome", true);
+            startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode, bundle);
         }
     }
 }

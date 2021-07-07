@@ -139,7 +139,7 @@ public class NavigateActivity extends BaseMvpActivity<NavigatePresenter> impleme
 
         mAMapNavi = AMapNavi.getInstance(getApplicationContext());
         mAMapNavi.addAMapNaviListener(this);
-        mAMapNavi.setUseInnerVoice(true);
+        mAMapNavi.setUseInnerVoice(true, true);
 
         mAMap = mAMapNaviView.getMap();
         mAMap.setTrafficEnabled(false);

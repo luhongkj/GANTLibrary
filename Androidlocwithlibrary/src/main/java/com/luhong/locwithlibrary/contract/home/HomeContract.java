@@ -8,6 +8,7 @@ import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HistoryInfoEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
+import com.luhong.locwithlibrary.entity.VehicleListEntity;
 import com.luhong.locwithlibrary.presenter.BaseMvpView;
 import com.luhong.locwithlibrary.presenter.BasePresenter;
 
@@ -36,6 +37,7 @@ public interface HomeContract {
         void onCheckTokenBindSuccess(UserEntity resultEntity);
 
         void onDeviceListSuccess(List<DeviceEntity> dataList);
+        void onVehicleListSuccess( List<VehicleListEntity> resultEntity);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -58,6 +60,8 @@ public interface HomeContract {
         public abstract void checkTokenBind();
 
         public abstract void getDeviceList(Context context);
+
+        public abstract void getVehicle();
     }
 
 }

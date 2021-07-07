@@ -61,7 +61,7 @@ public class PhonePayActivity extends BaseMvpActivity<PhoneAlarmPresenter> imple
                 .go(url);
     }
 
-    long isbalance;//充值前的到期时间
+    long isbalance = 0;//充值前的到期时间
     boolean isPay;//判斷是否拿了數據,數據只拿一次
     private WebViewClient mWebViewClient = new WebViewClient() {
         @Override
@@ -102,9 +102,11 @@ public class PhonePayActivity extends BaseMvpActivity<PhoneAlarmPresenter> imple
                     isbalance = DateUtils.dateToStamp(DateUtils.formatCurrentDateTime(System.currentTimeMillis() + ""));
                 }
             } else {
-                if (isbalance < (DateUtils.dateToStamp(deviceServerEntity.getTelAlarmDate()))) {
-                    setResult(RECHARGE_SUCCESS_CODE);
-                    finish();
+                if (!TextUtils.isEmpty(deviceServerEntity.getFenceAlarmDate())) {
+                    if (isbalance < (DateUtils.dateToStamp(deviceServerEntity.getTelAlarmDate()))) {
+                        setResult(RECHARGE_SUCCESS_CODE);
+                        finish();
+                    }
                 }
             }
         } catch (ParseException e) {

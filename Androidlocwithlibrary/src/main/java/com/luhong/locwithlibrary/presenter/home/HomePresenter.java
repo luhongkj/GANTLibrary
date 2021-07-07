@@ -12,6 +12,7 @@ import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.SettingEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
+import com.luhong.locwithlibrary.entity.VehicleListEntity;
 import com.luhong.locwithlibrary.listener.IRequestListener;
 import com.luhong.locwithlibrary.model.ICommandModel;
 import com.luhong.locwithlibrary.model.IPermissionModel;
@@ -21,9 +22,11 @@ import com.luhong.locwithlibrary.model.home.DeviceManageModel;
 import com.luhong.locwithlibrary.model.home.HomeModel;
 import com.luhong.locwithlibrary.model.home.ICheckTokenBind;
 import com.luhong.locwithlibrary.model.home.IHomeModel;
+import com.luhong.locwithlibrary.model.home.ILVehicleChioce;
 import com.luhong.locwithlibrary.model.home.ILoginModel;
 import com.luhong.locwithlibrary.model.home.ISettingModel;
 import com.luhong.locwithlibrary.model.home.ITrackModel;
+import com.luhong.locwithlibrary.model.home.LCehicleChioceMode;
 import com.luhong.locwithlibrary.model.home.LoginModel;
 import com.luhong.locwithlibrary.model.home.PermissionModel;
 import com.luhong.locwithlibrary.model.home.SettingModel;
@@ -48,10 +51,24 @@ public class HomePresenter extends HomeContract.Presenter {
     private ISettingModel settingModel;
     private ILoginModel loginModel;
     private ICheckTokenBind checkTokenBind;
-
+    private ILVehicleChioce ilVehicleChioce;
     public HomePresenter() {
     }
+    @Override
+    public void getVehicle() {
+        if (ilVehicleChioce == null) ilVehicleChioce = new LCehicleChioceMode();
+        ApiClient.getInstance().doSubscribe(ilVehicleChioce.getVehicle(), new BaseObserver< List<VehicleListEntity>>() {
+            @Override
+            protected void onSuccess( List<VehicleListEntity> resultEntity, String msg) {
+                if (isViewAttached()) baseMvpView.onVehicleListSuccess(resultEntity);
+            }
 
+            @Override
+            public void onFailure(int errCode, String errResult) {
+                if (isViewAttached()) baseMvpView.onFailure(0, errResult);
+            }
+        });
+    }
     @Override
     public void checkLocationInit(BaseActivity mActivity) {
         if (permissionModel == null) permissionModel = new PermissionModel();

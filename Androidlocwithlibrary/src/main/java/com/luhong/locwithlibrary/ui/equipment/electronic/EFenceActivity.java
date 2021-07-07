@@ -119,7 +119,7 @@ public class EFenceActivity extends BaseMvpActivity<EFencePresenter> implements 
         initRadius = resultEntity.getFenceAlarmRadius();
     }
 
-    long isbalance;
+    long isbalance = 0;
 
     @Override
     public void onGetVehicleBySnSuccess(DeviceServerEntity installModeEntity) {
@@ -148,10 +148,12 @@ public class EFenceActivity extends BaseMvpActivity<EFencePresenter> implements 
                     isbalance = DateUtils.dateToStamp(DateUtils.formatCurrentDateTime(System.currentTimeMillis() + ""));
                 }
             } else {
-                if (isbalance < DateUtils.dateToStamp(installModeEntity.getFenceAlarmDate())) {
-                    isPay = false;
-                    isbalance = DateUtils.dateToStamp(installModeEntity.getFenceAlarmDate());
-                    paySuccess(DevicePromptDialog.TYPE_PAY_PHONE_SUCCESS, installModeEntity.getFenceAlarmDate());
+                if (!TextUtils.isEmpty(installModeEntity.getFenceAlarmDate())) {
+                    if (isbalance < DateUtils.dateToStamp(installModeEntity.getFenceAlarmDate())) {
+                        isPay = false;
+                        isbalance = DateUtils.dateToStamp(installModeEntity.getFenceAlarmDate());
+                        paySuccess(DevicePromptDialog.TYPE_PAY_PHONE_SUCCESS, installModeEntity.getFenceAlarmDate());
+                    }
                 }
             }
         } catch (ParseException e) {
