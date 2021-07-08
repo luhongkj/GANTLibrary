@@ -24,6 +24,7 @@ import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.DevicePositionEntity;
 import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
+import com.luhong.locwithlibrary.entity.VehicleListEntity;
 import com.luhong.locwithlibrary.presenter.BaseMvpView;
 import com.luhong.locwithlibrary.presenter.home.HomePresenter;
 import com.luhong.locwithlibrary.utils.SPUtils;
@@ -167,6 +168,11 @@ public class FeesPayActivity extends BaseMvpActivity<HomePresenter> implements H
 
     @Override
     public void onDeviceListSuccess(List<DeviceEntity> dataList) {
+
+    }
+
+    @Override
+    public void onVehicleListSuccess(List<VehicleListEntity> resultEntity) {
 
     }
 }

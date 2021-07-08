@@ -81,7 +81,7 @@ public class NavigateActivity extends BaseMvpActivity<NavigatePresenter> impleme
     private int trackTime = 5;
     private PowerManager.WakeLock wakeLock;
 
-    private Handler mHandler = new Handler() {
+    private  Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
