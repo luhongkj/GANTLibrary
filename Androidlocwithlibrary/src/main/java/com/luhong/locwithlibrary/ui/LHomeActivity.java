@@ -140,7 +140,6 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     private DevicePromptDialog devicePromptDialog;
     private String currentCity;
     //    private File textFile;
-
     @Override
     protected void initData() {
         AppVariable.GIANT_TOKEN = getIntent().getStringExtra(GIANT_TOKEN_HOME);
@@ -1042,6 +1041,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
                 @Override
                 public void onConfirm(int type) {
                     setResult(LHomeActivity.GIANT_ADDVEHICLE_RESULT);
+                    finish();
                 }
 
                 @Override
@@ -1055,4 +1055,6 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
             startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode, bundle);
         }
     }
+
+
 }
