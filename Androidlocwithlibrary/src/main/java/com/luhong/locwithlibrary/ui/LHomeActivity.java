@@ -100,7 +100,7 @@ import static com.luhong.locwithlibrary.ui.equipment.LDeviceAddActivity.ADDDEVIC
 public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements BaseMvpView, AMap.OnMarkerClickListener, AMap.InfoWindowAdapter, HomeContract.View, ServiceConnection {
     public static final String GIANT_TOKEN_HOME = "GIANT_TOKEN_HOME";
     public static final String GIANT_PHONE_HOME = "GIANT_PHONE_HOME";
-
+    public static final int GIANT_ADDVEHICLE_RESULT = 0x0012;
     public final int TYPE_INIT = -1;//初始状态
     public final int TYPE_NORMAL = 0;//未绑定设备状态
     private final int TYPE_FORTIFICATION = 1;//设防状态
@@ -1041,9 +1041,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
 
                 @Override
                 public void onConfirm(int type) {
-                    Bundle bundle = new Bundle();
-                    bundle.putBoolean("isHome", true);
-                    startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode, bundle);
+                    setResult(LHomeActivity.GIANT_ADDVEHICLE_RESULT);
                 }
 
                 @Override

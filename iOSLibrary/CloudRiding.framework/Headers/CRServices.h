@@ -38,6 +38,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isRelease;
 
 
+
+
+/**
+ *处理添加车辆方法回调
+ *
+ *@param addCarAtion block回调（currentVC 当前控制器对象）
+ *
+ *
+ */
+-(void)handleAddCarAtion:(void(^)(id currentVC))addCarAtion;
+
 /**
  *支付处理回调
  *

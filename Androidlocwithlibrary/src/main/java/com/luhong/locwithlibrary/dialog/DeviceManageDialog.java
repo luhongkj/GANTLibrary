@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,12 @@ public class DeviceManageDialog extends BaseDialog {
     RelativeLayout rl_contentBg;
     @BindView(R2.id.tv_content_devicePrompt)
     TextView tvContent;
+
+    @BindView(R2.id.view_lin)
+    View view_lin;
+
+    @BindView(R2.id.iv_close_deviceRecord)
+    ImageView iv_close_deviceRecord;
 
     private static DeviceManageDialog devicePromptDialog;
     private IEventListeners confirmListener;
@@ -87,6 +94,8 @@ public class DeviceManageDialog extends BaseDialog {
 //oweFeeType 欠费类型（1：确认补缴，2、立即补缴（充钱去））
                 int feecon = (int) (feemoney / FEEMONTHLY);
                 tvContent.setText("设备已欠费" + feecon + "个月,请补缴后再解绑。");
+                view_lin.setVisibility(View.GONE);
+                iv_close_deviceRecord.setVisibility(View.GONE);
                 tvTitle.setText("确定解绑设备");
                 if (feeType.equals("1"))
                     tvConfirm.setText("确认补缴");
@@ -97,6 +106,8 @@ public class DeviceManageDialog extends BaseDialog {
             case DIALOG_NORMAL://2  正常解绑
                 tvContent.setText("设备解绑后,会持续扣除设备的月租费用,再次使用该设备,需补缴所欠费费用。");
                 tvTitle.setText("温馨提示");
+                view_lin.setVisibility(View.GONE);
+                iv_close_deviceRecord.setVisibility(View.GONE);
                 tvConfirm.setText("确认解绑");
                 break;
 
@@ -105,12 +116,16 @@ public class DeviceManageDialog extends BaseDialog {
                         "2.设备解绑后,会持续扣除设备的月租费用,再次使用该设备,需补缴所欠费费用。");
                 tvTitle.setText("确定解绑设备");
                 tvConfirm.setText("确认解绑");
+                view_lin.setVisibility(View.GONE);
+                iv_close_deviceRecord.setVisibility(View.GONE);
                 break;
             case DIALOG_ADDRESS_NULL:
                 tvTitle.setText("温馨提示");
-                tvConfirm.setText("知道了");
+                tvConfirm.setText("去添加");
                 tvContent.setText("当前您未添加车辆，请添加车辆再添加设备。");
                 tv_clo_devicePrompt.setVisibility(View.GONE);
+                view_lin.setVisibility(View.VISIBLE);
+                iv_close_deviceRecord.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -125,6 +140,14 @@ public class DeviceManageDialog extends BaseDialog {
             }
         });
         tv_clo_devicePrompt.setOnClickListener(new SingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if (confirmListener != null) confirmListener.onCancel();
+                cancel();
+            }
+        });
+
+        iv_close_deviceRecord.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 if (confirmListener != null) confirmListener.onCancel();
