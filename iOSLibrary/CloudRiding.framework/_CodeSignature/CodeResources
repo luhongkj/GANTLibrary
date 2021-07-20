@@ -5688,6 +5688,10 @@
 		<data>
 		qO949tmgOFgR8GHML2RWUHRCunc=
 		</data>
+		<key>CRSecurityWriteInfomationCell.nib</key>
+		<data>
+		izOxwIHFS27MSiM29Et9MfQCF/A=
+		</data>
 		<key>Headers/CRBaseViewController.h</key>
 		<data>
 		O5KF/SzDHicxkSP4ehiTv3THAl4=
@@ -21410,6 +21414,17 @@
 			<key>hash2</key>
 			<data>
 			4IF5xB/2ZUXmJLfCr5PtyRBLQxzFgsLceCOthUQQVCc=
+			</data>
+		</dict>
+		<key>CRSecurityWriteInfomationCell.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			izOxwIHFS27MSiM29Et9MfQCF/A=
+			</data>
+			<key>hash2</key>
+			<data>
+			cQJkyHbgaXj2/1e+H5oPIk3RKT0X1zmE91Hwd8pLZUM=
 			</data>
 		</dict>
 		<key>Headers/CRBaseViewController.h</key>
