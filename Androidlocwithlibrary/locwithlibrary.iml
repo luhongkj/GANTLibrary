@@ -19,7 +19,7 @@
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/build/generated/res/resValues/debug" />
         <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
         <option name="PROJECT_TYPE" value="1" />
@@ -131,7 +131,7 @@
     <orderEntry type="library" name="Gradle: com.google.zxing:core:3.3.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.amap.api:location:5.3.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.amap.api:search:7.9.0@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.amap.api:navi-3dmap:7.9.1_3dmap7.9.1@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.amap.api:navi-3dmap:8.0.0_3dmap8.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.jakewharton.rxbinding2:rxbinding:2.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.qianwen:okhttp-utils:3.8.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.githubZYQ:easypermission:v1.0.0@aar" level="project" />

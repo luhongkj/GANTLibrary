@@ -1,5 +1,4 @@
 package com.luhong.locwithlibrary.fragment;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -42,8 +41,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.luhong.locwithlibrary.api.AppVariable.BACK_ACTIVITE;
 import static com.luhong.locwithlibrary.api.AppVariable.FEEMONTHLY;
-
 /**
  * 设备信息framgnet
  */
@@ -341,6 +340,10 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
                     ((DeviceManageActivity) mActivity).onRefresh();
                 }
             }, 2000);
+        }
+        if (resultCode == BACK_ACTIVITE) {
+           mActivity.setResult(BACK_ACTIVITE);
+            mActivity.finish();
         }
     }
 

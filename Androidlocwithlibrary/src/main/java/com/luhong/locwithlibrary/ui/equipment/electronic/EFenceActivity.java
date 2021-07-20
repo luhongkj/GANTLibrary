@@ -152,7 +152,7 @@ public class EFenceActivity extends BaseMvpActivity<EFencePresenter> implements 
                     if (isbalance < DateUtils.dateToStamp(installModeEntity.getFenceAlarmDate())) {
                         isPay = false;
                         isbalance = DateUtils.dateToStamp(installModeEntity.getFenceAlarmDate());
-                        paySuccess(DevicePromptDialog.TYPE_PAY_PHONE_SUCCESS, installModeEntity.getFenceAlarmDate());
+                        paySuccess(DevicePromptDialog.TYPE_PAY_FENCE_SUCCESS, installModeEntity.getFenceAlarmDate());
                     }
                 }
             }
@@ -219,6 +219,16 @@ public class EFenceActivity extends BaseMvpActivity<EFencePresenter> implements 
     }
 
     private void paySuccess(int type, String content) {
+        Map<String, Object> bodyParams = new HashMap<>();
+        bodyParams.put("vehicleId", AppVariable.currentVehicleId);
+        bodyParams.put("flowId", "A" + System.currentTimeMillis());
+        if (TextUtils.isEmpty(initRadius)) {
+            bodyParams.put("paramValue", "300");//半径
+        } else {
+            bodyParams.put("paramValue", initRadius);//半径
+        }
+        bodyParams.put("msgId", AppConstants.MSG_EFENCE_FORTIFICATION);
+        mPresenter.sendCommand(bodyParams);
         DevicePromptDialog.getInstance(mActivity).showDialog(type, "", content, new BaseDialog.IEventListener() {
             @Override
             public void onConfirm() {

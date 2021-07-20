@@ -63,9 +63,7 @@ import com.luhong.locwithlibrary.entity.HomeDataEntity;
 import com.luhong.locwithlibrary.entity.UserEntity;
 import com.luhong.locwithlibrary.entity.VehicleListEntity;
 import com.luhong.locwithlibrary.event.NetworkEvent;
-import com.luhong.locwithlibrary.listener.IRequestListener;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
-import com.luhong.locwithlibrary.model.IPermissionModel;
 import com.luhong.locwithlibrary.presenter.BaseMvpView;
 import com.luhong.locwithlibrary.presenter.home.HomePresenter;
 import com.luhong.locwithlibrary.presenter.server.LocationService;
@@ -94,6 +92,8 @@ import butterknife.BindView;
 import static com.luhong.locwithlibrary.api.AppConstants.DEVICETYPE_1;
 import static com.luhong.locwithlibrary.api.AppConstants.DEVICETYPE_2;
 import static com.luhong.locwithlibrary.api.AppConstants.DEVICETYPE_3;
+import static com.luhong.locwithlibrary.api.AppConstants.REQUEST_CODE;
+import static com.luhong.locwithlibrary.api.AppVariable.BACK_ACTIVITE;
 import static com.luhong.locwithlibrary.api.AppVariable.FEEMONTHLY;
 import static com.luhong.locwithlibrary.ui.equipment.LDeviceAddActivity.ADDDEVICE_RESULT_;
 
@@ -111,6 +111,10 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     MapView mapView;
     @BindView(R2.id.tv_weather_home)
     TextView tv_weather;
+
+    @BindView(R2.id.tv_time_home)
+    TextView tv_time_home;
+
     @BindView(R2.id.iv_myLocation_home)
     ImageView iv_myLocation;
     @BindView(R2.id.iv_deviceLocation_home)
@@ -139,12 +143,16 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     private volatile DevicePositionEntity positionEntity;
     private DevicePromptDialog devicePromptDialog;
     private String currentCity;
+    String phone = "";
+
     //    private File textFile;
     @Override
     protected void initData() {
         AppVariable.GIANT_TOKEN = getIntent().getStringExtra(GIANT_TOKEN_HOME);
         AppVariable.GIANT_PHONE = getIntent().getStringExtra(GIANT_PHONE_HOME);
         SPUtils.put(this, BaseConstants.TOKEN, AppVariable.GIANT_TOKEN);
+        phone = SPUtils.getString(this, BaseConstants.USERNAME_KEY, "");
+        SPUtils.put(this, BaseConstants.USERNAME_KEY, AppVariable.GIANT_PHONE);
         currentCity = SPUtils.getString(mActivity, AppConstants.CURRENT_CITY, "深圳市");
         String latLng = SPUtils.getString(mActivity, "phoneLatLng", "");
         if (!TextUtils.isEmpty(latLng)) {
@@ -152,6 +160,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
             if (split != null && split.length > 1)
                 phoneLatLng = new LatLng(Double.valueOf(split[0]), Double.valueOf(split[1]));
         }
+    //    loadCache();
     }
 
     @Override
@@ -182,13 +191,13 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         }, 1500);
 
         initMap();
-        loadCache();
+        currentCity = SPUtils.getString(mActivity, AppConstants.CURRENT_CITY, "深圳市");
         LocationService.bindService(mActivity, this);
         searchLiveWeather(currentCity);
         initTitleView(true, "鹿卫士", "我的", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startIntentActivity(MyActivity.class);
+                startIntentActivityForResult(MyActivity.class, BACK_ACTIVITE);
             }
         });
     }
@@ -206,10 +215,10 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
-            if (!TextUtils.isEmpty(AppVariable.currentVehicleId)) {
-                mPresenter.getHomeData();
-                mPresenter.getTrackInfo(mActivity);
-                if (dataType == TYPE_UNFORTIFICATION) {
+            if (AppVariable.GIANT_ISBIN) {
+                if (!TextUtils.isEmpty(AppVariable.currentVehicleId)) {
+                    mPresenter.getHomeData();
+                    mPresenter.getTrackInfo(mActivity);
                     handler.removeMessages(0);
                     handler.sendEmptyMessageDelayed(0, 15000);
                 }
@@ -492,6 +501,10 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     @Override
     public void onTrackInfoSuccess(DevicePositionEntity positionEntity) {
         this.positionEntity = positionEntity;
+        if (positionEntity != null) {
+            tv_time_home.setVisibility(View.VISIBLE);
+            tv_time_home.setText("最后上线 : " + positionEntity.getActiveTime());
+        }
         updateDevicePosition(false);
     }
 
@@ -567,6 +580,11 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
                 }
             }, 2000);
         }
+
+        if (resultCode == BACK_ACTIVITE) {
+            setResult(LHomeActivity.GIANT_ADDVEHICLE_RESULT);
+            finish();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -603,7 +621,8 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         if (!AppVariable.GIANT_ISBIN) {
             return;
         }
-        loadCache();
+   //     loadCache();
+
         mPresenter.getHomeData();
     }
 
@@ -648,6 +667,11 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
 
     //获取缓存数据
     private void loadCache() {
+        if (!phone.equals(AppVariable.GIANT_PHONE)) {
+            return;
+        } else {
+            SPUtils.put(this, BaseConstants.USERNAME_KEY, "");
+        }
         positionEntity = SPUtils.getObject(mActivity,
                 AppConstants.LAST_DEVICE_POSITION_KEY + AppVariable.currentDeviceId,
                 new TypeToken<DevicePositionEntity>() {
@@ -683,6 +707,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         dataType = type;
         if (dataType == TYPE_FORTIFICATION) {//车辆设防22
             handler.removeMessages(0);
+            handler.sendEmptyMessageDelayed(0, 15000);
             rl_addVehicle.setBackgroundResource(R.mipmap.home_fortification_bg);
             tv_addVehicle.setCompoundDrawablesRelativeWithIntrinsicBounds(null, ResUtils.resToDrawable(mActivity, R.mipmap.home_fortification), null, null);
             tv_addVehicle.setText("已设防");
@@ -970,13 +995,16 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        if (handler != null) {
+            handler.removeMessages(0);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.getHomeData();
-        if (dataType == TYPE_UNFORTIFICATION) {
+        if (handler != null) {
+            mPresenter.getHomeData();
             handler.removeMessages(0);
             handler.sendEmptyMessageDelayed(0, 15000);
         }
@@ -998,7 +1026,9 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
     public void onDestroy() {
         super.onDestroy();
         if (mapView != null) mapView.onDestroy();
-        handler.removeMessages(0);
+        if (handler != null) {
+            handler.removeMessages(0);
+        }
         if (locationBinder != null) locationBinder.stopService();
     }
 

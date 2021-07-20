@@ -124,7 +124,7 @@ public class FeedbackActivity extends BaseMvpActivity<FeedbackPresenter> impleme
             public void onSingleClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString(BaseConstants.WEB_TITLE_KEY, "常见问题");
-                bundle.putString(BaseConstants.WEB_URL_KEY, BuildConfig.BASE_WEB_URL + "Common-problem.pdf");
+                bundle.putString(BaseConstants.WEB_URL_KEY, BuildConfig.BASE_WEB_URL + "Common-problem-lib.pdf");
                 startIntentActivity(BasePdfActivity.class, bundle);
             }
         });

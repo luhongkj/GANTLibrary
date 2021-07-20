@@ -1,14 +1,19 @@
 package com.luhong.locwithlibrary.ui.my;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.R2;
 import com.luhong.locwithlibrary.api.AppVariable;
+import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseActivity;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.FlowAccountContract;
@@ -17,6 +22,7 @@ import com.luhong.locwithlibrary.entity.FlowBillEntity;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
 import com.luhong.locwithlibrary.net.response.BasePageEntity;
 import com.luhong.locwithlibrary.presenter.FlowAccountPresenter;
+import com.luhong.locwithlibrary.ui.BasePdfActivity;
 import com.luhong.locwithlibrary.ui.equipment.DeviceManageActivity;
 import com.luhong.locwithlibrary.ui.equipment.FlowAccountActivity;
 import com.luhong.locwithlibrary.ui.equipment.SpecificationActivity;
@@ -25,6 +31,8 @@ import com.luhong.locwithlibrary.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.luhong.locwithlibrary.api.AppVariable.BACK_ACTIVITE;
 
 public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements FlowAccountContract.View {
 
@@ -52,6 +60,9 @@ public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements
     LinearLayout llSpecification;
     @BindView(R2.id.ll_opinion)
     LinearLayout llOpinion;
+
+    @BindView(R2.id.ll_agreement)
+    LinearLayout ll_agreement;
 
     @Override
     protected int initLayoutId() {
@@ -84,9 +95,20 @@ public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements
                     ToastUtil.show("请添加设备");
                     return;
                 }
-                startIntentActivity(DeviceManageActivity.class);
+                startIntentActivityForResult(DeviceManageActivity.class, 100);
             }
         });
+//https://app.luhongkj.com:9443/doc/privacy-lib.pdf
+        ll_agreement.setOnClickListener(new SingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(BaseConstants.WEB_TITLE_KEY, "隐私协议");
+                bundle.putString(BaseConstants.WEB_URL_KEY, BuildConfig.BASE_WEB_URL + "privacy-lib.pdf");
+                startIntentActivity(BasePdfActivity.class, bundle);
+            }
+        });
+
         llFlow.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -160,5 +182,14 @@ public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements
     protected void onResume() {
         super.onResume();
         mPresenter.getFlowAccountInfo();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == BACK_ACTIVITE) {
+            setResult(BACK_ACTIVITE);
+            finish();
+        }
     }
 }

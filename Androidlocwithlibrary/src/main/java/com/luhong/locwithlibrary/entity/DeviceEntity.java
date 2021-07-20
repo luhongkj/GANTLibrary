@@ -97,7 +97,6 @@ public class DeviceEntity implements Serializable {
         return fenceAlarmDeadline;
     }
 
-
     public void setTelAlarmIsOpen(String telAlarmIsOpen) {
         this.telAlarmIsOpen = telAlarmIsOpen;
     }

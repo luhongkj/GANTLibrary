@@ -18,9 +18,10 @@ import java.util.List;
 public class VehiclechoiceAdapter extends BaseRecyclerAdapter<VehicleListEntity> {
     private ISportRecordListener sportRecordListener;
 
-    public VehiclechoiceAdapter(Context context, List<VehicleListEntity> dataList, ISportRecordListener sportRecordListener) {
+    public VehiclechoiceAdapter(Context context, List<VehicleListEntity> dataList, List<DeviceEntity> dataListsss, ISportRecordListener sportRecordListener) {
         super(context, dataList, true);
         this.sportRecordListener = sportRecordListener;
+        this.dataListsss = dataListsss;
     }
 
     @Override
@@ -28,9 +29,20 @@ public class VehiclechoiceAdapter extends BaseRecyclerAdapter<VehicleListEntity>
         return R.layout.adapter_vehicle_chioce;
     }
 
+    List<DeviceEntity> dataListsss;
+
+
     @Override
     protected void convert(RecyclerViewHolder holder, final VehicleListEntity data, final int position) {
         TextView tv_left_title = holder.findView(R.id.tv_left_title);
+        TextView tv_left_contnet = holder.findView(R.id.tv_left_contnet);
+        if (dataListsss != null) {
+            for (DeviceEntity entity : dataListsss) {
+                if (entity.getVin().equals(data.getVin())) {
+                    tv_left_contnet.setText("(车辆已有设备绑定)");
+                }
+            }
+        }
         tv_left_title.setText(data.getVehicleName());
         ImageView iv_check_alarmRadius_item = holder.findView(R.id.iv_check_alarmRadius_item);
         if (data.getFlag()) {

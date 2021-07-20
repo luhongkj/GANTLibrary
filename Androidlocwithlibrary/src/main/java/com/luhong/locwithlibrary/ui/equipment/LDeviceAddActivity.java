@@ -12,13 +12,16 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.R2;
 import com.luhong.locwithlibrary.api.AppConstants;
 import com.luhong.locwithlibrary.api.AppVariable;
+import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.base.BasePopupWindow;
 import com.luhong.locwithlibrary.contract.home.DeviceAddContract;
+import com.luhong.locwithlibrary.dialog.DeviceManageDialog;
 import com.luhong.locwithlibrary.dialog.VerifyPhoneDialog;
 import com.luhong.locwithlibrary.entity.DeviceEntity;
 import com.luhong.locwithlibrary.entity.InstallModeEntity;
@@ -28,6 +31,7 @@ import com.luhong.locwithlibrary.entity.VehicleListEntity;
 import com.luhong.locwithlibrary.entity.VehicleModelEntity;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
 import com.luhong.locwithlibrary.presenter.home.DeviceAddPresenter;
+import com.luhong.locwithlibrary.ui.BasePdfActivity;
 import com.luhong.locwithlibrary.ui.CaptureActivity;
 import com.luhong.locwithlibrary.utils.Logger;
 import com.luhong.locwithlibrary.utils.LoginSuccessUtil;
@@ -93,6 +97,8 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
     VehicleListEntity cheVehicleList;
     private DeviceEntity deviceParams;
 
+    private boolean falg;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_device_add;
@@ -135,6 +141,14 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
                         }
 
                         @Override
+                        public void onPrivacy() {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(BaseConstants.WEB_TITLE_KEY, "隐私协议");
+                            bundle.putString(BaseConstants.WEB_URL_KEY, BuildConfig.BASE_WEB_URL + "privacy-lib.pdf");
+                            startIntentActivity(BasePdfActivity.class, bundle);
+                        }
+
+                        @Override
                         public void onCancel() {
                             myPopupWindow.dismiss();
                         }
@@ -158,6 +172,7 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
         deviceParams.setVehicleType(cheVehicleList.getVehicleModel());
         //                    }
         showLoading("数据提交中...", false);
+        falg = true;
         mPresenter.addVehicle(deviceParams, btnConfirmDeviceAdd);
     }
 
@@ -182,6 +197,7 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
         cancelLoading();
         mPresenter.checkTokenBind();
     }
+
     InstallModeEntity modeEntity;
     String deviceSn;
 
@@ -246,6 +262,19 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
     @Override
     public void onFailure(int errType, String errMsg) {
         cancelLoading();
+        if (falg) {
+            falg = false;
+            DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_ADDRESS_OFF_LIN, 0, errMsg, new DeviceManageDialog.IEventListeners() {
+                @Override
+                public void onConfirm(int type) {
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            });
+        }
     }
 
     @Override

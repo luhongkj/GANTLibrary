@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,18 +22,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_alignTop="@id/ll"
+            android:layout_marginTop="-120dp"
             android:gravity="center"
-            android:text="将二维码放入取景框中即可扫描"
+            android:text="请确保设备在充电中且绿灯闪烁,才能绑定"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:visibility="visible" />
+            android:textSize="16sp" />
 
         <LinearLayout
+            android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_margin="40dp"
+            android:layout_alignParentBottom="true"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -58,11 +60,12 @@
                 android:drawableTop="@mipmap/qr_light_on"
                 android:drawablePadding="10dp"
                 android:gravity="center_horizontal"
+
                 android:padding="10dp"
                 android:text="轻触照亮"
                 android:textColor="@color/theme_color" />
         </LinearLayout>
-    </FrameLayout>
+    </RelativeLayout>
 
     <include layout="@layout/activity_title" />
 </RelativeLayout>

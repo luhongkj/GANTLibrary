@@ -15,6 +15,7 @@ import com.luhong.locwithlibrary.listener.SingleClickListener;
 import com.luhong.locwithlibrary.utils.ToastUtil;
 
 import butterknife.BindView;
+import butterknife.Unbinder;
 
 import static com.luhong.locwithlibrary.api.AppVariable.FEEMONTHLY;
 
@@ -52,7 +53,7 @@ public class DeviceManageDialog extends BaseDialog {
     public final static int DIALOG_NORMAL = 2;//正常解绑
     public final static int DIALOG_BUY_INSURANCE = 3;//已购保解绑
     public final static int DIALOG_ADDRESS_NULL = 4;//车辆列表给空
-
+    public final static int DIALOG_ADDRESS_OFF_LIN = 5;//设备离线
     public static DeviceManageDialog getInstance(Context context) {
         devicePromptDialog = new DeviceManageDialog(context);
         return devicePromptDialog;
@@ -126,6 +127,14 @@ public class DeviceManageDialog extends BaseDialog {
                 tv_clo_devicePrompt.setVisibility(View.GONE);
                 view_lin.setVisibility(View.VISIBLE);
                 iv_close_deviceRecord.setVisibility(View.VISIBLE);
+                break;
+            case DIALOG_ADDRESS_OFF_LIN:
+                tvContent.setText(feeType);
+                tvTitle.setText("温馨提示");
+                view_lin.setVisibility(View.GONE);
+                tv_clo_devicePrompt.setVisibility(View.GONE);
+                iv_close_deviceRecord.setVisibility(View.GONE);
+                tvConfirm.setText("知道了");
                 break;
         }
     }

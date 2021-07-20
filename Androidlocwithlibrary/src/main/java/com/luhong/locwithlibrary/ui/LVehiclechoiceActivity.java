@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.luhong.locwithlibrary.api.AppVariable.BACK_ACTIVITE;
 import static com.luhong.locwithlibrary.ui.equipment.LDeviceAddActivity.ADDDEVICE_RESULT_;
 
 public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresenter> implements LVehicleChoiceContract.View {
@@ -50,7 +51,6 @@ public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresen
 
     @Override
     protected void fetchData() {
-        mPresenter.getVehicle();
         mPresenter.getDeviceList(this);
     }
 
@@ -63,7 +63,13 @@ public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresen
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        initTitleView(true, "爱车列表");
+        initTitleView(true, "爱车列表", "添加爱车", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(BACK_ACTIVITE);
+                finish();
+            }
+        });
         isHome = getIntent().getBooleanExtra("isHome", false);
         rvList.setLayoutManager(new LinearLayoutManager(this));
         btnConfirm.setOnClickListener(new SingleClickListener() {
@@ -126,7 +132,7 @@ public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresen
     @Override
     public void onVehicleListSuccess(List<VehicleListEntity> resultEntity) {
         this.list = resultEntity;
-        adapter = new VehiclechoiceAdapter(this, list, new VehiclechoiceAdapter.ISportRecordListener() {
+        adapter = new VehiclechoiceAdapter(this, list, dataList, new VehiclechoiceAdapter.ISportRecordListener() {
             @Override
             public void onEdit(VehicleListEntity data, int position) {
                 cheVehicleList = data;
@@ -145,6 +151,7 @@ public class LVehiclechoiceActivity extends BaseMvpActivity<LVehicleChoicePresen
     @Override
     public void onDeviceListSuccess(List<DeviceEntity> dataList) {
         this.dataList = dataList;
+        mPresenter.getVehicle();
     }
 
     @Override

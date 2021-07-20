@@ -7,7 +7,7 @@ public class DevicePositionEntity implements Serializable
     public static final String TYPE_FORTIFICATION = "22";//设防状态
     public static final String TYPE_UNFORTIFICATION = "32";//解防状态
     private String safy;//车辆设防状态(设防22，撤防32)
-    private String activeTime;//终端上报时间
+    private String activeTime = "";//终端上报时间
     private String imei;//设备号
     private String course;//方向角
     private String gpsmile;

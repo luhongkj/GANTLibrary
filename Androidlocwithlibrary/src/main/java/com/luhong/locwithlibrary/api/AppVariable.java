@@ -16,4 +16,6 @@ public class AppVariable {
     public static String GIANT_PHONE ;//捷安特登录手机号
     public static float FEEMONTHLY ;//月租费/月
     public static boolean GIANT_ISBIN ;//是否注册过鹿卫士设备
+
+    public static int BACK_ACTIVITE =0x0012;//销毁界面
 }

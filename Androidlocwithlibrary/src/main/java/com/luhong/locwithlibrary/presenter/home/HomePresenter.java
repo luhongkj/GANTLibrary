@@ -52,14 +52,16 @@ public class HomePresenter extends HomeContract.Presenter {
     private ILoginModel loginModel;
     private ICheckTokenBind checkTokenBind;
     private ILVehicleChioce ilVehicleChioce;
+
     public HomePresenter() {
     }
+
     @Override
     public void getVehicle() {
         if (ilVehicleChioce == null) ilVehicleChioce = new LCehicleChioceMode();
-        ApiClient.getInstance().doSubscribe(ilVehicleChioce.getVehicle(), new BaseObserver< List<VehicleListEntity>>() {
+        ApiClient.getInstance().doSubscribe(ilVehicleChioce.getVehicle(), new BaseObserver<List<VehicleListEntity>>() {
             @Override
-            protected void onSuccess( List<VehicleListEntity> resultEntity, String msg) {
+            protected void onSuccess(List<VehicleListEntity> resultEntity, String msg) {
                 if (isViewAttached()) baseMvpView.onVehicleListSuccess(resultEntity);
             }
 
@@ -69,6 +71,7 @@ public class HomePresenter extends HomeContract.Presenter {
             }
         });
     }
+
     @Override
     public void checkLocationInit(BaseActivity mActivity) {
         if (permissionModel == null) permissionModel = new PermissionModel();
@@ -206,10 +209,11 @@ public class HomePresenter extends HomeContract.Presenter {
             }
         });
     }
+
     @Override
     public void checkTokenBind() {
         if (checkTokenBind == null) checkTokenBind = new CheckTokenBind();
-        ApiClient.getInstance().doSubscribe(checkTokenBind.checkTokenBind(), new BaseObserver<UserEntity>() {
+        ApiClient.getInstance().doSubscribe(checkTokenBind.checkTokenBind(), new BaseObserver<UserEntity>(false) {
             @Override
             protected void onSuccess(UserEntity resultEntity, String msg) {
                 if (isViewAttached()) baseMvpView.onCheckTokenBindSuccess(resultEntity);

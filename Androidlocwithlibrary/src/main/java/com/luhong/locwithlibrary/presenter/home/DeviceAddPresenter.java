@@ -41,7 +41,7 @@ public class DeviceAddPresenter extends DeviceAddContract.Presenter {
     public void addVehicle(DeviceEntity deviceEntity, View view) {
         if (deviceManageModel == null) deviceManageModel = new DeviceManageModel();
         view.setEnabled(false);
-        ApiClient.getInstance().doSubscribe(deviceManageModel.addVehicle(deviceEntity), new BaseObserver<Object>() {
+        ApiClient.getInstance().doSubscribe(deviceManageModel.addVehicle(deviceEntity), new BaseObserver<Object>(false) {
             @Override
             protected void onSuccess(Object resultEntity, String msg) {
                 ToastUtil.show("设备添加成功");

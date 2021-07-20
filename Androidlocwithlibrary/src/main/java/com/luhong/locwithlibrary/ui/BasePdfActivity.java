@@ -53,10 +53,9 @@ import okhttp3.Response;
 import retrofit2.HttpException;
 
 /**
- * 常见问题：http://app.luhongkj.com:8820/doc/Common-problem.pdf
- * 许可服务协议：http://app.luhongkj.com:8820/doc/license-agreement.pdf
- * 产品说明：http://app.luhongkj.com:8820/doc/product-description.pdf
- * 保障协议：http://app.luhongkj.com:8820/doc/bicycle-agreement.pdf
+ https://app.luhongkj.com:9443/doc/Common-problem-lib.pdf    常见问题
+ https://app.luhongkj.com:9443/doc/product-description-lib.pdf 产品说明书
+ https://app.luhongkj.com:9443/doc/bicycle-agreement-lib.pdf 保障协议
  * 隐私政策：http://app.luhongkj.com:8820/doc/privacy.pdf
  * Created by ITMG on 2020-01-19.
  */

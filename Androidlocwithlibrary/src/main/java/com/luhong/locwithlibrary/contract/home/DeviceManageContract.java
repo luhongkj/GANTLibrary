@@ -33,6 +33,7 @@ public interface DeviceManageContract {
         public abstract void deleteDevice(DeviceEntity deviceEntity);
 
         public abstract void getProductDescription(Context context, String sn);
+
         public abstract void getSafeguardMine();
         public abstract void getVehicleConfirmPay(String deviceSn, float oweFee);
     }

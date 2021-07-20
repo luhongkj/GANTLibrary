@@ -46,6 +46,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import butterknife.BindView;
 
+import static com.luhong.locwithlibrary.api.AppVariable.BACK_ACTIVITE;
+
 
 public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter> implements DeviceManageContract.View, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R2.id.swipeRefreshLayout_deviceManage)
@@ -79,7 +81,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
                     @Override
                     public void onPermissionsAccess(int requestCode) {
                         super.onPermissionsAccess(requestCode);
-                        startIntentActivityForResult(LVehiclechoiceActivity.class, CaptureActivity.resultDecode);
+                        startIntentActivityForResult(LVehiclechoiceActivity.class,100);
                     }
 
                     @Override
@@ -216,18 +218,12 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CaptureActivity.resultDecode) {
-            if (data == null) return;
-            String content = data.getStringExtra(CaptureActivity.dataTypeKey);
-            if (TextUtils.isEmpty(content)) return;
-            Logger.error("二维码内容= " + content);
-            if (content.length() == AppConstants.DEVICE_SN_LENGTH) {
-                startIntentActivityForResult(LDeviceAddActivity.class, AppConstants.REQUEST_CODE_ADD, AppConstants.dataTypeKey, content);
-            } else {
-                showToast(content);
-            }
-        } else if (requestCode == AppConstants.REQUEST_CODE_ADD) {
+       if (requestCode == AppConstants.REQUEST_CODE_ADD) {
             fetchData();
+        }
+        if (resultCode == BACK_ACTIVITE) {
+            setResult(BACK_ACTIVITE);
+            finish();
         }
     }
 

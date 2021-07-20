@@ -235,7 +235,7 @@ public interface ApiServer {
     Observable<BaseResponse<FenceRadiusEntity>> getFenceRadius(@Body Map<String, Object> bodyParams);
 
     //获取产品说明书PDF链接
-    @POST("common/api/productDescription/findBySn")
+    @POST("jieante/pdf/findBySn")
     Observable<BaseResponse<PdfEntity>> getProductDescription(@Body Map<String, Object> bodyParams);
 
     //修改系统消息为已读。必填项：id

@@ -1,7 +1,9 @@
 package com.luhong.locwithlibrary.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,9 +16,13 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.R2;
+import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
+import com.luhong.locwithlibrary.ui.BasePdfActivity;
+import com.luhong.locwithlibrary.utils.ResUtils;
 import com.luhong.locwithlibrary.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -35,6 +41,12 @@ public class BasePopupWindow extends PopupWindow {
     @BindView(R2.id.iv_close_deviceRecord)
     ImageView ivCloseDeviceRecord;
 
+    @BindView(R2.id.tv_checkProtocol_verification)
+    TextView tv_checkProtocol_verification;
+
+    @BindView(R2.id.tv_privacy_verification)
+    TextView tv_privacy_verification;
+
     @BindView(R2.id.cePhoneCode)
     EditText cePhoneCode;
 
@@ -46,6 +58,8 @@ public class BasePopupWindow extends PopupWindow {
 
     private IEventListener confirmListener;
     String phone;
+
+    boolean isCheckProtocol = false;
 
     public BasePopupWindow(Context context, IEventListener confirmListener, String phone) {
         super(context);
@@ -125,14 +139,42 @@ public class BasePopupWindow extends PopupWindow {
                     ToastUtil.show("请输入验证码");
                     return;
                 }
+                if (!isCheckProtocol){
+                    ToastUtil.show("请你勾选并阅读隐私协议");
+                    return;
+                }
+
                 confirmListener.onConfirm(cePhoneCode.getText().toString());
                 if (countDownTimer != null) countDownTimer.cancel();
+            }
+        });
+
+        tv_checkProtocol_verification.setOnClickListener(new SingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                isCheckProtocol = !isCheckProtocol;
+                if (isCheckProtocol) {
+                    tv_checkProtocol_verification.setCompoundDrawablesRelativeWithIntrinsicBounds(ResUtils.resToDrawable(mContext, R.mipmap.verification_protocol_foc), null, null, null);
+                } else {
+                    tv_checkProtocol_verification.setCompoundDrawablesRelativeWithIntrinsicBounds(ResUtils.resToDrawable(mContext, R.mipmap.verification_protocol_nor), null, null, null);
+                }
+                tvConfirmDeviceRecord.setEnabled(isCheckProtocol);
+            }
+        });
+        tv_privacy_verification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmListener.onPrivacy();
             }
         });
         //获取验证码
         tvGetCode.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                if (!isCheckProtocol){
+                    ToastUtil.show("请你勾选并阅读隐私协议");
+                    return;
+                }
                 confirmListener.ongetCode(tvPhone.getText().toString());
                 if (countDownTimer != null) countDownTimer.cancel();
             }
@@ -178,6 +220,8 @@ public class BasePopupWindow extends PopupWindow {
         void onConfirm(String code);
 
         void ongetCode(String phone);
+
+        void onPrivacy();
 
         void onCancel();
     }

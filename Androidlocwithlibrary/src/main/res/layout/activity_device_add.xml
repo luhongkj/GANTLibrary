@@ -345,4 +345,12 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:text="确定添加" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:text="请确保设备在充电中且绿灯闪烁,再进行扫描"
+        android:textColor="#7A7976"
+        android:textSize="13sp" />
 </LinearLayout>
