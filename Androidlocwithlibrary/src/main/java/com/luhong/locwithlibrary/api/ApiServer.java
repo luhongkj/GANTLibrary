@@ -266,7 +266,6 @@ public interface ApiServer {
     @POST("msg/alarm/deleteBatch")
     Observable<BaseResponse<Object>> deleteAlarmMessage(@Body List<String> bodyParams);
 
-
     //运动记录
     @POST("sport/listTrack")
     Observable<BaseResponse<SportEntity>> getSportList(@Body Map<String, Object> bodyParams);
@@ -286,7 +285,6 @@ public interface ApiServer {
     // 实时码表数据上传
     @POST("sport/upload")
     Observable<BaseResponse<Object>> uploadSport(@Body CodeTableParams codeTableParams);//
-
 
     //车辆最后位置
     @POST("history/info")

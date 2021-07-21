@@ -44,7 +44,25 @@ public class AppUtils {
     }
 
 
+    public static String formatTime(int minuteStr) {
 
+        String resultStr = "";
+
+        if (minuteStr != 0) {
+            if (minuteStr / 60 == 0) {
+                resultStr =  "00:"+minuteStr % 60;
+            } else {
+                if (minuteStr % 60 == 0) {
+                    resultStr = "00:" + minuteStr / 60;
+                } else {
+                    resultStr = (minuteStr / 60 + ":" + minuteStr % 60);
+                }
+            }
+        } else {
+            resultStr = "00:00";
+        }
+        return resultStr;
+    }
 
     public static boolean installApp(Context context, File appFile) {
         try {
@@ -158,7 +176,6 @@ public class AppUtils {
 
     /**
      * 判断应用是否在前台
-     *
      * @param context
      * @return boolean
      */
@@ -176,7 +193,6 @@ public class AppUtils {
 
     /**
      * 判断应用是否已经启动
-     *
      * @param context     一个context
      * @param packageName 要判断应用的包名
      * @return boolean
@@ -230,7 +246,6 @@ public class AppUtils {
 
     /**
      * 版本信息
-     *
      * @param context
      * @return
      */

@@ -139,8 +139,8 @@ public class NavigateActivity extends BaseMvpActivity<NavigatePresenter> impleme
 
         mAMapNavi = AMapNavi.getInstance(getApplicationContext());
         mAMapNavi.addAMapNaviListener(this);
-        mAMapNavi.setUseInnerVoice(true, true);
-
+        mAMapNavi.setUseInnerVoice(true, false);
+        mAMapNavi.startSpeak();
         mAMap = mAMapNaviView.getMap();
         mAMap.setTrafficEnabled(false);
 
@@ -337,6 +337,7 @@ public class NavigateActivity extends BaseMvpActivity<NavigatePresenter> impleme
         } catch (Exception e) {
             Logger.error("退出导航出错= " + e);
         }
+        mAMapNavi.stopSpeak();
         super.onDestroy();
     }
 

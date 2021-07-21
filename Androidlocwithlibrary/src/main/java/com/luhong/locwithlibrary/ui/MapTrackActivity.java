@@ -45,6 +45,7 @@ import com.luhong.locwithlibrary.model.IMainView;
 import com.luhong.locwithlibrary.presenter.TrackDetailPresenter;
 import com.luhong.locwithlibrary.presenter.server.MoveCarCustomThread;
 import com.luhong.locwithlibrary.utils.AMapUtil;
+import com.luhong.locwithlibrary.utils.AppUtils;
 import com.luhong.locwithlibrary.utils.DateUtils;
 import com.luhong.locwithlibrary.utils.Logger;
 import com.luhong.locwithlibrary.utils.ResUtils;
@@ -317,7 +318,7 @@ public class MapTrackActivity extends CheckPermissionsActivity implements IMainV
             tvUphillMileageTrack.setText(resultEntity.getAscent());
             tvAverageSpeedTrack.setText("" + resultEntity.getAvgSpeed());
             tvMaxSpeedTrack.setText("" + resultEntity.getMaxSpeed());
-            tvDurationTrack.setText(resultEntity.getRideTime() + "");
+            tvDurationTrack.setText(AppUtils.formatTime(resultEntity.getRideTime()));
             tvDistributionSpeedTrack.setText("" + resultEntity.getPlanSpeed());
             tvEnergyTrack.setText(resultEntity.getReduction() + " kg");
             tvCaloriesTrack.setText(resultEntity.getCalorie() + " kcal");

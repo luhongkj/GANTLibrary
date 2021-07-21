@@ -53,9 +53,9 @@ import okhttp3.Response;
 import retrofit2.HttpException;
 
 /**
- https://app.luhongkj.com:9443/doc/Common-problem-lib.pdf    常见问题
- https://app.luhongkj.com:9443/doc/product-description-lib.pdf 产品说明书
- https://app.luhongkj.com:9443/doc/bicycle-agreement-lib.pdf 保障协议
+ * https://app.luhongkj.com:9443/doc/Common-problem-lib.pdf    常见问题
+ * https://app.luhongkj.com:9443/doc/product-description-lib.pdf 产品说明书
+ * https://app.luhongkj.com:9443/doc/bicycle-agreement-lib.pdf 保障协议
  * 隐私政策：http://app.luhongkj.com:8820/doc/privacy.pdf
  * Created by ITMG on 2020-01-19.
  */
@@ -102,29 +102,33 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
 //                        loadPDFFromAsset(file);
 //                        return;
 //                    }
-                 DownloadUtil.getInstance().download(mActivity,mWebUrl, FileUtils.getFileDir() ,fileSuffix, new DownloadUtil.OnDownloadListener() {
-                                @Override
-                                public void onDownloadSuccess(String path) {
-                                    progressBar.setProgress(0);
-                                    progressBar.setVisibility(View.GONE);
-                                    File file = new File(path);
-                                    loadPDFFromAsset(file);
-                                }
+                    DownloadUtil.getInstance().download(mActivity, mWebUrl, FileUtils.getFileDir(), fileSuffix, new DownloadUtil.OnDownloadListener() {
+                        @Override
+                        public void onDownloadSuccess(String path) {
+                            if (progressBar != null) {
+                                progressBar.setProgress(0);
+                                progressBar.setVisibility(View.GONE);
+                            }
+                            File file = new File(path);
+                            loadPDFFromAsset(file);
+                        }
 
-                                @Override
-                                public void onDownloading(int progress) {
-                                    Logger.error("下载进度total=" + progress + ",progress=" + progress);
-                                    progressBar.setProgress((int) (progress * 100));
-                                }
+                        @Override
+                        public void onDownloading(int progress) {
+                            Logger.error("下载进度total=" + progress + ",progress=" + progress);
+                            if (progressBar != null)
+                                progressBar.setProgress((int) (progress * 100));
+                        }
 
-                                @Override
-                                public void onDownloadFailed() {
-                                    Logger.error("下载出错=");
-                                    progressBar.setVisibility(View.GONE);
-                                    loadPDFFromAsset(null);
-                                }
+                        @Override
+                        public void onDownloadFailed() {
+                            Logger.error("下载出错=");
+                            if (progressBar != null)
+                                progressBar.setVisibility(View.GONE);
+                            loadPDFFromAsset(null);
+                        }
 
-                            });
+                    });
                  /*   OkHttpUtils.post().url(mWebUrl).build().execute(new FileCallBack(FileUtils.getFileDir(), fileSuffix) {
                         @Override
                         public void inProgress(float progress, long total, int id) {
@@ -168,15 +172,12 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
         });
     }
 
-
     @Override
     protected void onEventListener() {
-
     }
 
     @Override
     public void onLayerDrawn(Canvas canvas, float pageWidth, float pageHeight, int displayedPage) {
-
     }
 
     @Override
@@ -185,6 +186,7 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
     }
 
     private void loadPDFFromAsset(File file) {
+        if (pdfView == null) return;
         PDFView.Configurator configurator;
         if (file != null) {
             configurator = pdfView.fromFile(file);
@@ -228,5 +230,11 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
             errorMsg = getString(R.string.server_error);
         }
         return errorMsg;
+    }
+
+    @Override
+    protected void onDestroy() {
+        System.gc();
+        super.onDestroy();
     }
 }
