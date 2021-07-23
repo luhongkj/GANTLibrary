@@ -165,18 +165,6 @@ public class DeviceManageDialog extends BaseDialog {
         });
     }
 
-    private long firstPressedTime = 0;
-
-    @Override
-    public void onBackPressed() {
-        if (System.currentTimeMillis() - firstPressedTime > 2000) {
-            ToastUtil.show(R.string.exit_app);
-            firstPressedTime = System.currentTimeMillis();
-        } else {
-            BaseActivity.exitApp();
-        }
-    }
-
     /**
      * 事件监听
      */
