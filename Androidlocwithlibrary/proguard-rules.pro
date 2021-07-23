@@ -78,7 +78,8 @@
 -keep class com.autonavi.aps.amapapi.model.**{*;}
 -keep class com.amap.api.services.**{*;}
 -keep class com.amap.api.navi.**{*;}
--keep class com.autonavi.**{*;}
+-keep class com.alibaba.mit.alitts.*{*;}
+-keep class com.google.**{*;}
 # 高德地圖
 
 # 對外接口不可混淆

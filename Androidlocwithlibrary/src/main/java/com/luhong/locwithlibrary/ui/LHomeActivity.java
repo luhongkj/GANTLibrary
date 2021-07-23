@@ -160,7 +160,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
             if (split != null && split.length > 1)
                 phoneLatLng = new LatLng(Double.valueOf(split[0]), Double.valueOf(split[1]));
         }
-    //    loadCache();
+        //    loadCache();
     }
 
     @Override
@@ -504,6 +504,8 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         if (positionEntity != null) {
             tv_time_home.setVisibility(View.VISIBLE);
             tv_time_home.setText("最后上线 : " + positionEntity.getActiveTime());
+        } else {
+            tv_time_home.setVisibility(View.GONE);
         }
         updateDevicePosition(false);
     }
@@ -621,7 +623,7 @@ public class LHomeActivity extends BaseMvpActivity<HomePresenter> implements Bas
         if (!AppVariable.GIANT_ISBIN) {
             return;
         }
-   //     loadCache();
+        //     loadCache();
 
         mPresenter.getHomeData();
     }

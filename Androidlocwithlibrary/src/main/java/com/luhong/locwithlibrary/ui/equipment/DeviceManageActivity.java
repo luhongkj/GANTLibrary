@@ -142,6 +142,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
         });
     }
 
+    //添加解绑的是否是当前车辆
     @Override
     public void onRefresh() {
         fetchData();
@@ -186,29 +187,19 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     }
 
     @Override
-    public void onDeviceUpdateSuccess(DeviceEntity deviceEntity) {
-
-    }
+    public void onDeviceUpdateSuccess(DeviceEntity deviceEntity) { }
 
     @Override
-    public void onDeviceDeleteSuccess(boolean isCurrentDevice, DeviceEntity deviceEntity) {
-
-    }
+    public void onDeviceDeleteSuccess(boolean isCurrentDevice, DeviceEntity deviceEntity) { }
 
     @Override
-    public void onProductDescriptionSuccess(PdfEntity resultEntity) {
-
-    }
+    public void onProductDescriptionSuccess(PdfEntity resultEntity) { }
 
     @Override
-    public void onSafeguardMineSuccess(BasePageEntity<SafeguardEntity> pageList) {
-
-    }
+    public void onSafeguardMineSuccess(BasePageEntity<SafeguardEntity> pageList) { }
 
     @Override
-    public void onVehicleConfirmPaySuccess(Object resultEntity) {
-
-    }
+    public void onVehicleConfirmPaySuccess(Object resultEntity) {}
 
     @Override
     public void onFailure(int errType, String errMsg) {

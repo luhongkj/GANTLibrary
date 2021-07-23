@@ -291,9 +291,7 @@ public class RescueActivity extends BaseActivityTow {
             dialog.setContent("紧急救援提醒", "此功能需先添加紧急联系人方可生效");
             dialog.show();
         }
-
         Map<String, Object> params = new HashMap<>();
-
         params.put("vehicleId", AppVariable.currentVehicleId);
         params.put("type", 12);
         params.put("value", onOrOff ? 1 : 0);

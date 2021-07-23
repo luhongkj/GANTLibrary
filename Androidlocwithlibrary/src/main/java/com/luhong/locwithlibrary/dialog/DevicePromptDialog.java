@@ -45,6 +45,7 @@ public class DevicePromptDialog extends BaseDialog {
     @BindView(R2.id.tv_content_devicePrompt)
     TextView tvContent;
 
+
     private static DevicePromptDialog devicePromptDialog;
     private IEventListener confirmListener;
     private String deviceId;
@@ -108,14 +109,14 @@ public class DevicePromptDialog extends BaseDialog {
             tvTitle.setText("欠费补缴");
             rl_contentBg.setBackgroundResource(R.mipmap.prompt_arrears);
             int con = (int) ((Float.parseFloat(amount)) / (Float.parseFloat(cost)));
-            tvContent.setText(String.format(getContext().getString(R.string.recharge_supplement_text), deviceId, con+""));
+            tvContent.setText(String.format(getContext().getString(R.string.recharge_supplement_text), deviceId, con + ""));
             tvConfirm.setText("立即补缴");
         } else if (dataType == TYPE_ARREARS_CONFIRM) {
             setCancelable(true);
             tvTitle.setText("欠费补缴");
             rl_contentBg.setBackgroundResource(R.mipmap.prompt_arrears);
             int con = (int) ((Float.parseFloat(amount)) / (Float.parseFloat(cost)));
-            tvContent.setText(String.format(getContext().getString(R.string.arrears_confirm_text), deviceId, con+""));
+            tvContent.setText(String.format(getContext().getString(R.string.arrears_confirm_text), deviceId, con + ""));
             tvConfirm.setText("确认补缴");
         } else if (dataType == TYPE_SAFEGUARD) {
             setCancelable(true);
