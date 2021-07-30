@@ -54,6 +54,7 @@ public class DeviceManageDialog extends BaseDialog {
     public final static int DIALOG_BUY_INSURANCE = 3;//已购保解绑
     public final static int DIALOG_ADDRESS_NULL = 4;//车辆列表给空
     public final static int DIALOG_ADDRESS_OFF_LIN = 5;//设备离线
+    public final static int DIALOG_JURISDICTION= 6;//q权限提示
     public static DeviceManageDialog getInstance(Context context) {
         devicePromptDialog = new DeviceManageDialog(context);
         return devicePromptDialog;
@@ -135,6 +136,16 @@ public class DeviceManageDialog extends BaseDialog {
                 tv_clo_devicePrompt.setVisibility(View.GONE);
                 iv_close_deviceRecord.setVisibility(View.GONE);
                 tvConfirm.setText("知道了");
+                break;
+
+            case DIALOG_JURISDICTION:
+                tvTitle.setText("权限提示");
+                tvConfirm.setText("确定");
+                tv_clo_devicePrompt.setText("取消");
+                tvContent.setText("需要授予所有文件的管理权限");
+                tv_clo_devicePrompt.setVisibility(View.VISIBLE);
+                view_lin.setVisibility(View.GONE);
+                iv_close_deviceRecord.setVisibility(View.GONE);
                 break;
         }
     }

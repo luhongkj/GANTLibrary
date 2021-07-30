@@ -425,6 +425,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void requestStoragePermissions(EasyPermissionResult permissionResult) {
         PermissionsUtils.requestStoragePermissions(this, permissionResult);
     }
+    @RequiresApi(api = 30)
+    public void requestStoragePermissionsAll(EasyPermissionResult permissionResult) {
+        PermissionsUtils.requestManage_external_storagepermissions(this, permissionResult);
+    }
+
 
     @RequiresApi(api = 30)
     public void requestStorageAndCameraPermissions(EasyPermissionResult permissionResult) {

@@ -1,7 +1,14 @@
 package com.luhong.locwithlibrary.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.storage.StorageManager;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.github.barteksc.pdfviewer.PDFView;
@@ -22,6 +30,8 @@ import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.R2;
 import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseActivity;
+import com.luhong.locwithlibrary.dialog.DeviceManageDialog;
+import com.luhong.locwithlibrary.utils.AppUtils;
 import com.luhong.locwithlibrary.utils.DownloadUtil;
 import com.luhong.locwithlibrary.utils.FileUtils;
 import com.luhong.locwithlibrary.utils.Logger;
@@ -53,6 +63,8 @@ import okhttp3.Response;
 import retrofit2.HttpException;
 
 /**
+ * android 2.13.0rc4 获取验证码
+ * 添加定时器,获取验证码后,弹窗关闭,重新进入弹窗,倒计时继续(设置为120秒)
  * https://app.luhongkj.com:9443/doc/Common-problem-lib.pdf    常见问题
  * https://app.luhongkj.com:9443/doc/product-description-lib.pdf 产品说明书
  * https://app.luhongkj.com:9443/doc/bicycle-agreement-lib.pdf 保障协议
@@ -85,11 +97,28 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
             rightText = bundle.getString(BaseConstants.WEB_RIGHT_TEXT_KEY);
         }
         initTitleView(true, mWebTitle);
+        if (!AppUtils.checkStorageManagerPermission()) {//android 11 允许管理所有文件的权限
+            DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_JURISDICTION, 0, "", new DeviceManageDialog.IEventListeners() {
+                @RequiresApi(api = 30)
+                @Override
+                public void onConfirm(int type) {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.setData(Uri.parse("package:" + getPackageName()));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivityForResult(intent, 100);
+                }
+
+                @Override
+                public void onCancel() {
+                    finish();
+                }
+            });
+        }
     }
 
     @RequiresApi(api = 30)
     @Override
-    protected void initData() {
+    protected   void initData() {
         requestStoragePermissions(new EasyPermissionResult() {
             @Override
             public void onPermissionsAccess(int requestCode) {
@@ -102,33 +131,38 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
 //                        loadPDFFromAsset(file);
 //                        return;
 //                    }
-                    DownloadUtil.getInstance().download(mActivity, mWebUrl, FileUtils.getFileDir(), fileSuffix, new DownloadUtil.OnDownloadListener() {
-                        @Override
-                        public void onDownloadSuccess(String path) {
-                            if (progressBar != null) {
-                                progressBar.setProgress(0);
-                                progressBar.setVisibility(View.GONE);
+
+                    if (AppUtils.checkStorageManagerPermission()) {
+                        DownloadUtil.getInstance().download(mActivity, mWebUrl, FileUtils.getFileDir(), fileSuffix, new DownloadUtil.OnDownloadListener() {
+                            @Override
+                            public void onDownloadSuccess(String path) {
+                                if (progressBar != null) {
+                                    progressBar.setProgress(0);
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                File file = new File(path);
+                                loadPDFFromAsset(file);
                             }
-                            File file = new File(path);
-                            loadPDFFromAsset(file);
-                        }
 
-                        @Override
-                        public void onDownloading(int progress) {
-                            Logger.error("下载进度total=" + progress + ",progress=" + progress);
-                            if (progressBar != null)
-                                progressBar.setProgress((int) (progress * 100));
-                        }
+                            @Override
+                            public void onDownloading(int progress) {
+                                Logger.error("下载进度total=" + progress + ",progress=" + progress);
+                                if (progressBar != null)
+                                    progressBar.setProgress((int) (progress * 100));
+                            }
 
-                        @Override
-                        public void onDownloadFailed() {
-                            Logger.error("下载出错=");
-                            if (progressBar != null)
-                                progressBar.setVisibility(View.GONE);
-                            loadPDFFromAsset(null);
-                        }
+                            @Override
+                            public void onDownloadFailed() {
+                                Logger.error("下载出错=");
+                                if (progressBar != null)
+                                    progressBar.setVisibility(View.GONE);
+                                loadPDFFromAsset(null);
+                            }
 
-                    });
+                        });
+                    } else {
+
+                    }
                  /*   OkHttpUtils.post().url(mWebUrl).build().execute(new FileCallBack(FileUtils.getFileDir(), fileSuffix) {
                         @Override
                         public void inProgress(float progress, long total, int id) {
@@ -236,5 +270,14 @@ public class BasePdfActivity extends BaseActivity implements OnPageChangeListene
     protected void onDestroy() {
         System.gc();
         super.onDestroy();
+    }
+
+    @RequiresApi(api = 30)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 ) {
+            initData();
+        }
     }
 }

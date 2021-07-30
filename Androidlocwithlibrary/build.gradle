@@ -22,7 +22,7 @@ android {
     buildTypes {
         release {// 备注："release"类型的构建类型
             minifyEnabled true
-           manifestPlaceholders = [AMAP_KEY: "${production_amap_key}"]  //  捷安特
+         manifestPlaceholders = [AMAP_KEY: "${production_amap_key}"]  //  捷安特
             buildConfigField "String", "BASE_API_URL", "\"https://app.luhongkj.com:8443/appApi/\""//API请求接口
             buildConfigField "String", "BASE_UPLOAD_URL", "\"https://app.luhongkj.com:9443/files/image/upload/\""//上传图片
             buildConfigField "String", "BASE_WEB_URL", "\"https://app.luhongkj.com:9443/doc/\""//PDF文件
@@ -40,7 +40,7 @@ android {
             minifyEnabled true
             buildConfigField "String", "BASE_API_URL", "\"https://apptest.luhongkj.com:8443/appApi/\""//API请求接口
             buildConfigField "String", "BASE_UPLOAD_URL", "\"https://apptest.luhongkj.com:9443/files/image/upload/\""//上传图片
-            buildConfigField "String", "BASE_WEB_URL", "\"https://apptest.luhongkj.com:9443/doc/\""//PDF文件
+            buildConfigField "String", "BASE_WEB_URL", "\"https://app.luhongkj.com:9443/doc/\""//PDF文件
             buildConfigField "String", "H5_PAY", "\"https://apptest.luhongkj.com:9443/\""//支付
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'//  捷安特
             manifestPlaceholders = [AMAP_KEY: "${staging_amap_key}"] //  捷安特

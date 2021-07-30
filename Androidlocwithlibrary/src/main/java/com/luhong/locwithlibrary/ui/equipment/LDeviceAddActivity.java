@@ -2,6 +2,7 @@ package com.luhong.locwithlibrary.ui.equipment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.luhong.locwithlibrary.ui.BasePdfActivity;
 import com.luhong.locwithlibrary.ui.CaptureActivity;
 import com.luhong.locwithlibrary.utils.Logger;
 import com.luhong.locwithlibrary.utils.LoginSuccessUtil;
+import com.luhong.locwithlibrary.utils.ResUtils;
 import com.luhong.locwithlibrary.utils.SPUtils;
 import com.luhong.locwithlibrary.utils.ToastUtil;
 
@@ -128,16 +130,18 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
                     return;
                 }
                 if (!AppVariable.GIANT_ISBIN) {
-                    myPopupWindow = new BasePopupWindow(mActivity, new BasePopupWindow.IEventListener() {
+                    myPopupWindow = new BasePopupWindow(mActivity, startTime, new BasePopupWindow.IEventListener() {
                         @Override
                         public void onConfirm(String code) {
                             showLoading("数据提交中...");
                             mPresenter.checkCode(AppVariable.GIANT_PHONE, code);
+                            startTime = 0;
                         }
 
                         @Override
                         public void ongetCode(String phone) {
                             mPresenter.getCode(mActivity, phone);
+                            startTime= 0;
                         }
 
                         @Override
@@ -149,7 +153,7 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
                         }
 
                         @Override
-                        public void onCancel() {
+                        public void onCancel(long satrtTimes) {
                             myPopupWindow.dismiss();
                         }
                     }, AppVariable.GIANT_PHONE);
@@ -161,6 +165,8 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
             }
         });
     }
+
+   public  long startTime = 0;
 
     void putData() {
         deviceParams = new DeviceEntity();
@@ -231,13 +237,26 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
     public void onVehicleConfirmPaySuccess(Object resultEntity) {
 
     }
-
+    CountDownTimer countDownTimer;
     //获取验证码回调
     @Override
     public void onGetCodeSuccess(Object resultEntity) {
         cancelLoading();
         if (myPopupWindow != null) {
             myPopupWindow.getCodeCallBack();
+            if (countDownTimer != null) countDownTimer.start();
+            countDownTimer = new CountDownTimer(120 * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    startTime = 120-(millisUntilFinished / 1000);
+                }
+
+                @Override
+                public void onFinish() {
+                    startTime = 0;
+                }
+            };
+            countDownTimer.start();
         }
     }
 
@@ -290,7 +309,7 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
                 //    ToastUtil.show(content);
                 mPresenter.getInstallMode(content);
             } else {
-                showToast(content);
+                showToast("设备号不存在");
             }
         }
     }

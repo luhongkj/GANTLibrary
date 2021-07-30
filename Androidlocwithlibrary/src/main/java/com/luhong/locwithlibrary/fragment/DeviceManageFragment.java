@@ -1,14 +1,18 @@
 package com.luhong.locwithlibrary.fragment;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.luhong.locwithlibrary.R;
 import com.luhong.locwithlibrary.R2;
@@ -34,6 +38,7 @@ import com.luhong.locwithlibrary.ui.equipment.DeviceQRActivity;
 import com.luhong.locwithlibrary.ui.equipment.EditActivity;
 import com.luhong.locwithlibrary.ui.equipment.electronic.EFenceActivity;
 import com.luhong.locwithlibrary.ui.equipment.electronic.PhoneAlarmActivity;
+import com.luhong.locwithlibrary.utils.AppUtils;
 import com.luhong.locwithlibrary.utils.FileUtils;
 import com.luhong.locwithlibrary.utils.ToastUtil;
 
@@ -43,6 +48,7 @@ import butterknife.BindView;
 
 import static com.luhong.locwithlibrary.api.AppVariable.BACK_ACTIVITE;
 import static com.luhong.locwithlibrary.api.AppVariable.FEEMONTHLY;
+
 /**
  * 设备信息framgnet
  */
@@ -157,7 +163,7 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
             public void onSingleClick(View v) {
 
                 if (deviceEntity.getOweFee() < 0) {//欠费
-                    DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_ARREARAGE,Math.abs( deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
+                    DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_ARREARAGE, Math.abs(deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
                         @Override
                         public void onConfirm(int type) {
 
@@ -165,7 +171,7 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
                             if (deviceEntity.getOweFeeType().equals("2")) {
                                 Bundle bundle = new Bundle();
                                 bundle.putString("SN", deviceEntity.getSn());
-                                bundle.putString("money", "" + Math.abs( deviceEntity.getOweFee()));
+                                bundle.putString("money", "" + Math.abs(deviceEntity.getOweFee()));
                                 bundle.putString("serverLength", "" + FEEMONTHLY);
                                 startIntentActivityForResult(FeesPayActivity.class, FeesPayActivity.RECHARGE_SUCCESS_CODE, bundle);
                             } else if (deviceEntity.getOweFeeType().equals("1")) {
@@ -181,14 +187,16 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
                     });
                 } else {//是否购保
                     boolean flag = false;
-                    for (SafeguardEntity safeguardEntity : list.getRecords()) {
-                        if (safeguardEntity.getSn().equals(deviceEntity.getSn()) && safeguardEntity.getStatus() == SafeguardEntity.TYPE_GUARANTEED) {//车辆ID相同且是保障中的
-                            flag = true;
+                    if (list == null || list.getRecords() == null) {
+                        for (SafeguardEntity safeguardEntity : list.getRecords()) {
+                            if (safeguardEntity.getSn().equals(deviceEntity.getSn()) && safeguardEntity.getStatus() == SafeguardEntity.TYPE_GUARANTEED) {//车辆ID相同且是保障中的
+                                flag = true;
+                            }
                         }
                     }
                     if (list == null || flag) {
                         //  DeviceManageDialog.getInstance(mActivity).showDialog();
-                        DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_BUY_INSURANCE, Math.abs( deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
+                        DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_BUY_INSURANCE, Math.abs(deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
                             @Override
                             public void onConfirm(int type) {
                                 showLoading("加载中...");
@@ -202,7 +210,7 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
                         });
                     } else {
                         //  DeviceManageDialog.getInstance(mActivity).showDialog();
-                        DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_NORMAL, Math.abs( deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
+                        DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_NORMAL, Math.abs(deviceEntity.getOweFee()), deviceEntity.getOweFeeType(), new DeviceManageDialog.IEventListeners() {
                             @Override
                             public void onConfirm(int type) {
                                 showLoading("加载中...");
@@ -278,22 +286,45 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
         if (FileUtils.isFiel(FileUtils.getRootPicDir(), deviceEntity.getEncryptSn() + ".jpg")) {
             return;
         }
+        if (AppUtils.checkStorageManagerPermission()) {
         DeviceSavePhotDialog.getInstance(getActivity()).showDialog(deviceEntity, new DeviceSavePhotDialog.IEventListener() {
             @Override
             public void onConfirm(DeviceEntity deviceEntity, Bitmap btimap) {
-                if (btimap != null && !TextUtils.isEmpty(deviceEntity.getEncryptSn())) {
-                    boolean isSuccess = FileUtils.saveBitmap(mActivity, btimap, FileUtils.getRootPicDir(), deviceEntity.getEncryptSn() + ".jpg");
-                    if (isSuccess) {
-                        showToast("设备二维码保存成功");
-                    } else {
-                        showToast("该设备二维码图片已保存");
+                    if (btimap != null && !TextUtils.isEmpty(deviceEntity.getEncryptSn())) {
+                        boolean isSuccess = FileUtils.saveBitmap(mActivity, btimap, FileUtils.getRootPicDir(), deviceEntity.getEncryptSn() + ".jpg");
+                        if (isSuccess) {
+                            showToast("设备二维码保存成功");
+                        } else {
+                            showToast("该设备二维码图片已保存");
+                        }
                     }
-                }
+
             }
 
             @Override
             public void onCancel() {
 
+            }
+        });
+        } else {
+            showDolag();
+        }
+    }
+
+    void showDolag() {
+        DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_JURISDICTION, 0, "", new DeviceManageDialog.IEventListeners() {
+            @RequiresApi(api = 30)
+            @Override
+            public void onConfirm(int type) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + mActivity.getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivityForResult(intent, 100);
+            }
+
+            @Override
+            public void onCancel() {
+                mActivity.finish();
             }
         });
     }
@@ -332,7 +363,7 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
             tv_name.setText(deviceName);
             deviceEntity.setNickName(deviceName);
             mPresenter.updateDevice(deviceEntity);
-        }else if (resultCode == FeesPayActivity.RECHARGE_SUCCESS_CODE) {
+        } else if (resultCode == FeesPayActivity.RECHARGE_SUCCESS_CODE) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -342,9 +373,33 @@ public class DeviceManageFragment extends BaseMvpFragment<DeviceManagePresenter>
             }, 2000);
         }
         if (resultCode == BACK_ACTIVITE) {
-           mActivity.setResult(BACK_ACTIVITE);
+            mActivity.setResult(BACK_ACTIVITE);
             mActivity.finish();
         }
+        if (requestCode == 100) {
+            DeviceSavePhotDialog.getInstance(getActivity()).showDialog(deviceEntity, new DeviceSavePhotDialog.IEventListener() {
+                @Override
+                public void onConfirm(DeviceEntity deviceEntity, Bitmap btimap) {
+                    if (btimap != null && !TextUtils.isEmpty(deviceEntity.getEncryptSn())) {
+                        boolean isSuccess = FileUtils.saveBitmap(mActivity, btimap, FileUtils.getRootPicDir(), deviceEntity.getEncryptSn() + ".jpg");
+                        if (isSuccess) {
+                            showToast("设备二维码保存成功");
+                        } else {
+                            showToast("该设备二维码图片已保存");
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            });
+
+        }
+
+
     }
 
     public static DeviceManageFragment newInstance(int dataType, DeviceEntity deviceEntity) {

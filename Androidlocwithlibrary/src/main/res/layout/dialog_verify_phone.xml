@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/translucent_70"
     android:gravity="center">
 
     <LinearLayout
@@ -19,7 +20,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@drawable/device_top_shape"
+          >
 
             <ImageView
                 android:layout_width="match_parent"
@@ -39,7 +41,7 @@
                     android:layout_marginBottom="@dimen/text_size_30"
                     android:text="手机验证"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_20" />
+                    android:textSize="@dimen/text_size_25" />
 
             </LinearLayout>
 
@@ -78,6 +80,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center|end"
+                    android:hint="验证码"
                     android:inputType="numberDecimal"
                     android:maxLength="12"
                     android:padding="10dp" />
@@ -108,7 +111,7 @@
                     android:gravity="center_vertical"
                     android:text="绑定即视为已阅读并同意"
                     android:textColor="@color/text_9"
-                    android:textSize="@dimen/text_size_11" />
+                    android:textSize="@dimen/text_size_9" />
 
                 <TextView
                     android:id="@+id/tv_privacy_verification"

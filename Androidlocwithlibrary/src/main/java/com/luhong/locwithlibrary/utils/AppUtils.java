@@ -16,6 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -63,7 +64,13 @@ public class AppUtils {
         }
         return resultStr;
     }
-
+    public static boolean checkStorageManagerPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     public static boolean installApp(Context context, File appFile) {
         try {
             Intent intent = getInstallAppIntent(context, appFile);

@@ -18,6 +18,8 @@ import com.zyq.easypermission.EasyPermissionResult;
 
 import java.security.acl.Permission;
 
+import static android.Manifest.permission.MANAGE_EXTERNAL_STORAGE;
+
 /**
  * Created by ITMG on 2019-12-16.
  */
@@ -29,7 +31,7 @@ public class PermissionsUtils {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+            MANAGE_EXTERNAL_STORAGE,
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.CAMERA,
     };
@@ -68,6 +70,11 @@ public class PermissionsUtils {
     public static void requestStoragePermissions(@NonNull Activity mActivity, EasyPermissionResult permissionResult) {
         requestNeedPermissions(mActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, permissionResult);
     }
+    @RequiresApi(api = 30)
+    public static void requestManage_external_storagepermissions(@NonNull Activity mActivity, EasyPermissionResult permissionResult) {
+        requestNeedPermissions(mActivity, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE}, permissionResult);
+    }
+
 
     public static void requestRecordPermissions(@NonNull Activity mActivity, EasyPermissionResult permissionResult) {
         requestNeedPermissions(mActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, permissionResult);

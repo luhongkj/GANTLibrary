@@ -30,7 +30,6 @@ public class DeviceSavePhotDialog extends BaseDialog {
     @BindView(R2.id.iv_deviceQR_deviceQR)
     ScaleImageView ivDeviceQRDeviceQR;
 
-
     @BindView(R2.id.tv_deviceType_deviceQR)
     TextView tvDeviceTypeDeviceQR;
 

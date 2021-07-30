@@ -1,13 +1,19 @@
 package com.luhong.locwithlibrary.ui.my;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.luhong.locwithlibrary.BuildConfig;
 import com.luhong.locwithlibrary.R;
@@ -17,6 +23,7 @@ import com.luhong.locwithlibrary.app.BaseConstants;
 import com.luhong.locwithlibrary.base.BaseActivity;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.FlowAccountContract;
+import com.luhong.locwithlibrary.dialog.DeviceManageDialog;
 import com.luhong.locwithlibrary.entity.FlowAccountEntity;
 import com.luhong.locwithlibrary.entity.FlowBillEntity;
 import com.luhong.locwithlibrary.listener.SingleClickListener;
@@ -27,6 +34,7 @@ import com.luhong.locwithlibrary.ui.equipment.DeviceManageActivity;
 import com.luhong.locwithlibrary.ui.equipment.FlowAccountActivity;
 import com.luhong.locwithlibrary.ui.equipment.SpecificationActivity;
 import com.luhong.locwithlibrary.ui.insurance.SafeguardActivity;
+import com.luhong.locwithlibrary.utils.AppUtils;
 import com.luhong.locwithlibrary.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -98,6 +106,7 @@ public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements
                 startIntentActivityForResult(DeviceManageActivity.class, 100);
             }
         });
+
 //https://app.luhongkj.com:9443/doc/privacy-lib.pdf
         ll_agreement.setOnClickListener(new SingleClickListener() {
             @Override
@@ -191,5 +200,11 @@ public class MyActivity extends BaseMvpActivity<FlowAccountPresenter> implements
             setResult(BACK_ACTIVITE);
             finish();
         }
+
+        if (requestCode == Intent.FLAG_ACTIVITY_NEW_TASK && AppUtils.checkStorageManagerPermission()) {
+            initData();
+        }
     }
+
+
 }

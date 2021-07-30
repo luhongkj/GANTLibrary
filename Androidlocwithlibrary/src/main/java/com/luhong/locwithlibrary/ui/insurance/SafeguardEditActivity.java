@@ -3,6 +3,7 @@ package com.luhong.locwithlibrary.ui.insurance;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.google.gson.reflect.TypeToken;
 import com.luhong.locwithlibrary.R;
@@ -23,6 +25,7 @@ import com.luhong.locwithlibrary.app.BaseVariable;
 import com.luhong.locwithlibrary.base.BaseMvpActivity;
 import com.luhong.locwithlibrary.contract.SafeguardEditContract;
 import com.luhong.locwithlibrary.dialog.DateDIYDialog;
+import com.luhong.locwithlibrary.dialog.DeviceManageDialog;
 import com.luhong.locwithlibrary.dialog.PhotoDialog;
 import com.luhong.locwithlibrary.dialog.SelectMultipleDialog;
 import com.luhong.locwithlibrary.dialog.TypeOfCertificateDialog;
@@ -37,6 +40,7 @@ import com.luhong.locwithlibrary.listener.SingleClickListener;
 import com.luhong.locwithlibrary.net.response.BasePageEntity;
 import com.luhong.locwithlibrary.presenter.SafeguardEditPresenter;
 import com.luhong.locwithlibrary.ui.CaptureActivity;
+import com.luhong.locwithlibrary.utils.AppUtils;
 import com.luhong.locwithlibrary.utils.DateUtils;
 import com.luhong.locwithlibrary.utils.FileUtils;
 import com.luhong.locwithlibrary.utils.ImageLoadUtils;
@@ -826,23 +830,27 @@ public class SafeguardEditActivity extends BaseMvpActivity<SafeguardEditPresente
     }
 
     private void showPhotoDialog(int type) {
-        clearFocus();
-        this.photoType = type;
-        PhotoDialog.getInstance(mActivity).showDialog(new PhotoDialog.IPhotoListener() {
-            @Override
-            public void onPhotoCallback() {
-                PhotoDialog.selectPhoto(mActivity, 1);
-            }
+        if (AppUtils.checkStorageManagerPermission()) {
+            clearFocus();
+            this.photoType = type;
+            PhotoDialog.getInstance(mActivity).showDialog(new PhotoDialog.IPhotoListener() {
+                @Override
+                public void onPhotoCallback() {
+                    PhotoDialog.selectPhoto(mActivity, 1);
+                }
 
-            @Override
-            public void onCameraCallback() {
-                picFile = FileUtils.createSDFile(FileUtils.getRootPicDirImg(), DateUtils.formatCurrentDateTime() + ".jpg");
-                FileUtils.deleteFile(picFile.getAbsolutePath());
-                picUri = FileUtils.getUriForFile(mActivity, picFile);
-                Logger.error("拍照file=" + picFile);
-                PhotoDialog.takePhoto(mActivity, picUri);
-            }
-        });
+                @Override
+                public void onCameraCallback() {
+                    picFile = FileUtils.createSDFile(FileUtils.getRootPicDirImg(), DateUtils.formatCurrentDateTime() + ".jpg");
+                    FileUtils.deleteFile(picFile.getAbsolutePath());
+                    picUri = FileUtils.getUriForFile(mActivity, picFile);
+                    Logger.error("拍照file=" + picFile);
+                    PhotoDialog.takePhoto(mActivity, picUri);
+                }
+            });
+        }else{
+            showDolag();
+        }
     }
 
     private void updatePhotoView(String path) {
@@ -916,7 +924,6 @@ public class SafeguardEditActivity extends BaseMvpActivity<SafeguardEditPresente
 
                                 }
                             });
-
                         }
                     }
                 } else if (requestCode == PhotoDialog.REQ_CODE_CAMERA) {// 从相机返回,从设置相机图片的输出路径中提取数据
@@ -944,4 +951,21 @@ public class SafeguardEditActivity extends BaseMvpActivity<SafeguardEditPresente
         }
     }
 
+    void showDolag() {
+        DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_JURISDICTION, 0, "", new DeviceManageDialog.IEventListeners() {
+            @RequiresApi(api = 30)
+            @Override
+            public void onConfirm(int type) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + mActivity.getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivityForResult(intent, 100);
+            }
+
+            @Override
+            public void onCancel() {
+                mActivity.finish();
+            }
+        });
+    }
 }

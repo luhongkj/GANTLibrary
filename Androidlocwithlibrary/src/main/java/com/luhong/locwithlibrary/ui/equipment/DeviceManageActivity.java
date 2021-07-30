@@ -166,7 +166,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
                 if (deviceEntity != null) {
                     SPUtils.put(this, "currentDeviceId", AppVariable.currentDeviceId);
                     AppVariable.currentDeviceId = deviceEntity.getSn();
-                    AppVariable.currentVehicleId = deviceEntity.getVehicleId();
+                    AppVariable.currentVehicleId = deviceEntity.getId();
                 }
                 EventBusUtils.post(new SwitchDeviceEvent());
             }

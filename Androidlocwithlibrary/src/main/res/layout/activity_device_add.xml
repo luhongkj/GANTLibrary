@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:drawableEnd="@mipmap/device_info"
         android:drawablePadding="4dp"
         android:gravity="center_vertical"
         android:text="车辆信息"

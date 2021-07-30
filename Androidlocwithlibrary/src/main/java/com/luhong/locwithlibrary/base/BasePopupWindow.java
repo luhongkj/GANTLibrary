@@ -60,12 +60,14 @@ public class BasePopupWindow extends PopupWindow {
     String phone;
 
     boolean isCheckProtocol = false;
+    long startTime;
 
-    public BasePopupWindow(Context context, IEventListener confirmListener, String phone) {
+    public BasePopupWindow(Context context, long startTime, IEventListener confirmListener, String phone) {
         super(context);
         this.mContext = context;
         this.confirmListener = confirmListener;
         this.phone = phone;
+        this.startTime = startTime;
         //打气筒
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //打气
@@ -139,7 +141,7 @@ public class BasePopupWindow extends PopupWindow {
                     ToastUtil.show("请输入验证码");
                     return;
                 }
-                if (!isCheckProtocol){
+                if (!isCheckProtocol) {
                     ToastUtil.show("请你勾选并阅读隐私协议");
                     return;
                 }
@@ -167,11 +169,12 @@ public class BasePopupWindow extends PopupWindow {
                 confirmListener.onPrivacy();
             }
         });
+
         //获取验证码
         tvGetCode.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                if (!isCheckProtocol){
+                if (!isCheckProtocol) {
                     ToastUtil.show("请你勾选并阅读隐私协议");
                     return;
                 }
@@ -183,21 +186,51 @@ public class BasePopupWindow extends PopupWindow {
         ivCloseDeviceRecord.setOnClickListener(new SingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                confirmListener.onCancel();
+                ednTile = 120 - ednTile;
+                confirmListener.onCancel(ednTile);
                 cancel();
                 if (countDownTimer != null) countDownTimer.cancel();
             }
         });
+
+        long start = 120 - startTime;
+        if (start != 120) {
+            if (countDownTimer != null) countDownTimer.start();
+            countDownTimer = new CountDownTimer(start * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    tvGetCode.setText((millisUntilFinished / 1000) + "秒后可重试");
+                    ednTile = millisUntilFinished / 1000;
+                    tvGetCode.setEnabled(false);
+                    tvGetCode.setTextColor(mContext.getResources().getColor(R.color.colorPrimary2));
+                    tv_checkProtocol_verification.setCompoundDrawablesRelativeWithIntrinsicBounds(ResUtils.resToDrawable(mContext, R.mipmap.verification_protocol_foc), null, null, null);
+                    isCheckProtocol = true;
+                    tvConfirmDeviceRecord.setEnabled(isCheckProtocol);
+                }
+
+                @Override
+                public void onFinish() {
+                    tvGetCode.setText("获取验证码");
+                    tvGetCode.setEnabled(true);
+                    tvGetCode.setTextColor(mContext.getResources().getColor(R.color.tool_bar_color));
+                    ednTile = 0;
+                }
+            };
+            countDownTimer.start();
+        }
     }
+
+    long ednTile = 0;
 
     public void getCodeCallBack() {
         tvGetCode.setEnabled(false);
         ToastUtil.show("验证码获取成功");
         if (countDownTimer != null) countDownTimer.start();
-        countDownTimer = new CountDownTimer(60 * 1000, 1000) {
+        countDownTimer = new CountDownTimer(120 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 tvGetCode.setText((millisUntilFinished / 1000) + "秒后可重试");
+                ednTile = millisUntilFinished / 1000;
                 tvGetCode.setEnabled(false);
                 tvGetCode.setTextColor(mContext.getResources().getColor(R.color.colorPrimary2));
             }
@@ -207,6 +240,7 @@ public class BasePopupWindow extends PopupWindow {
                 tvGetCode.setText("获取验证码");
                 tvGetCode.setEnabled(true);
                 tvGetCode.setTextColor(mContext.getResources().getColor(R.color.tool_bar_color));
+                ednTile = 0;
             }
         };
         countDownTimer.start();
@@ -223,7 +257,7 @@ public class BasePopupWindow extends PopupWindow {
 
         void onPrivacy();
 
-        void onCancel();
+        void onCancel(long ednTile);
     }
 
     public void cancel() {
