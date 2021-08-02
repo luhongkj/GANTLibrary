@@ -286,6 +286,7 @@ public class LDeviceAddActivity extends BaseMvpActivity<DeviceAddPresenter> impl
             DeviceManageDialog.getInstance(mActivity).showDialog(DeviceManageDialog.DIALOG_ADDRESS_OFF_LIN, 0, errMsg, new DeviceManageDialog.IEventListeners() {
                 @Override
                 public void onConfirm(int type) {
+
                 }
 
                 @Override

@@ -46,6 +46,7 @@
             android:paddingTop="130dp"
             android:paddingEnd="30dp"
             android:paddingBottom="30dp"
+            android:textColor="#333"
             android:text="@string/recharge_supplement_text"
             android:textSize="@dimen/text_size_12" />
 

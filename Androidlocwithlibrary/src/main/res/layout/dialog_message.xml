@@ -45,6 +45,7 @@
             android:paddingStart="30dp"
             android:paddingTop="130dp"
             android:paddingEnd="30dp"
+            android:textColor="#333"
             android:paddingBottom="30dp"
             android:textSize="@dimen/text_size_12" />
 

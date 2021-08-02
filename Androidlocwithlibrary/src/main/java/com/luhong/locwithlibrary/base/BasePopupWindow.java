@@ -145,9 +145,7 @@ public class BasePopupWindow extends PopupWindow {
                     ToastUtil.show("请你勾选并阅读隐私协议");
                     return;
                 }
-
                 confirmListener.onConfirm(cePhoneCode.getText().toString());
-                if (countDownTimer != null) countDownTimer.cancel();
             }
         });
 
